@@ -21,6 +21,7 @@ import { Route as ChatUsageRouteImport } from './routes/_chat.usage'
 import { Route as ChatSettingsRouteImport } from './routes/_chat.settings'
 import { Route as ChatPullRequestsRouteImport } from './routes/_chat.pull-requests'
 import { Route as ChatNewRouteImport } from './routes/_chat.new'
+import { Route as ChatAgentProjectsRouteImport } from './routes/_chat.agent-projects'
 import { Route as ChatSettingsWorktreesRouteImport } from './routes/_chat.settings.worktrees'
 import { Route as ChatSettingsThreadsRouteImport } from './routes/_chat.settings.threads'
 import { Route as ChatSettingsStorageRouteImport } from './routes/_chat.settings.storage'
@@ -48,6 +49,7 @@ import { Route as ChatSettingsAppearanceRouteImport } from './routes/_chat.setti
 import { Route as ChatSettingsAccessRouteImport } from './routes/_chat.settings.access'
 import { Route as ChatSettingsAboutRouteImport } from './routes/_chat.settings.about'
 import { Route as ChatDraftDraftIdRouteImport } from './routes/_chat.draft.$draftId'
+import { Route as ChatAgentProjectsProjectIdRouteImport } from './routes/_chat.agent-projects.$projectId'
 import { Route as ChatEnvironmentIdThreadIdRouteImport } from './routes/_chat.$environmentId.$threadId'
 
 const WelcomeRoute = WelcomeRouteImport.update({
@@ -107,6 +109,11 @@ const ChatPullRequestsRoute = ChatPullRequestsRouteImport.update({
 const ChatNewRoute = ChatNewRouteImport.update({
   id: '/new',
   path: '/new',
+  getParentRoute: () => ChatRoute,
+} as any)
+const ChatAgentProjectsRoute = ChatAgentProjectsRouteImport.update({
+  id: '/agent-projects',
+  path: '/agent-projects',
   getParentRoute: () => ChatRoute,
 } as any)
 const ChatSettingsWorktreesRoute = ChatSettingsWorktreesRouteImport.update({
@@ -248,6 +255,12 @@ const ChatDraftDraftIdRoute = ChatDraftDraftIdRouteImport.update({
   path: '/draft/$draftId',
   getParentRoute: () => ChatRoute,
 } as any)
+const ChatAgentProjectsProjectIdRoute =
+  ChatAgentProjectsProjectIdRouteImport.update({
+    id: '/$projectId',
+    path: '/$projectId',
+    getParentRoute: () => ChatAgentProjectsRoute,
+  } as any)
 const ChatEnvironmentIdThreadIdRoute =
   ChatEnvironmentIdThreadIdRouteImport.update({
     id: '/$environmentId/$threadId',
@@ -262,12 +275,14 @@ export interface FileRoutesByFullPath {
   '/guest': typeof GuestRoute
   '/pair': typeof PairRoute
   '/welcome': typeof WelcomeRoute
+  '/agent-projects': typeof ChatAgentProjectsRouteWithChildren
   '/new': typeof ChatNewRoute
   '/pull-requests': typeof ChatPullRequestsRoute
   '/settings': typeof ChatSettingsRouteWithChildren
   '/usage': typeof ChatUsageRoute
   '/projects/$projectKey': typeof ProjectsProjectKeyRoute
   '/$environmentId/$threadId': typeof ChatEnvironmentIdThreadIdRoute
+  '/agent-projects/$projectId': typeof ChatAgentProjectsProjectIdRoute
   '/draft/$draftId': typeof ChatDraftDraftIdRoute
   '/settings/about': typeof ChatSettingsAboutRoute
   '/settings/access': typeof ChatSettingsAccessRoute
@@ -302,6 +317,7 @@ export interface FileRoutesByTo {
   '/guest': typeof GuestRoute
   '/pair': typeof PairRoute
   '/welcome': typeof WelcomeRoute
+  '/agent-projects': typeof ChatAgentProjectsRouteWithChildren
   '/new': typeof ChatNewRoute
   '/pull-requests': typeof ChatPullRequestsRoute
   '/settings': typeof ChatSettingsRouteWithChildren
@@ -309,6 +325,7 @@ export interface FileRoutesByTo {
   '/projects/$projectKey': typeof ProjectsProjectKeyRoute
   '/': typeof ChatIndexRoute
   '/$environmentId/$threadId': typeof ChatEnvironmentIdThreadIdRoute
+  '/agent-projects/$projectId': typeof ChatAgentProjectsProjectIdRoute
   '/draft/$draftId': typeof ChatDraftDraftIdRoute
   '/settings/about': typeof ChatSettingsAboutRoute
   '/settings/access': typeof ChatSettingsAccessRoute
@@ -345,6 +362,7 @@ export interface FileRoutesById {
   '/guest': typeof GuestRoute
   '/pair': typeof PairRoute
   '/welcome': typeof WelcomeRoute
+  '/_chat/agent-projects': typeof ChatAgentProjectsRouteWithChildren
   '/_chat/new': typeof ChatNewRoute
   '/_chat/pull-requests': typeof ChatPullRequestsRoute
   '/_chat/settings': typeof ChatSettingsRouteWithChildren
@@ -352,6 +370,7 @@ export interface FileRoutesById {
   '/projects/$projectKey': typeof ProjectsProjectKeyRoute
   '/_chat/': typeof ChatIndexRoute
   '/_chat/$environmentId/$threadId': typeof ChatEnvironmentIdThreadIdRoute
+  '/_chat/agent-projects/$projectId': typeof ChatAgentProjectsProjectIdRoute
   '/_chat/draft/$draftId': typeof ChatDraftDraftIdRoute
   '/_chat/settings/about': typeof ChatSettingsAboutRoute
   '/_chat/settings/access': typeof ChatSettingsAccessRoute
@@ -389,12 +408,14 @@ export interface FileRouteTypes {
     | '/guest'
     | '/pair'
     | '/welcome'
+    | '/agent-projects'
     | '/new'
     | '/pull-requests'
     | '/settings'
     | '/usage'
     | '/projects/$projectKey'
     | '/$environmentId/$threadId'
+    | '/agent-projects/$projectId'
     | '/draft/$draftId'
     | '/settings/about'
     | '/settings/access'
@@ -429,6 +450,7 @@ export interface FileRouteTypes {
     | '/guest'
     | '/pair'
     | '/welcome'
+    | '/agent-projects'
     | '/new'
     | '/pull-requests'
     | '/settings'
@@ -436,6 +458,7 @@ export interface FileRouteTypes {
     | '/projects/$projectKey'
     | '/'
     | '/$environmentId/$threadId'
+    | '/agent-projects/$projectId'
     | '/draft/$draftId'
     | '/settings/about'
     | '/settings/access'
@@ -471,6 +494,7 @@ export interface FileRouteTypes {
     | '/guest'
     | '/pair'
     | '/welcome'
+    | '/_chat/agent-projects'
     | '/_chat/new'
     | '/_chat/pull-requests'
     | '/_chat/settings'
@@ -478,6 +502,7 @@ export interface FileRouteTypes {
     | '/projects/$projectKey'
     | '/_chat/'
     | '/_chat/$environmentId/$threadId'
+    | '/_chat/agent-projects/$projectId'
     | '/_chat/draft/$draftId'
     | '/_chat/settings/about'
     | '/_chat/settings/access'
@@ -601,6 +626,13 @@ declare module '@tanstack/react-router' {
       path: '/new'
       fullPath: '/new'
       preLoaderRoute: typeof ChatNewRouteImport
+      parentRoute: typeof ChatRoute
+    }
+    '/_chat/agent-projects': {
+      id: '/_chat/agent-projects'
+      path: '/agent-projects'
+      fullPath: '/agent-projects'
+      preLoaderRoute: typeof ChatAgentProjectsRouteImport
       parentRoute: typeof ChatRoute
     }
     '/_chat/settings/worktrees': {
@@ -792,6 +824,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChatDraftDraftIdRouteImport
       parentRoute: typeof ChatRoute
     }
+    '/_chat/agent-projects/$projectId': {
+      id: '/_chat/agent-projects/$projectId'
+      path: '/$projectId'
+      fullPath: '/agent-projects/$projectId'
+      preLoaderRoute: typeof ChatAgentProjectsProjectIdRouteImport
+      parentRoute: typeof ChatAgentProjectsRoute
+    }
     '/_chat/$environmentId/$threadId': {
       id: '/_chat/$environmentId/$threadId'
       path: '/$environmentId/$threadId'
@@ -801,6 +840,17 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface ChatAgentProjectsRouteChildren {
+  ChatAgentProjectsProjectIdRoute: typeof ChatAgentProjectsProjectIdRoute
+}
+
+const ChatAgentProjectsRouteChildren: ChatAgentProjectsRouteChildren = {
+  ChatAgentProjectsProjectIdRoute: ChatAgentProjectsProjectIdRoute,
+}
+
+const ChatAgentProjectsRouteWithChildren =
+  ChatAgentProjectsRoute._addFileChildren(ChatAgentProjectsRouteChildren)
 
 interface ChatSettingsRouteChildren {
   ChatSettingsAboutRoute: typeof ChatSettingsAboutRoute
@@ -865,6 +915,7 @@ const ChatSettingsRouteWithChildren = ChatSettingsRoute._addFileChildren(
 )
 
 interface ChatRouteChildren {
+  ChatAgentProjectsRoute: typeof ChatAgentProjectsRouteWithChildren
   ChatNewRoute: typeof ChatNewRoute
   ChatPullRequestsRoute: typeof ChatPullRequestsRoute
   ChatSettingsRoute: typeof ChatSettingsRouteWithChildren
@@ -875,6 +926,7 @@ interface ChatRouteChildren {
 }
 
 const ChatRouteChildren: ChatRouteChildren = {
+  ChatAgentProjectsRoute: ChatAgentProjectsRouteWithChildren,
   ChatNewRoute: ChatNewRoute,
   ChatPullRequestsRoute: ChatPullRequestsRoute,
   ChatSettingsRoute: ChatSettingsRouteWithChildren,

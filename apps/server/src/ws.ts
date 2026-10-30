@@ -3,6 +3,7 @@ import * as Context from "effect/Context";
 import * as Crypto from "effect/Crypto";
 import * as Orchestrator from "./orchestration-v2/Orchestrator.ts";
 import * as PeerLinkRequests from "./peer/PeerLinkRequests.ts";
+import * as AgentProjects from "./agentProjects/AgentProjects.ts";
 import * as PeerLinks from "./peer/PeerLinks.ts";
 
 import * as DateTime from "effect/DateTime";
@@ -1341,6 +1342,7 @@ export const layerWsRpc = (
       const secretResolver = yield* SecretResolver.SecretResolver;
       const peerLinks = yield* PeerLinks.PeerLinks;
       const peerLinkRequests = yield* PeerLinkRequests.PeerLinkRequests;
+      const agentProjects = yield* AgentProjects.AgentProjects;
       const startup = yield* ServerRuntimeStartup.ServerRuntimeStartup;
       const workspaceEntries = yield* WorkspaceEntries.WorkspaceEntries;
       const workspaceFileSystem = yield* WorkspaceFileSystem.WorkspaceFileSystem;
@@ -2509,6 +2511,18 @@ export const layerWsRpc = (
           Effect.annotateCurrentSpan({ "orchestration_v2.thread_id": input.threadId }).pipe(
             Effect.andThen(peerLinkRequests.answer(input)),
           ),
+        [WS_METHODS.agentProjectsList]: (_input) =>
+          agentProjects.list.pipe(Effect.map((projects) => ({ projects }))),
+        [WS_METHODS.agentProjectsGet]: (input) => agentProjects.get(input),
+        [WS_METHODS.agentProjectsCreate]: (input) => agentProjects.create(input),
+        [WS_METHODS.agentProjectsUpdate]: (input) => agentProjects.update(input),
+        [WS_METHODS.agentProjectsDelete]: (input) => agentProjects.delete(input),
+        [WS_METHODS.agentProjectsAttachThread]: (input) => agentProjects.attachThread(input),
+        [WS_METHODS.agentProjectsDetachThread]: (input) => agentProjects.detachThread(input),
+        [WS_METHODS.agentProjectsAttachFolder]: (input) => agentProjects.attachFolder(input),
+        [WS_METHODS.agentProjectsDetachFolder]: (input) => agentProjects.detachFolder(input),
+        [WS_METHODS.agentProjectsUpsertWorkstream]: (input) => agentProjects.upsertWorkstream(input),
+        [WS_METHODS.agentProjectsDeleteWorkstream]: (input) => agentProjects.deleteWorkstream(input),
         [WS_METHODS.serverUpdateSettings]:
           /* Request instrumentation already owns the span; keep this helper in that context. */
           Effect.fnUntraced(function* ({ patch, providerInstanceMutation }) {
@@ -3276,6 +3290,7 @@ export const layer = Layer.unwrap(
     const reviewGuides = yield* PullRequestReviewGuideService.PullRequestReviewGuideService;
     const peerLinks = yield* PeerLinks.PeerLinks;
     const peerLinkRequests = yield* PeerLinkRequests.PeerLinkRequests;
+    const agentProjects = yield* AgentProjects.AgentProjects;
     const sql = yield* SqlClient.SqlClient;
     return HttpRouter.add(
       "GET",
@@ -3358,6 +3373,7 @@ export const layer = Layer.unwrap(
               ),
               Layer.provide(Layer.succeed(PeerLinks.PeerLinks, peerLinks)),
               Layer.provide(Layer.succeed(PeerLinkRequests.PeerLinkRequests, peerLinkRequests)),
+              Layer.provide(Layer.succeed(AgentProjects.AgentProjects, agentProjects)),
               Layer.provide(
                 SourceControlDiscovery.layer.pipe(
                   Layer.provide(

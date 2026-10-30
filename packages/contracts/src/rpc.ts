@@ -27,6 +27,21 @@ import {
   PeerLinkSummary,
 } from "./peerLink.ts";
 import {
+  AgentProject,
+  AgentProjectAttachFolderInput,
+  AgentProjectAttachThreadInput,
+  AgentProjectCreateInput,
+  AgentProjectDeleteInput,
+  AgentProjectDeleteWorkstreamInput,
+  AgentProjectDetachFolderInput,
+  AgentProjectDetachThreadInput,
+  AgentProjectError,
+  AgentProjectGetInput,
+  AgentProjectSummary,
+  AgentProjectUpdateInput,
+  AgentProjectUpsertWorkstreamInput,
+} from "./agentProject.ts";
+import {
   ChatGptReconnectProfileInput,
   ChatGptReconnectProfile,
   ChatGptImportProfileInput,
@@ -506,6 +521,17 @@ export const WS_METHODS = {
   peerLinksLink: "peerLinks.link",
   peerLinksUnlink: "peerLinks.unlink",
   peerLinksAnswerRequest: "peerLinks.answerRequest",
+  agentProjectsList: "agentProjects.list",
+  agentProjectsGet: "agentProjects.get",
+  agentProjectsCreate: "agentProjects.create",
+  agentProjectsUpdate: "agentProjects.update",
+  agentProjectsDelete: "agentProjects.delete",
+  agentProjectsAttachThread: "agentProjects.attachThread",
+  agentProjectsDetachThread: "agentProjects.detachThread",
+  agentProjectsAttachFolder: "agentProjects.attachFolder",
+  agentProjectsDetachFolder: "agentProjects.detachFolder",
+  agentProjectsUpsertWorkstream: "agentProjects.upsertWorkstream",
+  agentProjectsDeleteWorkstream: "agentProjects.deleteWorkstream",
   serverUpdateSettings: "server.updateSettings",
   serverDiscoverSourceControl: "server.discoverSourceControl",
   serverSearchAcpRegistry: "server.searchAcpRegistry",
@@ -804,6 +830,73 @@ const WsPeerLinksUnlinkRpc = Rpc.make(WS_METHODS.peerLinksUnlink, {
 const WsPeerLinksAnswerRequestRpc = Rpc.make(WS_METHODS.peerLinksAnswerRequest, {
   payload: PeerLinkRequestAnswerInput,
   error: Schema.Union([PeerLinkRequestError, EnvironmentAuthorizationError]),
+});
+
+const AgentProjectRpcError = Schema.Union([AgentProjectError, EnvironmentAuthorizationError]);
+
+const WsAgentProjectsListRpc = Rpc.make(WS_METHODS.agentProjectsList, {
+  success: Schema.Struct({ projects: Schema.Array(AgentProjectSummary) }),
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsGetRpc = Rpc.make(WS_METHODS.agentProjectsGet, {
+  payload: AgentProjectGetInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsCreateRpc = Rpc.make(WS_METHODS.agentProjectsCreate, {
+  payload: AgentProjectCreateInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsUpdateRpc = Rpc.make(WS_METHODS.agentProjectsUpdate, {
+  payload: AgentProjectUpdateInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsDeleteRpc = Rpc.make(WS_METHODS.agentProjectsDelete, {
+  payload: AgentProjectDeleteInput,
+  success: Schema.Struct({ removed: Schema.Boolean }),
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsAttachThreadRpc = Rpc.make(WS_METHODS.agentProjectsAttachThread, {
+  payload: AgentProjectAttachThreadInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsDetachThreadRpc = Rpc.make(WS_METHODS.agentProjectsDetachThread, {
+  payload: AgentProjectDetachThreadInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsAttachFolderRpc = Rpc.make(WS_METHODS.agentProjectsAttachFolder, {
+  payload: AgentProjectAttachFolderInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsDetachFolderRpc = Rpc.make(WS_METHODS.agentProjectsDetachFolder, {
+  payload: AgentProjectDetachFolderInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsUpsertWorkstreamRpc = Rpc.make(WS_METHODS.agentProjectsUpsertWorkstream, {
+  payload: AgentProjectUpsertWorkstreamInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsDeleteWorkstreamRpc = Rpc.make(WS_METHODS.agentProjectsDeleteWorkstream, {
+  payload: AgentProjectDeleteWorkstreamInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
 });
 
 const WsServerUpdateSettingsRpc = Rpc.make(WS_METHODS.serverUpdateSettings, {
@@ -1983,6 +2076,17 @@ export const WsRpcGroup = RpcGroup.make(
   WsPeerLinksLinkRpc,
   WsPeerLinksUnlinkRpc,
   WsPeerLinksAnswerRequestRpc,
+  WsAgentProjectsListRpc,
+  WsAgentProjectsGetRpc,
+  WsAgentProjectsCreateRpc,
+  WsAgentProjectsUpdateRpc,
+  WsAgentProjectsDeleteRpc,
+  WsAgentProjectsAttachThreadRpc,
+  WsAgentProjectsDetachThreadRpc,
+  WsAgentProjectsAttachFolderRpc,
+  WsAgentProjectsDetachFolderRpc,
+  WsAgentProjectsUpsertWorkstreamRpc,
+  WsAgentProjectsDeleteWorkstreamRpc,
   WsServerDiscoverSourceControlRpc,
   WsServerSearchAcpRegistryRpc,
   WsServerPrepareAcpRegistryAgentRpc,

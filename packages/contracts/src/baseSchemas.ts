@@ -333,3 +333,8 @@ export const RawEventId = makeEntityId("RawEventId");
 export type RawEventId = typeof RawEventId.Type;
 export const PlanId = makeEntityId("PlanId");
 export type PlanId = typeof PlanId.Type;
+/** Cursor-style multi-agent project (distinct from folder ProjectId). */
+export const AgentProjectId = makeEntityId("AgentProjectId");
+export type AgentProjectId = typeof AgentProjectId.Type;
+export const AgentProjectWorkstreamId = makeEntityId("AgentProjectWorkstreamId");
+export type AgentProjectWorkstreamId = typeof AgentProjectWorkstreamId.Type;
