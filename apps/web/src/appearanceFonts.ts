@@ -11,7 +11,10 @@ import {
 } from "@l7code/contracts";
 
 export const DEFAULT_SANS_FONT_STACK =
-  '-apple-system, BlinkMacSystemFont, "Inter Variable", "Segoe UI", system-ui, sans-serif';
+  '"Outfit", "Avenir Next", "Segoe UI", ui-sans-serif, system-ui, sans-serif';
+
+export const DEFAULT_BRAND_FONT_STACK =
+  '"Syne", "Outfit", "Avenir Next", ui-sans-serif, system-ui, sans-serif';
 
 // Some engines map `ui-monospace` to a proportional font, so prefer concrete names.
 export const DEFAULT_CODE_FONT_STACK =
@@ -86,6 +89,7 @@ export function applyAppearanceFontVariables(
       root.style.setProperty(variable, `${list}, ${fallback}`);
     }
   }
+  root.style.setProperty("--font-brand", DEFAULT_BRAND_FONT_STACK);
 
   root.style.fontSize = `${clampInterfaceFontSize(preferences.sizeInterface)}px`;
   root.style.setProperty("--font-size-prompt", `${clampPromptFontSize(preferences.sizePrompt)}px`);

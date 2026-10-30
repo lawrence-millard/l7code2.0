@@ -10,6 +10,9 @@
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
     <script>
       (() => {
         const LIGHT_BACKGROUND = "#ffffff";
@@ -20,14 +23,14 @@
         const THEME_HALVES_STORAGE_KEY = "l7code:theme-halves:v1";
         const SPLASH_COLORS = {
           light: {
-            background: "#ffffff",
-            foreground: "#262626",
-            accent: "#4f46e5",
+            background: "#eef4f7",
+            foreground: "#1c2a33",
+            accent: "#1f8a8a",
           },
           dark: {
-            background: "#000000",
-            foreground: "#f5f5f5",
-            accent: "#818cf8",
+            background: "#101820",
+            foreground: "#e8eef2",
+            accent: "#5ecfc4",
           },
         };
         // These are the runtime defaults used to complete a custom palette
@@ -36,21 +39,35 @@
         // app colors before React mounts.
         const DEFAULT_THEME_PALETTES = {
           light: {
-            background: "oklch(0.982446 0.010114 325.653)",
-            foreground: "oklch(0.325698 0.116116 325.037)",
-            accent: "oklch(0.591646 0.217985 0.584)",
-            chrome: "oklch(0.982446 0.010114 325.653)",
+            background: "oklch(0.965 0.012 220)",
+            foreground: "oklch(0.26 0.035 235)",
+            accent: "oklch(0.55 0.11 195)",
+            chrome: "oklch(0.955 0.014 222)",
           },
           dark: {
-            background: "oklch(0.22813 0.020366 307.469)",
-            foreground: "oklch(0.980735 0.004092 301.426)",
-            accent: "oklch(0.460685 0.185347 4.099)",
-            chrome: "oklch(0.22813 0.020366 307.469)",
+            background: "oklch(0.17 0.022 235)",
+            foreground: "oklch(0.94 0.01 220)",
+            accent: "oklch(0.72 0.11 195)",
+            chrome: "oklch(0.15 0.02 235)",
           },
         };
         // Keep this small boot-time copy in sync with the built-in palettes so
         // the selected theme is visible before the app has mounted.
         const BUILT_IN_THEME_PALETTES = {
+          "l7-frost": {
+            light: {
+              background: "oklch(0.965 0.012 220)",
+              foreground: "oklch(0.26 0.035 235)",
+              accent: "oklch(0.55 0.11 195)",
+              chrome: "oklch(0.955 0.014 222)",
+            },
+            dark: {
+              background: "oklch(0.17 0.022 235)",
+              foreground: "oklch(0.94 0.01 220)",
+              accent: "oklch(0.72 0.11 195)",
+              chrome: "oklch(0.15 0.02 235)",
+            },
+          },
           "t3-chat": {
             light: {
               background: "oklch(0.982446 0.010114 325.653)",
@@ -132,6 +149,7 @@
           "system",
           "light",
           "dark",
+          "l7-frost",
           "t3-chat",
           "grove",
           "ocean",
@@ -240,7 +258,7 @@
             storedTheme === "dark" ||
             storedTheme === "system" ||
             themeModes !== null;
-          const theme = isKnownTheme && storedTheme ? storedTheme : "system";
+          const theme = isKnownTheme && storedTheme ? storedTheme : "l7-frost";
           const isThemed = isKnownTheme && themeModes !== null;
           const baseAppearance = customTheme ? customTheme.appearance : "light";
           const systemMode = prefersDark ? "dark" : "light";

@@ -119,17 +119,20 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
   --glass-blur: 12px;
   --glass-opacity: 80%;
   --glass-saturation: 1.14;
-  /* Zeron/Comet frost elevation — cool neutral glass, not purple AI chrome */
-  --frost-sidebar-blur: 18px;
-  --frost-sidebar-opacity: 72%;
-  --frost-sidebar-border: color-mix(in oklab, var(--sidebar-border, transparent) 70%, white 30%);
-  --frost-elevation-1: color-mix(in oklab, white 6%, transparent);
-  --frost-elevation-2: color-mix(in oklab, white 10%, transparent);
+  /* Zeron/Comet frost elevation — cool slate/teal glass, not T3 pink/purple */
+  --frost-sidebar-blur: 22px;
+  --frost-sidebar-opacity: 58%;
+  --frost-sidebar-border: color-mix(in oklab, white 18%, transparent);
+  --frost-elevation-1: color-mix(in oklab, white 8%, transparent);
+  --frost-elevation-2: color-mix(in oklab, white 14%, transparent);
+  --frost-ambient-a: color-mix(in oklab, oklch(0.72 0.1 195) 18%, transparent);
+  --frost-ambient-b: color-mix(in oklab, oklch(0.55 0.08 240) 16%, transparent);
+  --frost-ambient-c: color-mix(in oklab, oklch(0.85 0.04 220) 12%, transparent);
   --frost-sheen: linear-gradient(
     165deg,
-    color-mix(in oklab, white 14%, transparent) 0%,
+    color-mix(in oklab, white 16%, transparent) 0%,
     transparent 42%,
-    color-mix(in oklab, black 4%, transparent) 100%
+    color-mix(in oklab, black 6%, transparent) 100%
   );
   --desktop-window-right-resize-inset: 0px;
   --workspace-topbar-height: 52px;
@@ -160,18 +163,50 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
     --app-scrollbar-thumb-hover: rgb(255 255 255 / 12%);
     --glass-blur: 16px;
     --glass-saturation: 1.08;
-    --frost-sidebar-blur: 22px;
-    --frost-sidebar-opacity: 58%;
-    --frost-sidebar-border: color-mix(in oklab, white 12%, transparent);
-    --frost-elevation-1: color-mix(in oklab, white 4%, transparent);
-    --frost-elevation-2: color-mix(in oklab, white 8%, transparent);
+    --frost-sidebar-blur: 28px;
+    --frost-sidebar-opacity: 48%;
+    --frost-sidebar-border: color-mix(in oklab, white 14%, transparent);
+    --frost-elevation-1: color-mix(in oklab, white 5%, transparent);
+    --frost-elevation-2: color-mix(in oklab, white 10%, transparent);
+    --frost-ambient-a: color-mix(in oklab, oklch(0.55 0.12 195) 22%, transparent);
+    --frost-ambient-b: color-mix(in oklab, oklch(0.35 0.08 250) 24%, transparent);
+    --frost-ambient-c: color-mix(in oklab, oklch(0.45 0.06 220) 14%, transparent);
     --frost-sheen: linear-gradient(
       165deg,
-      color-mix(in oklab, white 8%, transparent) 0%,
+      color-mix(in oklab, white 10%, transparent) 0%,
       transparent 48%,
-      color-mix(in oklab, black 12%, transparent) 100%
+      color-mix(in oklab, black 16%, transparent) 100%
     );
   }
+}
+
+.l7-frost-shell {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(1200px 700px at 12% -10%, var(--frost-ambient-a), transparent 60%),
+    radial-gradient(900px 640px at 88% 8%, var(--frost-ambient-b), transparent 58%),
+    radial-gradient(700px 480px at 50% 110%, var(--frost-ambient-c), transparent 55%),
+    var(--background);
+}
+
+.l7-frost-shell::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(color-mix(in oklab, white 4%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, white 4%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 35%, transparent 78%);
+}
+
+.l7-frost-shell > * {
+  position: relative;
+  z-index: 1;
 }
 
 @utility surface-frost {
@@ -204,8 +239,8 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
    the variables and Settings -> Appearance can override them at runtime. The
    default stacks are mirrored in `appearanceFonts.ts`. */
 @theme {
-  --font-sans:
-    -apple-system, BlinkMacSystemFont, "Inter Variable", "Segoe UI", system-ui, sans-serif;
+  --font-sans: "Outfit", "Avenir Next", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-brand: "Syne", "Outfit", "Avenir Next", ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
 }

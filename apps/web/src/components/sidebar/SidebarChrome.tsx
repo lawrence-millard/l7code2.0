@@ -20,7 +20,7 @@ import {
 import { primaryServerKeybindingsAtom } from "../../state/server";
 import { cn } from "../../lib/utils";
 import { usePullRequestsSupported } from "../../state/environments";
-import { L7Wordmark } from "../L7Wordmark";
+import { L7CodeWordmark, L7Wordmark } from "../L7Wordmark";
 import {
   resolveEnvironmentIdentificationPillLabel,
   resolveSidebarStageBackdropVariant,
@@ -65,9 +65,10 @@ export const SidebarChromeHeader = memo(function SidebarChromeHeader({
   return (
     <div
       className={cn(
-        "relative flex h-[var(--workspace-topbar-height)] shrink-0 flex-row items-center gap-2 pr-3",
+        "relative flex min-h-[var(--workspace-topbar-height)] shrink-0 flex-col gap-2 pr-3 pt-1 pb-2",
         isElectron && "drag-region",
       )}
+      data-l7-shell-brand=""
     >
       {backdropVariant ? <SidebarStageBackdrop variant={backdropVariant} /> : null}
       <div className="relative top-[calc(var(--workspace-controls-top)-env(safe-area-inset-top))] z-10 ml-[calc(var(--workspace-controls-left)+1px-env(safe-area-inset-left))] flex shrink-0 items-center md:hidden">
@@ -77,18 +78,18 @@ export const SidebarChromeHeader = memo(function SidebarChromeHeader({
           aria-label="Toggle main sidebar"
         />
       </div>
-      <div className="relative z-10 flex h-8 min-w-0 flex-1 flex-wrap content-start items-center gap-x-2 overflow-hidden py-0.5">
-        <div className="flex shrink-0 items-center gap-1">
+      <div className="relative z-10 flex min-w-0 flex-1 flex-col gap-1.5 overflow-hidden px-[var(--sidebar-content-inset)]">
+        <div className="flex min-w-0 items-center gap-2">
           <SidebarBrand onBackdrop={backdropVariant !== null} />
           {isElectron ? (
-            <div className="hidden items-center md:flex">
+            <div className="ml-auto hidden items-center md:flex">
               <HistoryNavigationButton direction="back" onBackdrop={backdropVariant !== null} />
               <HistoryNavigationButton direction="forward" onBackdrop={backdropVariant !== null} />
             </div>
           ) : null}
         </div>
         {pillLabel ? (
-          <div className="ml-1 flex h-7 items-center">
+          <div className="flex h-7 items-center">
             <Badge data-environment-identification="pill" size="sm" variant="secondary">
               {pillLabel}
             </Badge>
@@ -173,7 +174,7 @@ function SidebarBrand({ onBackdrop }: { onBackdrop: boolean }) {
     <Link
       aria-label="L7 Code home"
       className={cn(
-        "relative z-10 ml-[var(--workspace-titlebar-content-left)] hidden h-7 w-fit min-w-0 shrink-0 items-center overflow-hidden rounded-md outline-hidden ring-ring focus-visible:ring-2 focus-visible:ring-inset md:flex",
+        "relative z-10 ml-[var(--workspace-titlebar-content-left)] hidden min-w-0 shrink-0 items-center overflow-hidden rounded-xl outline-hidden ring-ring focus-visible:ring-2 focus-visible:ring-inset md:flex",
         onBackdrop ? "text-white" : "text-foreground",
       )}
       to="/"
@@ -185,16 +186,15 @@ function SidebarBrand({ onBackdrop }: { onBackdrop: boolean }) {
 
 function SidebarBrandMark({ onBackdrop }: { onBackdrop: boolean }) {
   return (
-    <span className="inline-flex min-w-0 items-baseline gap-1 text-sm font-medium tracking-tight">
-      <L7Wordmark aria-label="L7" className="h-[1.15cap] w-auto shrink-0" />
-      <span
+    <span className="inline-flex min-w-0 items-center gap-2">
+      <L7CodeWordmark
+        aria-label="L7 Code"
         className={cn(
-          "truncate [text-box:trim-both_cap_alphabetic] supports-[text-box:trim-both_cap_alphabetic]:py-1",
-          onBackdrop ? "text-white/70" : "text-muted-foreground",
+          "h-8 w-auto max-w-[11rem] shrink-0",
+          onBackdrop ? "text-white" : "text-foreground",
         )}
-      >
-        Code
-      </span>
+      />
+      <L7Wordmark className="sr-only" />
     </span>
   );
 }
