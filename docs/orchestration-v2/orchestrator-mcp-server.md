@@ -152,10 +152,10 @@ the injected endpoint and credential and forwards Pi's cancellation signal.
 
 When a provider session credential exists, the adapter writes a T3-owned
 extension into the server cache and spawns
-`pi --mode rpc --extension <cache>/pi-t3-mcp-extension.ts` with:
+`pi --mode rpc --extension <cache>/pi-l7-mcp-extension.ts` with:
 
 ```text
-T3_MCP_URL=http://127.0.0.1:<port>/mcp
+L7CODE_MCP_URL=http://127.0.0.1:<port>/mcp
 L7CODE_MCP_BEARER_TOKEN=<provider-session-token>
 ```
 
@@ -256,7 +256,7 @@ Each independent delegated review round uses a new `delegate_task` call with the
 original brief, prior findings, responses, and unresolved objections. Track each
 round by its own `taskId` and use a distinct `clientRequestId` per round, stable
 across retries of that round.
-A follow-up that needs the same child's conversation goes through `t3_thread_send`
+A follow-up that needs the same child's conversation goes through `l7_thread_send`
 on its `childThreadId`. After the original task completes, that follow-up runs as a
 fresh task in the child thread; it does not reopen the completed task or change its
 published result.
@@ -270,7 +270,7 @@ provider session. The request becomes the V2 command
 the timeout expires. A wait timeout does not cancel the child; the result sets
 `waitTimedOut: true`, and the caller can continue with `task_status`. A pending blocking
 question also ends the wait with `hasPendingQuestion: true` and `waitTimedOut: false`.
-If `hasPendingQuestion`, pass `threadId=childThreadId` to `t3_pending_request` with
+If `hasPendingQuestion`, pass `threadId=childThreadId` to `l7_pending_request` with
 action `list`, `read` (with `requestId`), or `respond`, or ask the user; the task's completion still wakes this thread. A pending live approval for the
 task's own unfinished work also ends the wait. Its identity appears in `pendingApproval`;
 it grants no approval authority. Read the fresh full request in the child thread before
@@ -351,7 +351,7 @@ inherit the parent's project, branch, and worktree path, but they have no
 sub-agent lineage. Entries with a prompt immediately dispatch a run; entries
 without a prompt remain idle.
 
-### `t3_thread_launch`
+### `l7_thread_launch`
 
 Launches one ordinary top-level thread through the app's launch service. Use an
 explicit `workspaceStrategy` to create a new worktree (`worktree` with `baseRef`),
@@ -367,14 +367,14 @@ its own under the environment's Scratch project. For stacked PRs, use the parent
 interaction modes than the caller. Launch has no retry key, so inspect existing threads after a failed or lost response before
 launching again. `create_threads` remains the batch option for a shared checkout.
 
-### `t3_thread_list`
+### `l7_thread_list`
 
 Lists durable thread shells in one project, newest first: `projectId` when
 given, else the calling thread's project. Callers can filter by title, run
 status, and whether app-owned sub-agent threads are included. Results are
 bounded and offset-paginated. Deleted threads are never listed.
 
-### `t3_thread_read`
+### `l7_thread_read`
 
 Reads the durable state, recent runs, and visible timeline of any thread in
 the environment by thread ID. A deleted thread returns `thread_not_found`. The
@@ -404,12 +404,12 @@ gets a web URL on the origin it reached, `<origin>/<environmentId>/<threadId>`,
 for threads in this environment.
 
 List and read results report `snoozed` and `snoozedUntil`, and
-`t3_thread_list` filters on `snoozed`. The server's `isSnoozed` follows the
+`l7_thread_list` filters on `snoozed`. The server's `isSnoozed` follows the
 client's `effectiveSnoozed`, so agents and the sidebar agree: a snoozed thread
 wakes early only when it has a pending request or fails after snoozing. Completed
 runs, background wakes, and delegated completions keep it snoozed.
 
-### `t3_thread_update`
+### `l7_thread_update`
 
 Updates metadata for the calling thread or any other thread in the environment.
 The typed actions are `rename`, `regenerate_title`, `link_pull_request`, and
@@ -423,7 +423,7 @@ resultant title, title-regeneration marker, and linked pull request. Reusing a
 receipt. Thread list and read results expose the linked pull request, and thread
 detail also exposes an in-flight title regeneration.
 
-### `t3_thread_send`
+### `l7_thread_send`
 
 Sends a message to any ordinary or delegated thread in the environment:
 
@@ -438,14 +438,14 @@ The target runtime and interaction modes may not be broader than the caller's.
 Stable command and message IDs are derived from `clientRequestId` for
 idempotent retries.
 
-### `t3_thread_wait`
+### `l7_thread_wait`
 
 Waits for a selected run to become `completed`, `failed`, `cancelled`,
 `interrupted`, or `rolled_back`. Without `runId`, it pins the latest run at call
 time; an idle thread returns immediately. A timeout reports the latest durable
 status and does not cancel work.
 
-### `t3_thread_interrupt`
+### `l7_thread_interrupt`
 
 Interrupts a selected active run through the normal V2 `run.interrupt` command.
 Without `runId`, it selects the newest interruptible run. A terminal run is

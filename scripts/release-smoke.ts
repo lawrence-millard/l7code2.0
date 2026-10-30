@@ -22,7 +22,6 @@ const workspaceFiles = [
   "apps/mobile/modules/l7-review-diff/package.json",
   "apps/mobile/modules/l7-terminal/package.json",
   "apps/marketing/package.json",
-  "infra/relay/package.json",
   "oxlint-plugin-l7code/package.json",
   "packages/client-runtime/package.json",
   "packages/contracts/package.json",

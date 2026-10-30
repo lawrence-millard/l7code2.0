@@ -1,12 +1,14 @@
-# T3 Connect setup
+> **Removed in L7 Code Phase 1.** L7 Connect / Clerk managed tunnels are no longer supported. Use local `l7 serve` / desktop, pairing (`l7 pair`), LAN/Tailscale, or a manual remote URL. Boat-hosted remotes land in a later phase.
 
-Deployment and client configuration for T3 Connect. The [architecture note](../internals/t3-connect.md)
+# L7 Connect setup
+
+Deployment and client configuration for L7 Connect. The [architecture note](../internals/t3-connect.md)
 explains the trust boundaries; the [relay README](../../infra/relay/README.md#deployment) owns relay
 provisioning instructions.
 
 ## Public application configuration
 
-T3 Connect is disabled in a fresh clone. To build against the production deployment, copy the
+L7 Connect is disabled in a fresh clone. To build against the production deployment, copy the
 repository-root example:
 
 ```sh

@@ -170,15 +170,15 @@ describe("scoreThreadSearch", () => {
   it("ranks a title holding the words above the app's own branch prefix and project name", () => {
     const busy = { activityAt: NOW, opens: { openedAt: NOW, score: 6, picks: [] } };
     expect(
-      rankTitles("t3 connect", [
+      rankTitles("l7 connect", [
         thread("Diagnose Connect provisioning failures", {
           ...busy,
           branch: "t3/diagnose-connect",
           projectTitle: "l7code",
         }),
-        thread("T3 Connect Tunnel Lifecycle Review", { projectTitle: "l7code" }),
+        thread("L7 Connect Tunnel Lifecycle Review", { projectTitle: "l7code" }),
       ])[0],
-    ).toBe("T3 Connect Tunnel Lifecycle Review");
+    ).toBe("L7 Connect Tunnel Lifecycle Review");
     expect(
       rankTitles("l7code", [
         thread("Fix sidebar lag", { ...busy, projectTitle: "l7code", branch: "l7code/sidebar" }),

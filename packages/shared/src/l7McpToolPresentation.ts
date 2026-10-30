@@ -148,29 +148,29 @@ const T3_MCP_TOOLS: Readonly<Record<string, T3McpToolDefinition>> = {
     "schedule-delete",
   ),
   request_secret: tool(["Ask for", "Asking for", "Asked for", "a secret"], "secret-request"),
-  create_threads: tool(["Create", "Creating", "Created", "T3 threads"], "thread-create"),
-  t3_thread_start: tool(["Start", "Starting", "Started", "a T3 thread"], "thread-create"),
-  t3_thread_list: tool(["List", "Listing", "Listed", "T3 threads"], "thread-list"),
-  t3_thread_read: tool(["Read", "Reading", "Read", "a T3 thread"], "thread-read"),
-  t3_thread_send: tool(["Send", "Sending", "Sent", "to a T3 thread"], "thread-send"),
-  t3_thread_wait: tool(["Wait", "Waiting", "Waited", "for a T3 thread"], "thread-wait"),
-  t3_workflow_stop: tool(
+  create_threads: tool(["Create", "Creating", "Created", "L7 threads"], "thread-create"),
+  l7_thread_start: tool(["Start", "Starting", "Started", "an L7 thread"], "thread-create"),
+  l7_thread_list: tool(["List", "Listing", "Listed", "L7 threads"], "thread-list"),
+  l7_thread_read: tool(["Read", "Reading", "Read", "an L7 thread"], "thread-read"),
+  l7_thread_send: tool(["Send", "Sending", "Sent", "to an L7 thread"], "thread-send"),
+  l7_thread_wait: tool(["Wait", "Waiting", "Waited", "for an L7 thread"], "thread-wait"),
+  l7_workflow_stop: tool(
     ["Stop", "Stopping", "Requested a stop for", "a workflow"],
     "workflow-stop",
   ),
-  t3_background_wait: tool(
+  l7_background_wait: tool(
     ["Update", "Updating", "Updated", "background waits"],
     "background-wait",
   ),
-  t3_thread_interrupt: tool(
-    ["Interrupt", "Interrupting", "Requested an interrupt of", "a T3 thread"],
+  l7_thread_interrupt: tool(
+    ["Interrupt", "Interrupting", "Requested an interrupt of", "an L7 thread"],
     "thread-interrupt",
   ),
-  t3_worktree_handoff: tool(
+  l7_worktree_handoff: tool(
     ["Hand off", "Handing off", "Handed off", "thread to a git worktree"],
     "worktree-handoff",
   ),
-  t3_worktree_status: tool(["Get", "Getting", "Got", "thread worktree status"], "worktree-status"),
+  l7_worktree_status: tool(["Get", "Getting", "Got", "thread worktree status"], "worktree-status"),
   preview_status: tool(["Get", "Getting", "Got", "preview browser status"], "browser", "browser"),
   preview_open: tool(
     ["Open", "Opening", "Opened", "a page in the preview browser"],
@@ -276,86 +276,86 @@ const T3_MCP_TOOLS: Readonly<Record<string, T3McpToolDefinition>> = {
     ["Run", "Running", "Requested a run of", "a scheduled task"],
     "schedule-run",
   ),
-  t3_queue: tool(["Manage", "Managing", "Managed", "queued messages"], "queue-edit"),
-  t3_pending_request: tool(
+  l7_queue: tool(["Manage", "Managing", "Managed", "queued messages"], "queue-edit"),
+  l7_pending_request: tool(
     ["Handle", "Handling", "Handled", "pending questions"],
     "question-respond",
   ),
-  t3_queue_list: tool(["List", "Listing", "Listed", "queued messages"], "queue-list"),
-  t3_queue_read: tool(["Read", "Reading", "Read", "a queued message"], "queue-read"),
-  t3_queue_edit: tool(["Edit", "Editing", "Edited", "a queued message"], "queue-edit"),
-  t3_queue_cancel: tool(
+  l7_queue_list: tool(["List", "Listing", "Listed", "queued messages"], "queue-list"),
+  l7_queue_read: tool(["Read", "Reading", "Read", "a queued message"], "queue-read"),
+  l7_queue_edit: tool(["Edit", "Editing", "Edited", "a queued message"], "queue-edit"),
+  l7_queue_cancel: tool(
     ["Cancel", "Canceling", "Requested cancellation of", "a queued run"],
     "queue-cancel",
   ),
-  t3_queue_reorder: tool(["Reorder", "Reordering", "Reordered", "a queued run"], "queue-reorder"),
-  t3_queue_promote_to_steer: tool(
+  l7_queue_reorder: tool(["Reorder", "Reordering", "Reordered", "a queued run"], "queue-reorder"),
+  l7_queue_promote_to_steer: tool(
     ["Steer with", "Steering with", "Requested steering with", "a queued message"],
     "queue-steer",
   ),
-  t3_pending_request_list: tool(
+  l7_pending_request_list: tool(
     ["List", "Listing", "Listed", "pending questions"],
     "question-list",
   ),
-  t3_pending_request_read: tool(["Read", "Reading", "Read", "pending questions"], "question-read"),
-  t3_pending_request_respond: tool(
+  l7_pending_request_read: tool(["Read", "Reading", "Read", "pending questions"], "question-read"),
+  l7_pending_request_respond: tool(
     ["Answer", "Answering", "Answered", "pending questions"],
     "question-respond",
   ),
-  t3_thread_configuration: tool(
+  l7_thread_configuration: tool(
     ["Read", "Reading", "Read", "thread configuration"],
     "thread-configuration",
   ),
-  t3_thread_configure: tool(["Use", "Using", "Used", "thread model settings"], "thread-configure"),
-  t3_thread_transfer: tool(["Use", "Using", "Used", "thread transfers"], "thread-fork"),
-  t3_thread_fork: tool(["Fork", "Forking", "Requested a fork of", "this thread"], "thread-fork"),
-  t3_thread_merge_back: tool(
+  l7_thread_configure: tool(["Use", "Using", "Used", "thread model settings"], "thread-configure"),
+  l7_thread_transfer: tool(["Use", "Using", "Used", "thread transfers"], "thread-fork"),
+  l7_thread_fork: tool(["Fork", "Forking", "Requested a fork of", "this thread"], "thread-fork"),
+  l7_thread_merge_back: tool(
     ["Merge", "Merging", "Requested a merge of", "thread context"],
     "thread-merge",
   ),
-  t3_thread_search: tool(["Search", "Searching", "Searched", "thread content"], "thread-search"),
-  t3_thread_transfers: tool(["Read", "Reading", "Read", "thread transfers"], "thread-transfers"),
-  t3_thread_organize: tool(["Organize", "Organizing", "Organized", "a thread"], "thread-organize"),
-  t3_thread_update: tool(["Update", "Updating", "Updated", "T3 thread metadata"], "thread-update"),
-  t3_worktree_list: tool(["List", "Listing", "Listed", "workspace branches"], "worktree-list"),
-  t3_preview_list: tool(["List", "Listing", "Listed", "preview tabs"], "browser", "browser"),
-  t3_preview_close: tool(["Close", "Closing", "Closed", "a preview tab"], "browser", "browser"),
-  t3_environment_read: tool(
+  l7_thread_search: tool(["Search", "Searching", "Searched", "thread content"], "thread-search"),
+  l7_thread_transfers: tool(["Read", "Reading", "Read", "thread transfers"], "thread-transfers"),
+  l7_thread_organize: tool(["Organize", "Organizing", "Organized", "a thread"], "thread-organize"),
+  l7_thread_update: tool(["Update", "Updating", "Updated", "L7 thread metadata"], "thread-update"),
+  l7_worktree_list: tool(["List", "Listing", "Listed", "workspace branches"], "worktree-list"),
+  l7_preview_list: tool(["List", "Listing", "Listed", "preview tabs"], "browser", "browser"),
+  l7_preview_close: tool(["Close", "Closing", "Closed", "a preview tab"], "browser", "browser"),
+  l7_environment_read: tool(
     ["Read", "Reading", "Read", "environment preferences"],
     "environment-read",
   ),
-  t3_environment_links: tool(
+  l7_environment_links: tool(
     ["List", "Listing", "Listed", "linked environments"],
     "environment-links",
   ),
-  t3_environment_link: tool(
+  l7_environment_link: tool(
     ["Ask to link", "Asking to link", "Asked to link", "an environment"],
     "environment-link",
   ),
-  t3_environment_unlink: tool(
+  l7_environment_unlink: tool(
     ["Forget", "Forgetting", "Forgot", "a linked environment"],
     "environment-unlink",
   ),
-  t3_environment_preferences_update: tool(
+  l7_environment_preferences_update: tool(
     ["Update", "Updating", "Updated", "environment preferences"],
     "environment-update",
   ),
-  t3_thread_launch: tool(["Launch", "Launching", "Launched", "a project thread"], "thread-create"),
-  t3_project_list: tool(["List", "Listing", "Listed", "projects"], "project-list"),
-  t3_project_read: tool(["Read", "Reading", "Read", "a project"], "project-read"),
-  t3_project_create: tool(["Register", "Registering", "Registered", "a project"], "project-create"),
-  t3_project_update: tool(["Update", "Updating", "Updated", "a project"], "project-update"),
-  t3_project_delete: tool(["Delete", "Deleting", "Deleted", "a project"], "project-delete"),
-  t3_project_clone: tool(["Clone", "Cloning", "Cloned", "a repository"], "project-clone"),
-  t3_attachment_prepare_upload: tool(
+  l7_thread_launch: tool(["Launch", "Launching", "Launched", "a project thread"], "thread-create"),
+  l7_project_list: tool(["List", "Listing", "Listed", "projects"], "project-list"),
+  l7_project_read: tool(["Read", "Reading", "Read", "a project"], "project-read"),
+  l7_project_create: tool(["Register", "Registering", "Registered", "a project"], "project-create"),
+  l7_project_update: tool(["Update", "Updating", "Updated", "a project"], "project-update"),
+  l7_project_delete: tool(["Delete", "Deleting", "Deleted", "a project"], "project-delete"),
+  l7_project_clone: tool(["Clone", "Cloning", "Cloned", "a repository"], "project-clone"),
+  l7_attachment_prepare_upload: tool(
     ["Prepare", "Preparing", "Prepared", "an attachment upload"],
     "attachment-prepare",
   ),
-  t3_attachment_discard: tool(
+  l7_attachment_discard: tool(
     ["Discard", "Discarding", "Discarded", "a pending attachment"],
     "attachment-discard",
   ),
-  t3_thread_send_attachments: tool(["Send", "Sending", "Sent", "attachments"], "attachment-send"),
+  l7_thread_send_attachments: tool(["Send", "Sending", "Sent", "attachments"], "attachment-send"),
   html_preview: tool(["Preview", "Previewing", "Previewed", "an HTML page"], "html-preview"),
   html_render: tool(["Render", "Rendering", "Rendered", "an HTML page"], "html-render"),
 };
@@ -411,10 +411,10 @@ const asSummaryInput = (input: unknown): SummaryInput | undefined =>
 /** Action tools present each call as the single-purpose tool its action replaced. */
 const ACTION_TOOLS: Readonly<Record<string, (action: string) => string | undefined>> = {
   preview_act: (action) => `preview_${action}`,
-  t3_queue: (action) => `t3_queue_${action}`,
-  t3_pending_request: (action) => `t3_pending_request_${action}`,
-  t3_thread_transfer: (action) =>
-    ({ fork: "t3_thread_fork", merge_back: "t3_thread_merge_back", status: "t3_thread_transfers" })[
+  l7_queue: (action) => `l7_queue_${action}`,
+  l7_pending_request: (action) => `l7_pending_request_${action}`,
+  l7_thread_transfer: (action) =>
+    ({ fork: "l7_thread_fork", merge_back: "l7_thread_merge_back", status: "l7_thread_transfers" })[
       action
     ],
 };
@@ -437,7 +437,7 @@ export function resolveT3McpToolDefinition(
 const ACTION_SUMMARIES: Readonly<
   Record<string, (input: SummaryInput) => T3McpToolSummaryAction | undefined>
 > = {
-  t3_thread_configure: ({ modelSelection }) =>
+  l7_thread_configure: ({ modelSelection }) =>
     modelSelection === undefined ? "thread-configuration" : "thread-configure",
   schedule_task: ({ scheduledTaskId }) =>
     scheduledTaskId === undefined ? "schedule-create" : "schedule-update",

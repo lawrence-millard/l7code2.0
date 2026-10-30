@@ -3,9 +3,9 @@ import { EnvironmentId, ProviderInstanceId, ThreadId } from "@l7code/contracts";
 
 import {
   T3_MCP_BEARER_ENV,
-  T3_MCP_URL_ENV,
+  L7CODE_MCP_URL_ENV,
   T3_PI_RUNTIME_MODE_ENV,
-  T3_PI_MCP_EXTENSION_PATH_ENV,
+  L7CODE_PI_MCP_EXTENSION_PATH_ENV,
 } from "./mcpExtensionSource.ts";
 import { buildPiRpcLaunch, resolvePiLaunchArgs } from "./mcpInjection.ts";
 
@@ -32,7 +32,7 @@ describe("pi T3 MCP injection", () => {
       launchArgs: resolvedArgs.args,
       environment: { PATH: "/usr/bin" },
       mcpSession,
-      extensionPath: "/tmp/cache/pi-t3-mcp-extension.ts",
+      extensionPath: "/tmp/cache/pi-l7-mcp-extension.ts",
       runtimeMode: "approval-required",
     });
     assert.deepEqual(launch.args, [
@@ -52,37 +52,37 @@ describe("pi T3 MCP injection", () => {
       "-review",
       "--extension-flag=kept",
       "--extension",
-      "/tmp/cache/pi-t3-mcp-extension.ts",
+      "/tmp/cache/pi-l7-mcp-extension.ts",
     ]);
     assert.notInclude(launch.args, "--no-extensions");
-    assert.equal(launch.env[T3_MCP_URL_ENV], "http://127.0.0.1:43123/mcp");
+    assert.equal(launch.env[L7CODE_MCP_URL_ENV], "http://127.0.0.1:43123/mcp");
     assert.equal(launch.env[T3_MCP_BEARER_ENV], "secret-pi-token");
     assert.equal(launch.env[T3_PI_RUNTIME_MODE_ENV], "approval-required");
-    assert.equal(launch.env[T3_PI_MCP_EXTENSION_PATH_ENV], "/tmp/cache/pi-t3-mcp-extension.ts");
+    assert.equal(launch.env[L7CODE_PI_MCP_EXTENSION_PATH_ENV], "/tmp/cache/pi-l7-mcp-extension.ts");
 
     const permissionOnly = buildPiRpcLaunch({
       launchArgs: [],
       environment: {
-        [T3_MCP_URL_ENV]: "http://127.0.0.1:9999/stale",
+        [L7CODE_MCP_URL_ENV]: "http://127.0.0.1:9999/stale",
         [T3_MCP_BEARER_ENV]: "stale-token",
-        [T3_PI_MCP_EXTENSION_PATH_ENV]: "/stale/extension.ts",
+        [L7CODE_PI_MCP_EXTENSION_PATH_ENV]: "/stale/extension.ts",
       },
       mcpSession: undefined,
-      extensionPath: "/tmp/cache/pi-t3-mcp-extension.ts",
+      extensionPath: "/tmp/cache/pi-l7-mcp-extension.ts",
       runtimeMode: "auto-accept-edits",
     });
     assert.deepEqual(permissionOnly.args, [
       "--mode",
       "rpc",
       "--extension",
-      "/tmp/cache/pi-t3-mcp-extension.ts",
+      "/tmp/cache/pi-l7-mcp-extension.ts",
     ]);
-    assert.isUndefined(permissionOnly.env[T3_MCP_URL_ENV]);
+    assert.isUndefined(permissionOnly.env[L7CODE_MCP_URL_ENV]);
     assert.isUndefined(permissionOnly.env[T3_MCP_BEARER_ENV]);
     assert.equal(permissionOnly.env[T3_PI_RUNTIME_MODE_ENV], "auto-accept-edits");
     assert.equal(
-      permissionOnly.env[T3_PI_MCP_EXTENSION_PATH_ENV],
-      "/tmp/cache/pi-t3-mcp-extension.ts",
+      permissionOnly.env[L7CODE_PI_MCP_EXTENSION_PATH_ENV],
+      "/tmp/cache/pi-l7-mcp-extension.ts",
     );
   });
 
@@ -99,7 +99,7 @@ describe("pi T3 MCP injection", () => {
       ],
       environment: {},
       mcpSession,
-      extensionPath: "/tmp/cache/pi-t3-mcp-extension.ts",
+      extensionPath: "/tmp/cache/pi-l7-mcp-extension.ts",
       sessionPath: "/fake/persisted.jsonl",
       ephemeral: true,
       disableExtensions: true,
