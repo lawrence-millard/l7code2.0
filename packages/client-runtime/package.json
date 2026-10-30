@@ -231,6 +231,10 @@
       "types": "./src/state/agentProjects.ts",
       "default": "./src/state/agentProjects.ts"
     },
+    "./state/boat": {
+      "types": "./src/state/boat.ts",
+      "default": "./src/state/boat.ts"
+    },
     "./state/peerPairingCode": {
       "types": "./src/state/peerPairingCode.ts",
       "default": "./src/state/peerPairingCode.ts"

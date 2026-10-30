@@ -42,6 +42,12 @@ import {
   AgentProjectUpsertWorkstreamInput,
 } from "./agentProject.ts";
 import {
+  BoatDeployInput,
+  BoatEnvironment,
+  BoatError,
+  BoatSandboxIdInput,
+} from "./boat.ts";
+import {
   ChatGptReconnectProfileInput,
   ChatGptReconnectProfile,
   ChatGptImportProfileInput,
@@ -532,6 +538,12 @@ export const WS_METHODS = {
   agentProjectsDetachFolder: "agentProjects.detachFolder",
   agentProjectsUpsertWorkstream: "agentProjects.upsertWorkstream",
   agentProjectsDeleteWorkstream: "agentProjects.deleteWorkstream",
+  boatList: "boat.list",
+  boatDeploy: "boat.deploy",
+  boatRefresh: "boat.refresh",
+  boatStop: "boat.stop",
+  boatResume: "boat.resume",
+  boatRemove: "boat.remove",
   serverUpdateSettings: "server.updateSettings",
   serverDiscoverSourceControl: "server.discoverSourceControl",
   serverSearchAcpRegistry: "server.searchAcpRegistry",
@@ -897,6 +909,43 @@ const WsAgentProjectsDeleteWorkstreamRpc = Rpc.make(WS_METHODS.agentProjectsDele
   payload: AgentProjectDeleteWorkstreamInput,
   success: AgentProject,
   error: AgentProjectRpcError,
+});
+
+const BoatRpcError = Schema.Union([BoatError, EnvironmentAuthorizationError]);
+
+const WsBoatListRpc = Rpc.make(WS_METHODS.boatList, {
+  success: Schema.Struct({ environments: Schema.Array(BoatEnvironment) }),
+  error: BoatRpcError,
+});
+
+const WsBoatDeployRpc = Rpc.make(WS_METHODS.boatDeploy, {
+  payload: BoatDeployInput,
+  success: BoatEnvironment,
+  error: BoatRpcError,
+});
+
+const WsBoatRefreshRpc = Rpc.make(WS_METHODS.boatRefresh, {
+  payload: BoatSandboxIdInput,
+  success: BoatEnvironment,
+  error: BoatRpcError,
+});
+
+const WsBoatStopRpc = Rpc.make(WS_METHODS.boatStop, {
+  payload: BoatSandboxIdInput,
+  success: BoatEnvironment,
+  error: BoatRpcError,
+});
+
+const WsBoatResumeRpc = Rpc.make(WS_METHODS.boatResume, {
+  payload: BoatSandboxIdInput,
+  success: BoatEnvironment,
+  error: BoatRpcError,
+});
+
+const WsBoatRemoveRpc = Rpc.make(WS_METHODS.boatRemove, {
+  payload: BoatSandboxIdInput,
+  success: Schema.Struct({ removed: Schema.Boolean }),
+  error: BoatRpcError,
 });
 
 const WsServerUpdateSettingsRpc = Rpc.make(WS_METHODS.serverUpdateSettings, {
@@ -2087,6 +2136,12 @@ export const WsRpcGroup = RpcGroup.make(
   WsAgentProjectsDetachFolderRpc,
   WsAgentProjectsUpsertWorkstreamRpc,
   WsAgentProjectsDeleteWorkstreamRpc,
+  WsBoatListRpc,
+  WsBoatDeployRpc,
+  WsBoatRefreshRpc,
+  WsBoatStopRpc,
+  WsBoatResumeRpc,
+  WsBoatRemoveRpc,
   WsServerDiscoverSourceControlRpc,
   WsServerSearchAcpRegistryRpc,
   WsServerPrepareAcpRegistryAgentRpc,
