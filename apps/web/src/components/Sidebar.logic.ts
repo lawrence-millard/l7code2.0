@@ -1019,7 +1019,7 @@ export function firstValidTimestampMs(
   return 0;
 }
 
-export { sortActiveThreadsByOrderKey as sortThreadsForSidebar } from "@l7code/client-runtime/state/thread-sort";
+export { sortActiveThreadsByOrderKey as sortThreadsForSidebarByOrderKey } from "@l7code/client-runtime/state/thread-sort";
 export {
   sortInboxThreadsByReturn,
   sortWorkingThreadsBySend,
@@ -1027,6 +1027,59 @@ export {
 
 export { pinOrderKeyBetween } from "@l7code/client-runtime/state/thread-sort";
 export { sortPinnedThreadsByOrderKey as sortPinnedThreadsForSidebar } from "@l7code/client-runtime/state/thread-sort";
+
+/** Zeron-style attention rank: needs-user first, then working, then quiet. */
+export const SIDEBAR_ATTENTION_RANK: Readonly<Record<SidebarThreadStatus, number>> = {
+  approval: 0,
+  input: 1,
+  request: 2,
+  limited: 3,
+  failed: 4,
+  working: 5,
+  waiting: 6,
+  ready: 7,
+};
+
+/**
+ * Active sessions sorted by attention urgency, then existing order-key / recency.
+ * Manual `activeOrderKey` still wins within the same attention band via the
+ * underlying order-key sort as a tie-break after ranking.
+ */
+export function sortThreadsForSidebar<
+  T extends SidebarThreadStatusInput & {
+    readonly id: string;
+    readonly activeOrderKey?: string | null;
+    readonly createdAt?: string;
+    readonly updatedAt?: string;
+    readonly latestUserMessageAt?: string | null;
+  },
+>(threads: readonly T[]): T[] {
+  return [...threads].sort((left, right) => {
+    const rankDelta =
+      SIDEBAR_ATTENTION_RANK[resolveSidebarThreadStatus(left)] -
+      SIDEBAR_ATTENTION_RANK[resolveSidebarThreadStatus(right)];
+    if (rankDelta !== 0) return rankDelta;
+    const leftKey = left.activeOrderKey ?? "";
+    const rightKey = right.activeOrderKey ?? "";
+    if (leftKey !== rightKey) {
+      // Match server order-key sort: higher key first when both present.
+      if (leftKey && rightKey) return rightKey < leftKey ? -1 : rightKey > leftKey ? 1 : 0;
+      if (leftKey) return -1;
+      if (rightKey) return 1;
+    }
+    const leftTs = firstValidTimestampMs(
+      left.latestUserMessageAt,
+      left.updatedAt,
+      left.createdAt,
+    );
+    const rightTs = firstValidTimestampMs(
+      right.latestUserMessageAt,
+      right.updatedAt,
+      right.createdAt,
+    );
+    return rightTs - leftTs || (left.id < right.id ? -1 : left.id > right.id ? 1 : 0);
+  });
+}
 
 const EMPTY_CONTENT_MATCH_KEYS: ReadonlySet<string> = new Set<string>();
 

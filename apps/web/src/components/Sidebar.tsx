@@ -810,7 +810,7 @@ function useSidebarLookups() {
     projectGroups.map((project) => [project.projectKey, project] as const),
   );
   const projectScopeItems = [
-    { value: "all", label: "All projects" },
+    { value: "all", label: "All spaces" },
     ...projectGroups.map((project) => ({ value: project.projectKey, label: project.displayName })),
   ];
   return {
@@ -2947,8 +2947,8 @@ export default function Sidebar({ routeReveal }: { routeReveal: SidebarRouteReve
                       <SidebarHeaderIconButton
                         label={
                           scopedProjectGroups.length > 0
-                            ? `Filter threads by project: ${scopedProjectGroups.map((project) => project.displayName).join(", ")}`
-                            : "Filter threads by project"
+                            ? `Filter sessions by space: ${scopedProjectGroups.map((project) => project.displayName).join(", ")}`
+                            : "Filter sessions by space"
                         }
                       />
                     }
@@ -2977,8 +2977,8 @@ export default function Sidebar({ routeReveal }: { routeReveal: SidebarRouteReve
                     className="max-w-[min(18rem,var(--available-width))] overflow-hidden"
                   >
                     <ComboboxSearchInput
-                      aria-label="Search projects"
-                      placeholder="Search projects..."
+                      aria-label="Search spaces"
+                      placeholder="Search spaces..."
                       value={projectScopeMenuState.query}
                       onKeyDown={(event) => {
                         if (
