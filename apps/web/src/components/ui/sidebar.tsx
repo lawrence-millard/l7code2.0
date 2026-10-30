@@ -378,9 +378,10 @@ function Sidebar({
           {...props}
         >
           <div
-            className="surface-frost flex h-full w-full flex-col bg-sidebar/80 surface-grain group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-sm/5"
+            className="surface-frost flex h-full w-full flex-col overflow-hidden rounded-2xl border border-(--frost-sidebar-border) bg-sidebar/55 surface-grain shadow-[0_18px_50px_-34px_rgb(0_0_0/45%)] group-data-[variant=floating]:rounded-2xl group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=inset]:rounded-2xl"
             data-sidebar="sidebar"
             data-slot="sidebar-inner"
+            data-l7-spaces-shell=""
           >
             {children}
           </div>
@@ -606,11 +607,13 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
   return (
     <main
       className={cn(
-        "relative flex min-w-0 w-full flex-1 flex-col bg-background surface-grain",
-        "md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ms-2 md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ms-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm/5",
+        "relative flex min-w-0 w-full flex-1 flex-col overflow-hidden bg-background/70 surface-grain",
+        "md:m-2 md:ms-0 md:rounded-2xl md:border md:border-(--frost-sidebar-border) md:bg-[color-mix(in_oklab,var(--background)_72%,transparent)] md:shadow-[0_22px_60px_-36px_rgb(0_0_0/50%)] md:backdrop-blur-[18px] md:backdrop-saturate-[1.12]",
+        "md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ms-2 md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ms-0",
         className,
       )}
       data-slot="sidebar-inset"
+      data-l7-main-glass=""
       {...props}
     />
   );

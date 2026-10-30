@@ -2,6 +2,54 @@ import { describe, expect, it } from "vitest";
 
 import { sortThreadsForSidebar, type SidebarThreadStatus } from "./Sidebar.logic";
 
+function runtimeFor(status: SidebarThreadStatus) {
+  if (status === "working") {
+    return {
+      status: "running" as const,
+      activeRunId: null,
+      providerInstanceId: "provider",
+      providerName: "dev",
+      lastError: null,
+      lastErrorClass: null,
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    };
+  }
+  if (status === "failed") {
+    return {
+      status: "failed" as const,
+      activeRunId: null,
+      providerInstanceId: "provider",
+      providerName: "dev",
+      lastError: "failed",
+      lastErrorClass: null,
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    };
+  }
+  if (status === "limited") {
+    return {
+      status: "failed" as const,
+      activeRunId: null,
+      providerInstanceId: "provider",
+      providerName: "dev",
+      lastError: "limited",
+      lastErrorClass: "usage_limit" as const,
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    };
+  }
+  if (status === "waiting") {
+    return {
+      status: "idle" as const,
+      activeRunId: null,
+      providerInstanceId: "provider",
+      providerName: "dev",
+      lastError: null,
+      lastErrorClass: null,
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    };
+  }
+  return null;
+}
+
 function thread(
   id: string,
   status: SidebarThreadStatus,
@@ -10,28 +58,18 @@ function thread(
     updatedAt: string;
   }> = {},
 ) {
-  const base = {
+  return {
     id,
     activeOrderKey: extras.activeOrderKey ?? null,
     updatedAt: extras.updatedAt ?? "2026-01-01T00:00:00.000Z",
     createdAt: "2026-01-01T00:00:00.000Z",
     hasPendingApprovals: status === "approval",
     hasPendingUserInput: status === "input",
-    pendingSubagentRequest: null as null,
+    pendingSubagentRequest: null,
     pendingGuestMessageCount: status === "request" ? 1 : 0,
     blockedOnThreadWait: status === "waiting",
-    runtime:
-      status === "working"
-        ? { status: "running" as const, lastErrorClass: null }
-        : status === "failed"
-          ? { status: "failed" as const, lastErrorClass: null }
-          : status === "limited"
-            ? { status: "failed" as const, lastErrorClass: "usage_limit" as const }
-            : status === "waiting"
-              ? { status: "idle" as const, lastErrorClass: null }
-              : null,
+    runtime: runtimeFor(status),
   };
-  return base;
 }
 
 describe("sortThreadsForSidebar attention", () => {

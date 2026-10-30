@@ -46,7 +46,7 @@ import {
 import { Tooltip, TooltipPopup, TooltipTrigger } from "../ui/tooltip";
 import { InlineButton } from "../ui/button";
 import { DraftProjectName } from "./DraftProjectName";
-import { DraftHeroProjectHeading } from "./DraftHeroProjectHeading";
+import { NewSessionCanvas } from "./NewSessionCanvas";
 import { TriageDraftHero } from "./TriageDraftHero";
 import { resolveProjectSettings } from "@l7code/shared/projectSettings";
 import { resolveProjectDefaultProviderModelSelection } from "../../providerInstances";
@@ -298,12 +298,12 @@ export function DraftHeroHeadline({
       </Tooltip>
       <ComboboxPopup align="center" className="w-72 overflow-hidden">
         <ComboboxSearchInput
-          aria-label="Search projects"
-          placeholder="Search projects..."
+          aria-label="Search spaces"
+          placeholder="Search spaces…"
           value={pickerQuery}
           onChange={(event) => setPickerQuery(event.target.value)}
         />
-        <ComboboxEmpty>No matching projects.</ComboboxEmpty>
+        <ComboboxEmpty>No matching spaces.</ComboboxEmpty>
         <ComboboxList>
           {(item: PickerItem) => {
             const entry = projectEntryByKey.get(item.value);
@@ -381,27 +381,29 @@ export function DraftHeroHeadline({
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col items-center">
-      {hasResolvedProject && !isScratchDraft ? (
-        <DraftHeroProjectHeading projectName={activeProjectDisplayName ?? "Choose a project"}>
-          {projectSelector}
-        </DraftHeroProjectHeading>
-      ) : (
-        <h1 className="w-full text-center font-normal text-2xl text-foreground tracking-tight sm:text-3xl">
-          {isScratchDraft ? (
-            <>What should we work on?</>
-          ) : canChooseProject ? (
-            <>{projectSelector} to start</>
-          ) : (
-            <>Add a project to start</>
-          )}
-        </h1>
-      )}
-      {scratchWorkspaceRoot === null ? null : (
-        <p className="mt-2 flex h-6 w-full items-center justify-center text-sm">
-          {isScratchDraft ? projectSelector : orStartWithoutProject}
-        </p>
-      )}
-    </div>
+    <NewSessionCanvas
+      spacePicker={
+        shouldShowProjectMenu || hasResolvedProject ? (
+          projectSelector
+        ) : (
+          <button
+            type="button"
+            onClick={openAddProject}
+            className="pointer-events-auto inline min-w-0 max-w-full cursor-pointer border-muted-foreground/35 border-b border-dotted text-muted-foreground/70 transition-colors hover:border-muted-foreground/60 hover:text-muted-foreground focus-visible:rounded-sm focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
+          >
+            <DraftProjectName value="Add a space" singleLine />
+          </button>
+        )
+      }
+      supporting={
+        scratchWorkspaceRoot === null
+          ? null
+          : isScratchDraft
+            ? (
+                <span className="text-muted-foreground/80">No space selected</span>
+              )
+            : orStartWithoutProject
+      }
+    />
   );
 }
