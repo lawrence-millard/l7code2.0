@@ -536,7 +536,8 @@
     "@l7code/source-control-definitions": "workspace:*",
     "effect": "catalog:",
     "jszip": "3.10.1",
-    "three": "0.180.0"
+    "three": "0.180.0",
+    "@l7code/provider-command-code": "workspace:*"
   },
   "devDependencies": {
     "@effect/vitest": "catalog:",

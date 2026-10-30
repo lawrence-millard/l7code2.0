@@ -70,7 +70,8 @@
     "undici": "catalog:",
     "yaml": "catalog:",
     "yauzl": "^3.4.0",
-    "zod": "^4.6.5"
+    "zod": "^4.6.5",
+    "@l7code/provider-command-code": "workspace:*"
   },
   "devDependencies": {
     "@effect/graphql-generator": "catalog:",
