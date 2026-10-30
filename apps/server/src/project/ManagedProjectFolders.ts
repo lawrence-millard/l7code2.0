@@ -4,8 +4,8 @@ import {
   ProjectId,
   type ThreadId,
   VcsProcessSpawnError,
-} from "@t3tools/contracts";
-import { newProjectFolderName } from "@t3tools/shared/path";
+} from "@l7code/contracts";
+import { newProjectFolderName } from "@l7code/shared/path";
 import * as Cause from "effect/Cause";
 import * as Context from "effect/Context";
 import * as Crypto from "effect/Crypto";
@@ -177,7 +177,7 @@ function namedProjectReadme(name: string): string {
     "",
     `# ${name}`,
     "",
-    "Created in [T3 Code](https://t3.codes).",
+    "Created in [L7 Code](https://github.com/lawrence-millard/l7code2.0).",
     "",
   ].join("\n");
 }

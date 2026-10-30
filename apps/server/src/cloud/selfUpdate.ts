@@ -5,8 +5,8 @@ import {
   type ServerSelfUpdateProgressEvent,
   type ServerSelfUpdateProgressStage,
   type ServerSelfUpdateResult,
-} from "@t3tools/contracts";
-import * as HostProcess from "@t3tools/shared/HostProcess";
+} from "@l7code/contracts";
+import * as HostProcess from "@l7code/shared/HostProcess";
 import * as Config from "effect/Config";
 import * as Context from "effect/Context";
 import * as Duration from "effect/Duration";
@@ -20,7 +20,7 @@ import * as Queue from "effect/Queue";
 import * as Stream from "effect/Stream";
 import { HttpClient } from "effect/http";
 
-import { CLI_RELEASE_BASE_URL_ENV, crossesReleaseTrack } from "@t3tools/shared/cliRelease";
+import { CLI_RELEASE_BASE_URL_ENV, crossesReleaseTrack } from "@l7code/shared/cliRelease";
 
 import packageJson from "../../package.json" with { type: "json" };
 import * as ServerConfig from "../config.ts";
@@ -69,7 +69,7 @@ export class ServerSelfUpdate extends Context.Service<
 /**
  * A server starting from the runtime its launcher settled on means runtimes left by earlier
  * updates can go. The boot service says so through its IPC context. The SSH launcher and the
- * install script's `t3` start this home's pinned runtime directly, without one.
+ * install script's `l7` start this home's pinned runtime directly, without one.
  */
 export const pruneRuntimesOnStart = Effect.fn("cloud.server_self_update.prune_on_start")(
   function* (input: { readonly baseDir: string; readonly managed: boolean }) {
@@ -163,12 +163,12 @@ export const make = Effect.fn("cloud.server_self_update.make")(function* () {
         );
       }
       return yield* failWith(
-        "This server is managed by the T3 Code desktop app on its machine; update the desktop app to update it.",
+        "This server is managed by the L7 Code desktop app on its machine; update the desktop app to update it.",
       );
     }
     if (capability === null) {
       return yield* failWith(
-        "Remote updates require the T3 Code background service. Run `t3 service install` on the server machine.",
+        "Remote updates require the L7 Code background service. Run `l7 service install` on the server machine.",
       );
     }
 

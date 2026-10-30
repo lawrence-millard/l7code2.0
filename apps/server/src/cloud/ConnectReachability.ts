@@ -4,8 +4,8 @@ import {
   connectReachabilityHelpUrl,
   type EnvironmentConnectReachability,
   formatConnectReachable,
-} from "@t3tools/contracts";
-import { readTailscaleExitNode, type TailscaleExitNode } from "@t3tools/tailscale";
+} from "@l7code/contracts";
+import { readTailscaleExitNode, type TailscaleExitNode } from "@l7code/tailscale";
 import * as Context from "effect/Context";
 import * as DateTime from "effect/DateTime";
 import * as Duration from "effect/Duration";
@@ -65,20 +65,20 @@ export function classifyReachability(
     fix: string,
     hint: string | null = null,
   ): Unreachable => ({ status: "unreachable", checkedAt, cause, reason, hint, fix });
-  const restart = "Restart T3 Code. If it stays, run `t3 connect` again.";
+  const restart = "Restart L7 Code. If it stays, run `l7 connect` again.";
 
   if (!facts.managedTunnelConfigured) {
     return fail(
       "not_linked",
       "The server has not set up a T3 Connect tunnel.",
-      "Run `t3 connect`, then restart the server (`t3 service restart`) so it applies the link.",
+      "Run `l7 connect`, then restart the server (`l7 service restart`) so it applies the link.",
     );
   }
   if (connector === null) {
     return fail(
       "connector_not_running",
       "The tunnel client (cloudflared) is not running.",
-      "Restart T3 Code. If it stays down, check the server log for relay client errors.",
+      "Restart L7 Code. If it stays down, check the server log for relay client errors.",
     );
   }
   const status = endpoint?.kind === "status" ? endpoint.status : null;
@@ -111,7 +111,7 @@ export function classifyReachability(
     return fail(
       "origin_unreachable",
       "The tunnel is up, but it cannot reach the T3 server on this machine.",
-      "Restart T3 Code so the tunnel uses the port the server listens on.",
+      "Restart L7 Code so the tunnel uses the port the server listens on.",
     );
   }
   if (endpoint === null || connector.readyConnections === 0) {
@@ -213,7 +213,7 @@ const make = Effect.gen(function* () {
   );
 
   const probeEndpoint = (hostname: string) =>
-    httpClient.get(`https://${hostname}/.well-known/t3/environment`).pipe(
+    httpClient.get(`https://${hostname}/.well-known/l7/environment`).pipe(
       Effect.map((response): EndpointProbe => ({ kind: "status", status: response.status })),
       Effect.scoped,
       Effect.timeoutOption(ENDPOINT_REQUEST_TIMEOUT),

@@ -36,7 +36,7 @@ import {
   type ProviderInstanceId,
   type RunId,
   type RuntimeRequestId,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import type * as Cause from "effect/Cause";
 import * as DateTime from "effect/DateTime";
 import * as Deferred from "effect/Deferred";
@@ -52,39 +52,39 @@ import * as Schema from "effect/Schema";
 import * as Semaphore from "effect/Semaphore";
 import * as Stream from "effect/Stream";
 
-import * as ProviderHost from "@t3tools/provider-core/server/ProviderHost";
+import * as ProviderHost from "@l7code/provider-core/server/ProviderHost";
 import * as OpenCode2Client from "./OpenCode2Client.ts";
 import * as OpenCode2Server from "./OpenCode2Server.ts";
 import * as OpenCodeRuntime from "../OpenCodeRuntime.ts";
-import * as McpProviderSessions from "@t3tools/provider-core/server/McpProviderSessions";
-import { buildRuntimeInstructions } from "@t3tools/provider-core/server/runtimeInstructions";
-import { t3OrchestrationSystemPrompt } from "@t3tools/provider-core/server/orchestrationInstructions";
-import { SKILL_MENTION_PATTERN } from "@t3tools/shared/composerInlineTokens";
-import * as KeyedLock from "@t3tools/shared/KeyedLock";
-import { getModelSelectionStringOptionValue, modelSelectionsEqual } from "@t3tools/shared/model";
-import { causeErrorTag } from "@t3tools/shared/observability";
+import * as McpProviderSessions from "@l7code/provider-core/server/McpProviderSessions";
+import { buildRuntimeInstructions } from "@l7code/provider-core/server/runtimeInstructions";
+import { t3OrchestrationSystemPrompt } from "@l7code/provider-core/server/orchestrationInstructions";
+import { SKILL_MENTION_PATTERN } from "@l7code/shared/composerInlineTokens";
+import * as KeyedLock from "@l7code/shared/KeyedLock";
+import { getModelSelectionStringOptionValue, modelSelectionsEqual } from "@l7code/shared/model";
+import { causeErrorTag } from "@l7code/shared/observability";
 
 import {
   isProviderNativeImageAttachment,
   providerMessageTextWithAttachmentPaths,
-} from "@t3tools/provider-core/server/attachmentPrompt";
-import * as IdAllocator from "@t3tools/provider-core/server/IdAllocator";
+} from "@l7code/provider-core/server/attachmentPrompt";
+import * as IdAllocator from "@l7code/provider-core/server/IdAllocator";
 import {
   backgroundWorkNotification,
   type BackgroundWorkReport,
-} from "@t3tools/provider-core/server/notification";
-import * as ProviderContinuationRequests from "@t3tools/provider-core/server/ProviderContinuationRequests";
+} from "@l7code/provider-core/server/notification";
+import * as ProviderContinuationRequests from "@l7code/provider-core/server/ProviderContinuationRequests";
 import {
   makeProviderFailure,
   makeProviderRetryTurnItem,
-} from "@t3tools/provider-core/server/failure";
+} from "@l7code/provider-core/server/failure";
 import {
   makeSubagentChildThread,
   makeSubagentConversationArtifacts,
   subagentThreadTitle,
-} from "@t3tools/provider-core/server/subagentProjection";
-import * as ProviderAdapter from "@t3tools/provider-core/server/ProviderAdapter";
-import { turnScopedSelectionTransition } from "@t3tools/provider-core/server/selectionTransition";
+} from "@l7code/provider-core/server/subagentProjection";
+import * as ProviderAdapter from "@l7code/provider-core/server/ProviderAdapter";
+import { turnScopedSelectionTransition } from "@l7code/provider-core/server/selectionTransition";
 import { OPENCODE_PROVIDER, openCodePermissionRequestKind } from "../adapter.ts";
 import { openCodeToolTurnItem } from "../toolItems.ts";
 
@@ -347,13 +347,13 @@ const rule = (action: string, effect: Rule["effect"]): Rule => ({ action, resour
 
 /** OpenCode hides tools for names over 64 chars and rejects names over 100; hash long thread IDs. */
 export const t3McpServerName = Effect.fn("t3McpServerName")(function* (threadId: string) {
-  const name = `t3-code-${threadId.replaceAll(/[^a-zA-Z0-9_-]/g, "_")}`;
+  const name = `l7-code-${threadId.replaceAll(/[^a-zA-Z0-9_-]/g, "_")}`;
   if (name.length <= 64) return name;
   const crypto = yield* Crypto.Crypto;
   const digest = yield* crypto
     .digest("SHA-256", new TextEncoder().encode(threadId))
     .pipe(Effect.orDie);
-  return `t3-code-${Hex.encode(digest).slice(0, 16)}`;
+  return `l7-code-${Hex.encode(digest).slice(0, 16)}`;
 });
 
 // Last match wins: deny all threads' T3 servers, then allow only this thread's.
@@ -361,7 +361,7 @@ const mcpRules = (mcpServerName: string | null): ReadonlyArray<Rule> =>
   mcpServerName === null
     ? []
     : [
-        { action: "t3-code-*", resource: "*", effect: "deny" },
+        { action: "l7-code-*", resource: "*", effect: "deny" },
         { action: `${mcpServerName}_*`, resource: "*", effect: "allow" },
       ];
 
@@ -519,13 +519,13 @@ const isWakeTurn = (turn: OrchestrationV2ProviderTurn) =>
   turn.nativeTurnRef?.nativeId?.includes(":wake:") === true;
 
 const INTERRUPT_TIMEOUT = "10 seconds";
-const INSTRUCTIONS_KEY = "t3-code";
+const INSTRUCTIONS_KEY = "l7-code";
 const RECONNECT_ATTEMPTS = 5;
 const RECONNECT_DELAY = "2 seconds";
 const RECONCILE_TIMEOUT = "15 seconds";
 const RECONNECT_WAIT = "30 seconds";
 const LOST_BACKGROUND =
-  "T3 Code lost its connection to OpenCode while this subagent ran, so its result is not shown.";
+  "L7 Code lost its connection to OpenCode while this subagent ran, so its result is not shown.";
 const INVENTORY_TIMEOUT = "5 seconds";
 const ACTIVE_CHECK_TIMEOUT = "5 seconds";
 // Other failures may still have admitted the prompt.
@@ -581,7 +581,7 @@ const boundaryAfter = (
       new ProviderAdapter.ProviderAdapterProtocolError({
         driver: OPENCODE_PROVIDER,
         detail:
-          "This OpenCode conversation has turns from an earlier T3 Code version, so it can't be cut there.",
+          "This OpenCode conversation has turns from an earlier L7 Code version, so it can't be cut there.",
       }),
     );
   }
@@ -1662,7 +1662,7 @@ export const make = Effect.fn("OpenCode2Adapter.make")(function* (instanceId: Pr
       yield* finishTurn(state, {
         status: "failed",
         failure: makeProviderFailure({
-          message: "OpenCode is waiting on a request T3 Code couldn't answer.",
+          message: "OpenCode is waiting on a request L7 Code couldn't answer.",
           class: "provider_error",
         }),
       });
@@ -1906,7 +1906,7 @@ export const make = Effect.fn("OpenCode2Adapter.make")(function* (instanceId: Pr
         );
       }
       // Cancel reports user Stop; record failure here and skip that execution end.
-      yield* Effect.logWarning("Declined an OpenCode form T3 Code cannot show.", {
+      yield* Effect.logWarning("Declined an OpenCode form L7 Code cannot show.", {
         reason: mapped.unsupported,
       });
       const cancelled = yield* deliver(
@@ -1919,7 +1919,7 @@ export const make = Effect.fn("OpenCode2Adapter.make")(function* (instanceId: Pr
       yield* finishTurn(asker, {
         status: "failed",
         failure: makeProviderFailure({
-          message: `OpenCode asked for ${mapped.unsupported}, which T3 Code can't show. The question was declined.`,
+          message: `OpenCode asked for ${mapped.unsupported}, which L7 Code can't show. The question was declined.`,
           class: "provider_error",
         }),
       });
@@ -2578,7 +2578,7 @@ export const make = Effect.fn("OpenCode2Adapter.make")(function* (instanceId: Pr
                   status: "failed",
                   failure: makeProviderFailure({
                     message:
-                      "OpenCode ended the turn with an error while T3 Code was reconnecting.",
+                      "OpenCode ended the turn with an error while L7 Code was reconnecting.",
                     class: "provider_error",
                   }),
                 }
@@ -3053,7 +3053,7 @@ export const make = Effect.fn("OpenCode2Adapter.make")(function* (instanceId: Pr
             Effect.timeout(INVENTORY_TIMEOUT),
             Effect.as(true),
             Effect.catchCause((cause) =>
-              Effect.logWarning("Could not add T3 Code's MCP server to OpenCode.", cause).pipe(
+              Effect.logWarning("Could not add L7 Code's MCP server to OpenCode.", cause).pipe(
                 Effect.as(false),
               ),
             ),

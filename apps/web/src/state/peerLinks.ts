@@ -3,9 +3,9 @@ import {
   linkableMachines,
   linkedEnvironmentNames,
   offersLinkedEnvironments,
-} from "@t3tools/client-runtime/link-request";
-import { createPeerLinkEnvironmentAtoms } from "@t3tools/client-runtime/state/peerLinks";
-import { AuthAccessReadScope, type EnvironmentId } from "@t3tools/contracts";
+} from "@l7code/client-runtime/link-request";
+import { createPeerLinkEnvironmentAtoms } from "@l7code/client-runtime/state/peerLinks";
+import { AuthAccessReadScope, type EnvironmentId } from "@l7code/contracts";
 import { Atom } from "effect/reactivity";
 import { useEffect, useEffectEvent } from "react";
 
@@ -78,7 +78,7 @@ export function useLinkableMachines(environmentId: EnvironmentId, enabled: boole
   const discoverIfUnasked = useEffectEvent(() => {
     if (discovery.environments.size === 0 && !discovery.refreshing) void refreshDiscovery();
   });
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- discovery follows the picker's visibility, which a card's mount or a dialog's open sets
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- discovery follows the picker's visibility, which a card's mount or a dialog's open sets
   useEffect(() => {
     if (enabled) discoverIfUnasked();
   }, [enabled]);

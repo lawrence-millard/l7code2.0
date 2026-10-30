@@ -14,7 +14,7 @@ import {
   ScheduledTaskId,
   ThreadId,
   type OrchestrationV2Subagent,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import type { LegendListRef } from "@legendapp/list/react";
 import { createRef, Profiler, StrictMode, type ComponentProps, type ReactElement } from "react";
 import * as DateTime from "effect/DateTime";
@@ -32,7 +32,7 @@ import {
   deriveTimelineEntriesFromVisibleTurnItems,
 } from "../../session-logic";
 import { remarkThoughtPreview } from "./TimelineWorkEntryRow.logic";
-import { parseMarkdownWithMath } from "@t3tools/shared/markdownMath";
+import { parseMarkdownWithMath } from "@l7code/shared/markdownMath";
 import { collectThreadFindRanges } from "./threadFindHighlights";
 import { toastManager } from "../ui/toast";
 import type { CitedHistory } from "./citationProcedure";
@@ -41,8 +41,8 @@ import { rememberTimelinePosition } from "./timelineScrollAnchoring";
 import {
   COMPOSER_CONTEXT_CLIPBOARD_MIME,
   decodeComposerContextFragment,
-} from "@t3tools/shared/composerContextClipboard";
-import { collectComposerContextReferences } from "@t3tools/shared/composerContextReferences";
+} from "@l7code/shared/composerContextClipboard";
+import { collectComposerContextReferences } from "@l7code/shared/composerContextReferences";
 
 const environmentQuery = vi.hoisted(() => ({
   error: "Pull request not found",
@@ -735,7 +735,7 @@ describe("MessagesTimeline agent messages", () => {
     expect(screen.text()).not.toContain("drops the index");
   });
 
-  it("leaves messages sent by T3 Code as full bubbles", async () => {
+  it("leaves messages sent by L7 Code as full bubbles", async () => {
     setup();
     await using screen = await renderTimeline([
       message(AGENT_MESSAGE, { createdBy: "agent", creationSource: "server" }),

@@ -3,8 +3,8 @@ import {
   BearerConnectionTarget,
   type ConnectionCatalogEntry,
   type ConnectionRoute,
-} from "@t3tools/client-runtime/connection";
-import { EnvironmentId } from "@t3tools/contracts";
+} from "@l7code/client-runtime/connection";
+import { EnvironmentId } from "@l7code/contracts";
 import * as Option from "effect/Option";
 import { expect, it, vi } from "vite-plus/test";
 import { userEvent } from "vite-plus/test/browser";

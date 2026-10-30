@@ -1,5 +1,5 @@
 import * as NodeServices from "@effect/platform-node/NodeServices";
-import { ORCHESTRATION_PROTOCOL_VERSION } from "@t3tools/contracts";
+import { ORCHESTRATION_PROTOCOL_VERSION } from "@l7code/contracts";
 import { expect, it } from "@effect/vitest";
 import * as Crypto from "effect/Crypto";
 import * as Deferred from "effect/Deferred";
@@ -7,9 +7,9 @@ import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
 import * as Layer from "effect/Layer";
 
-import { DEFAULT_SIGNAL_EXPORT } from "@t3tools/shared/observability";
-import * as HostProcess from "@t3tools/shared/HostProcess";
-import * as OtelEnvironment from "@t3tools/shared/otelEnvironment";
+import { DEFAULT_SIGNAL_EXPORT } from "@l7code/shared/observability";
+import * as HostProcess from "@l7code/shared/HostProcess";
+import * as OtelEnvironment from "@l7code/shared/otelEnvironment";
 
 import * as ServerSecretStore from "../auth/ServerSecretStore.ts";
 import {
@@ -85,9 +85,9 @@ it.layer(NodeServices.layer)("ServerEnvironmentLive", (it) => {
       yield* fs.writeFileString(entry, "");
       yield* fs.writeFileString(
         `${prefix}/lib/node_modules/t3/package.json`,
-        '{"name":"t3","version":"0.0.45","bin":{"t3":"./dist/bin.mjs"}}',
+        '{"name":"l7","version":"0.0.45","bin":{"l7":"./dist/bin.mjs"}}',
       );
-      yield* fs.symlink(entry, `${prefix}/bin/t3`);
+      yield* fs.symlink(entry, `${prefix}/bin/l7`);
       const config = yield* makeServerConfig(baseDir);
       yield* fs.makeDirectory(config.stateDir, { recursive: true });
       for (const mode of ["web", "desktop"] as const) {

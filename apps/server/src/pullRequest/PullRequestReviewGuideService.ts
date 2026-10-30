@@ -21,9 +21,9 @@ import {
   ProjectId,
   type RepositoryIdentity,
   type ThreadPullRequestKey,
-} from "@t3tools/contracts";
-import type { ReviewGuideStackLayer } from "@t3tools/provider-core/server/textGeneration";
-import { resolveProjectSettings } from "@t3tools/shared/projectSettings";
+} from "@l7code/contracts";
+import type { ReviewGuideStackLayer } from "@l7code/provider-core/server/textGeneration";
+import { resolveProjectSettings } from "@l7code/shared/projectSettings";
 import { sourceControlDefinitions } from "../sourceControl/sourceControlDefinitions.ts";
 
 import * as ServerConfig from "../config.ts";

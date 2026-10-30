@@ -1,5 +1,5 @@
-import { scopeThreadRef } from "@t3tools/client-runtime/environment";
-import type { EnvironmentId, ScopedThreadRef, ThreadId } from "@t3tools/contracts";
+import { scopeThreadRef } from "@l7code/client-runtime/environment";
+import type { EnvironmentId, ScopedThreadRef, ThreadId } from "@l7code/contracts";
 import { useState } from "react";
 
 function toThreadRef(

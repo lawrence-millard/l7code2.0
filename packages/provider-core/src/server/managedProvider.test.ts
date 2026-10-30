@@ -5,8 +5,8 @@ import {
   ProviderInstanceId,
   ServerSettingsError,
   type ServerProvider,
-} from "@t3tools/contracts";
-import { createModelCapabilities } from "@t3tools/shared/model";
+} from "@l7code/contracts";
+import { createModelCapabilities } from "@l7code/shared/model";
 import * as Cache from "effect/Cache";
 import * as Deferred from "effect/Deferred";
 import * as Effect from "effect/Effect";

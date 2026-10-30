@@ -1,14 +1,14 @@
 import { useAtomMount, useAtomSubscribe, useAtomValue } from "@effect/atom-react";
-import { resolveFilesystemReadAccess } from "@t3tools/client-runtime/state/filesystem";
+import { resolveFilesystemReadAccess } from "@l7code/client-runtime/state/filesystem";
 import {
   assetUrlStateFromResult,
   blockedAssetUrlState,
   createAssetEnvironmentAtoms,
   createProjectFaviconUrlAtomFamily,
   EMPTY_ASSET_URL_ATOM,
-} from "@t3tools/client-runtime/state/assets";
-import { executeAtomQuery } from "@t3tools/client-runtime/state/runtime";
-import type { AssetResource, EnvironmentId } from "@t3tools/contracts";
+} from "@l7code/client-runtime/state/assets";
+import { executeAtomQuery } from "@l7code/client-runtime/state/runtime";
+import type { AssetResource, EnvironmentId } from "@l7code/contracts";
 import * as Effect from "effect/Effect";
 import { Atom, AsyncResult } from "effect/reactivity";
 

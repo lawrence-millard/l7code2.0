@@ -1,13 +1,13 @@
 import { AsyncResult } from "effect/reactivity";
 import * as Dialog from "../../components/ui/Dialog";
 import { useAtomRefresh } from "@effect/atom-react";
-import { squashAtomCommandFailure } from "@t3tools/client-runtime/state/runtime";
-import { sourceControlClients } from "@t3tools/client-runtime/source-control-clients";
+import { squashAtomCommandFailure } from "@l7code/client-runtime/state/runtime";
+import { sourceControlClients } from "@l7code/client-runtime/source-control-clients";
 import type {
   PullRequestAction,
   PullRequestDetail,
   PullRequestUpdateMethod,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import { useRef, useState } from "react";
 import { composerPullRequests } from "../../state/pull-requests";
 import { useAtomCommand } from "../../state/use-atom-command";

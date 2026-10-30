@@ -1,6 +1,6 @@
-import { ClientSettingsSchema, type ClientSettings } from "@t3tools/contracts";
-import { fromLenientJson } from "@t3tools/shared/schemaJson";
-import { resolveSymlinkTarget } from "@t3tools/shared/symlink";
+import { ClientSettingsSchema, type ClientSettings } from "@l7code/contracts";
+import { fromLenientJson } from "@l7code/shared/schemaJson";
+import { resolveSymlinkTarget } from "@l7code/shared/symlink";
 import * as Context from "effect/Context";
 import * as Crypto from "effect/Crypto";
 import * as Effect from "effect/Effect";
@@ -70,7 +70,7 @@ export class DesktopClientSettings extends Context.Service<
       settings: ClientSettings,
     ) => Effect.Effect<void, DesktopClientSettingsWriteError>;
   }
->()("@t3tools/desktop/settings/DesktopClientSettings") {}
+>()("@l7code/desktop/settings/DesktopClientSettings") {}
 
 const readClientSettings = (
   fileSystem: FileSystem.FileSystem,

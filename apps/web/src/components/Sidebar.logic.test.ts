@@ -1,5 +1,5 @@
-import { presentThreadShell } from "@t3tools/client-runtime/state/models";
-import { isThreadWorking as isSidebarThreadWorking } from "@t3tools/client-runtime/state/thread-inbox";
+import { presentThreadShell } from "@l7code/client-runtime/state/models";
+import { isThreadWorking as isSidebarThreadWorking } from "@l7code/client-runtime/state/thread-inbox";
 import * as DateTime from "effect/DateTime";
 import { deriveActiveWorkStartedAt } from "../session-logic.ts";
 import { describe, expect, it, vi } from "vite-plus/test";
@@ -37,14 +37,14 @@ import {
   resolveSidebarFolderDot,
   sidebarFolderExpansionKeys,
 } from "./Sidebar.logic";
-import { scopeThreadRef, scopedThreadKey } from "@t3tools/client-runtime/environment";
+import { scopeThreadRef, scopedThreadKey } from "@l7code/client-runtime/environment";
 import {
   sortActiveThreadsByOrderKey,
   sortPinnedThreadsByOrderKey,
-} from "@t3tools/client-runtime/state/thread-sort";
+} from "@l7code/client-runtime/state/thread-sort";
 import { resolveProjectExpanded } from "../uiStateStore";
-import { threadSearchMatchKey } from "@t3tools/client-runtime/state/thread-search";
-import { EnvironmentId, ProjectId, ProviderInstanceId, RunId, ThreadId } from "@t3tools/contracts";
+import { threadSearchMatchKey } from "@l7code/client-runtime/state/thread-search";
+import { EnvironmentId, ProjectId, ProviderInstanceId, RunId, ThreadId } from "@l7code/contracts";
 
 import {
   DEFAULT_INTERACTION_MODE,
@@ -1596,8 +1596,8 @@ describe("resolveSidebarRouteReveal", () => {
 describe("sidebarFolderExpansionKeys", () => {
   it("honors a collapse the legacy sidebar saved under a member's cwd", () => {
     const keys = sidebarFolderExpansionKeys({
-      projectKey: "github.com/pingdotgg/t3code",
-      memberProjects: [{ physicalProjectKey: "local:/code/t3code", workspaceRoot: "/code/t3code" }],
+      projectKey: "github.com/lawrence-millard/l7code2.0",
+      memberProjects: [{ physicalProjectKey: "local:/code/l7code", workspaceRoot: "/code/l7code" }],
     });
     const cwdKey = keys.at(-1)!;
 
@@ -1610,8 +1610,8 @@ describe("sidebarFolderExpansionKeys", () => {
 describe("groupSidebarThreadsByProject", () => {
   it("puts each thread in its project's folder and drops empty projects unless kept", () => {
     const remoteEnvironmentId = EnvironmentId.make("environment-remote");
-    const t3code = ProjectId.make("t3code");
-    const t3codeRemote = ProjectId.make("t3code-remote");
+    const l7code = ProjectId.make("l7code");
+    const l7codeRemote = ProjectId.make("l7code-remote");
     const fleet = ProjectId.make("fleet");
     const thread = (id: string, environmentId: EnvironmentId, projectId: ProjectId) => ({
       id,
@@ -1620,10 +1620,10 @@ describe("groupSidebarThreadsByProject", () => {
     });
     const groups = [
       {
-        projectKey: "t3code",
+        projectKey: "l7code",
         memberProjectRefs: [
-          { environmentId: localEnvironmentId, projectId: t3code },
-          { environmentId: remoteEnvironmentId, projectId: t3codeRemote },
+          { environmentId: localEnvironmentId, projectId: l7code },
+          { environmentId: remoteEnvironmentId, projectId: l7codeRemote },
         ],
       },
       {
@@ -1633,9 +1633,9 @@ describe("groupSidebarThreadsByProject", () => {
     ];
 
     const threads = [
-      thread("a", localEnvironmentId, t3code),
+      thread("a", localEnvironmentId, l7code),
       thread("orphan", localEnvironmentId, ProjectId.make("deleted")),
-      thread("b", remoteEnvironmentId, t3codeRemote),
+      thread("b", remoteEnvironmentId, l7codeRemote),
     ];
     const summarize = (keepEmpty: boolean) =>
       groupSidebarThreadsByProject(groups, threads, keepEmpty).map((folder) => ({
@@ -1644,10 +1644,10 @@ describe("groupSidebarThreadsByProject", () => {
       }));
 
     expect(summarize(true)).toEqual([
-      { projectKey: "t3code", threads: ["a", "b"] },
+      { projectKey: "l7code", threads: ["a", "b"] },
       { projectKey: "fleet", threads: [] },
     ]);
-    expect(summarize(false)).toEqual([{ projectKey: "t3code", threads: ["a", "b"] }]);
+    expect(summarize(false)).toEqual([{ projectKey: "l7code", threads: ["a", "b"] }]);
   });
 });
 

@@ -1,12 +1,12 @@
-import { scopeProjectRef, scopeThreadRef } from "@t3tools/client-runtime/environment";
+import { scopeProjectRef, scopeThreadRef } from "@l7code/client-runtime/environment";
 import {
   isAtomCommandInterrupted,
   squashAtomCommandFailure,
-} from "@t3tools/client-runtime/state/runtime";
-import type { EnvironmentId, ScopedThreadRef } from "@t3tools/contracts";
-import { sourceControlClients } from "@t3tools/client-runtime/source-control-clients";
-import { promptLinkAppPath } from "@t3tools/shared/promptLinks";
-import { readPairingAppLink, resolveRemotePairingTarget } from "@t3tools/shared/remote";
+} from "@l7code/client-runtime/state/runtime";
+import type { EnvironmentId, ScopedThreadRef } from "@l7code/contracts";
+import { sourceControlClients } from "@l7code/client-runtime/source-control-clients";
+import { promptLinkAppPath } from "@l7code/shared/promptLinks";
+import { readPairingAppLink, resolveRemotePairingTarget } from "@l7code/shared/remote";
 import { useRouter } from "@tanstack/react-router";
 import * as Effect from "effect/Effect";
 import { AtomRegistry } from "effect/reactivity";
@@ -250,7 +250,7 @@ export function DesktopWebLinkCoordinator() {
     });
   });
 
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- subscribes to desktop web link opens over the bridge and marks the renderer ready
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- subscribes to desktop web link opens over the bridge and marks the renderer ready
   useEffect(() => {
     if (!ready || webLinks === undefined) return;
     let subscribed = true;

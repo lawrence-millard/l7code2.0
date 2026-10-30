@@ -8,16 +8,16 @@ import {
   type OrchestrationV2IdleCompaction,
   type OrchestrationV2UserMessageInputIntent,
   ScheduledTaskId,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import {
   isAttachmentOnlyBootstrapPrompt,
   replaceComposerContextReferences,
-} from "@t3tools/shared/composerContextReferences";
-import { filePreviewKind } from "@t3tools/shared/filePreview";
-import { imageMimeType } from "@t3tools/shared/image";
-import { videoMimeType } from "@t3tools/shared/video";
+} from "@l7code/shared/composerContextReferences";
+import { filePreviewKind } from "@l7code/shared/filePreview";
+import { imageMimeType } from "@l7code/shared/image";
+import { videoMimeType } from "@l7code/shared/video";
 
-/** The working row while T3 Code's own compaction runs. */
+/** The working row while L7 Code's own compaction runs. */
 export const IDLE_COMPACTING_LABELS = {
   beforeCacheExpires: "Compacting before the cache expires…",
   onReturn: "Compacting…",
@@ -68,7 +68,7 @@ export function resolveUserMessagePresentation(message: {
   readonly context?: { readonly guest?: GuestMessageAttribution | undefined } | undefined;
 }): {
   readonly text: string;
-  readonly attribution: "automation" | "agent" | "t3code" | "guest" | null;
+  readonly attribution: "automation" | "agent" | "l7code" | "guest" | null;
   readonly scheduledTaskId: ScheduledTaskId | undefined;
   /** Set when `attribution` is "guest". */
   readonly guestName?: string;
@@ -111,7 +111,7 @@ export function resolveUserMessagePresentation(message: {
       message.createdBy !== "agent"
         ? null
         : message.creationSource === "server"
-          ? "t3code"
+          ? "l7code"
           : "agent",
     scheduledTaskId: undefined,
   };

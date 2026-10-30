@@ -13,7 +13,7 @@ import { ThreadCommandOutput, useCommandOutputStreaming } from "./thread-command
 import {
   getQuestionAnswerPreview,
   hasQuestionAnswer,
-} from "@t3tools/client-runtime/work-log/user-input";
+} from "@l7code/client-runtime/work-log/user-input";
 import * as Haptics from "expo-haptics";
 import { Image } from "expo-image";
 import { type AppSymbolName, SymbolView } from "../../components/ui/AppSymbol";
@@ -48,13 +48,13 @@ import {
   type RunId,
   type ThreadId,
   type ToolActivityIcon,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import { useAtomValue } from "@effect/atom-react";
-import { scopeThreadRef } from "@t3tools/client-runtime/environment";
+import { scopeThreadRef } from "@l7code/client-runtime/environment";
 import { environmentThreadDetails, threadEnvironment } from "../../state/threads";
 import { useAtomCommand } from "../../state/use-atom-command";
-import { toolActivityFaviconUrl } from "@t3tools/shared/favicon";
-import { isJavaScriptReplTool } from "@t3tools/shared/toolActivity";
+import { toolActivityFaviconUrl } from "@l7code/shared/favicon";
+import { isJavaScriptReplTool } from "@l7code/shared/toolActivity";
 import { useMarkdownCodeHighlight } from "./markdownCodeHighlightState";
 
 import { AppText as Text } from "../../components/ui/AppText";
@@ -72,7 +72,7 @@ import {
   toolCallLines,
   turnItemOutputImages,
   turnItemOutputText,
-} from "@t3tools/client-runtime/work-log/item-detail";
+} from "@l7code/client-runtime/work-log/item-detail";
 import { useTurnItemDetail } from "../../state/queries";
 import {
   resolveThreadWorkGroupInitialScroll,
@@ -84,9 +84,9 @@ import {
   toolGroupAction,
   type ToolGroupSummaryKind,
   workEntryViewedImagePath,
-} from "@t3tools/client-runtime/work-log/presentation";
-import { resolveWorkGroupScrollAnchor } from "@t3tools/client-runtime/work-log/scroll-anchor";
-import { notificationChildThreadId } from "@t3tools/client-runtime/state/thread-execution";
+} from "@l7code/client-runtime/work-log/presentation";
+import { resolveWorkGroupScrollAnchor } from "@l7code/client-runtime/work-log/scroll-anchor";
+import { notificationChildThreadId } from "@l7code/client-runtime/state/thread-execution";
 import type { MarkdownImageRenderer } from "../../native/SelectableMarkdownText";
 import type { FilePreviewSource } from "../../components/FilePreviewModal";
 import { FilePreviewGallery } from "../../components/FilePreviewGallery";
@@ -117,7 +117,7 @@ type WorkContentIcon =
   | "browser"
   | "computer"
   | "device"
-  | "t3-code"
+  | "l7-code"
   | "pull-request";
 
 function WorkLogIcon(props: {
@@ -127,7 +127,7 @@ function WorkLogIcon(props: {
   readonly highlighted?: boolean;
 }) {
   const colorClassName = props.highlighted ? "accent-foreground" : props.colorClassName;
-  if (props.icon === "t3-code") {
+  if (props.icon === "l7-code") {
     return (
       <T3Wordmark height={10} {...(colorClassName ? { colorClassName } : { color: props.color })} />
     );
@@ -168,7 +168,7 @@ export function ThreadDisclosureChevron(props: {
   const expandedAngle = props.collapsedDirection === "right" ? 90 : 180;
   const rotation = useSharedValue(props.expanded ? expandedAngle : 0);
 
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- drives the chevron's Reanimated rotation value when the expanded state changes
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- drives the chevron's Reanimated rotation value when the expanded state changes
   useLayoutEffect(() => {
     rotation.set(
       withTiming(props.expanded ? expandedAngle : 0, {
@@ -277,7 +277,7 @@ export function ShimmeringWorkContent(props: {
   // Runs on React Native's native driver instead of Reanimated, whose
   // per-frame commits starve React's while commit pausing is disabled
   // (package.json). See docs/internals/performance-regressions.md.
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- starts the native-driver shimmer loop while visible and active, and stops it on cleanup
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- starts the native-driver shimmer loop while visible and active, and stops it on cleanup
   useEffect(() => {
     progress.setValue(0);
     if (contentWidth <= 0 || reducedMotion || !appIsActive || !screenIsFocused) return;
@@ -672,7 +672,7 @@ function ThreadWorkGroupList(props: {
   });
   // Native ScrollView reports size after LegendList lays out rows. Use LegendList's JS size
   // so group height and row measurements settle in the same commit.
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- subscribes to LegendList's totalSize state to report content height in the same commit
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- subscribes to LegendList's totalSize state to report content height in the same commit
   useLayoutEffect(() => {
     const list = listRef.current;
     if (!list) return;
@@ -694,7 +694,7 @@ function ThreadWorkGroupList(props: {
 
   return (
     <View style={{ height, overflow: "hidden" }}>
-      {/* oxlint-disable-next-line t3code/require-registered-list-scroll -- Nested in a fixed-height card inside the thread feed, which owns the header's scroll view. */}
+      {/* oxlint-disable-next-line l7code/require-registered-list-scroll -- Nested in a fixed-height card inside the thread feed, which owns the header's scroll view. */}
       <AnimatedLegendList
         ref={listRef}
         data={props.activities}
@@ -1277,9 +1277,9 @@ export function ThreadWorkGroupToggle(props: {
   readonly iconSubtleColor: import("react-native").ColorValue;
   readonly summary: string;
   readonly summaryKind: ToolGroupSummaryKind;
-  readonly summaryToolIcon?: "browser" | "device" | "t3-code" | "pull-request" | "brain";
+  readonly summaryToolIcon?: "browser" | "device" | "l7-code" | "pull-request" | "brain";
   readonly themeAppearance: "light" | "dark";
-  readonly toolSurface?: import("@t3tools/contracts").ToolActivitySurface;
+  readonly toolSurface?: import("@l7code/contracts").ToolActivitySurface;
   readonly toolIcon?: ToolActivityIcon;
   readonly hasFailure: boolean;
   readonly shimmer: boolean;

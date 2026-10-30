@@ -1,8 +1,8 @@
-import { settlePromise } from "@t3tools/client-runtime/state/runtime";
-import type { EnvironmentId, ThreadId } from "@t3tools/contracts";
+import { settlePromise } from "@l7code/client-runtime/state/runtime";
+import type { EnvironmentId, ThreadId } from "@l7code/contracts";
 import { resolveMobileMarkdownMediaSource } from "../../lib/markdownMediaSource";
-import { getBrowseDirectoryPath } from "@t3tools/client-runtime/state/projects";
-import { maskMarkdownFrontmatter } from "@t3tools/shared/markdownFrontmatter";
+import { getBrowseDirectoryPath } from "@l7code/client-runtime/state/projects";
+import { maskMarkdownFrontmatter } from "@l7code/shared/markdownFrontmatter";
 import { useState } from "react";
 import { StackActions, useNavigation } from "@react-navigation/native";
 import { RefreshControl, ScrollView, View } from "react-native";

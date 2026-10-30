@@ -1,4 +1,4 @@
-import type { KeybindingCommand, ResolvedKeybindingsConfig } from "@t3tools/contracts";
+import type { KeybindingCommand, ResolvedKeybindingsConfig } from "@l7code/contracts";
 import { useEffect, useEffectEvent } from "react";
 import { isCommandPaletteOpen } from "../../commandPaletteBus";
 import { resolveChatShortcutCommand, type ShortcutMatchContext } from "../../keybindings";
@@ -98,7 +98,7 @@ export function useChatShortcuts(input: ChatShortcutsInput) {
     event.preventDefault();
     input.closeThreadFind();
   });
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- attaches window keydown listeners for chat shortcuts and find dismissal for the component's lifetime
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- attaches window keydown listeners for chat shortcuts and find dismissal for the component's lifetime
   useEffect(() => {
     const onKeyDownCapture = (event: KeyboardEvent) => handleShortcut(event);
     const onKeyDown = (event: KeyboardEvent) => dismissFind(event);

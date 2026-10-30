@@ -5,7 +5,7 @@ import {
   dynamicToolTitle,
   formatReadToolLabel,
   formatSearchToolLabel,
-} from "@t3tools/shared/toolActivity";
+} from "@l7code/shared/toolActivity";
 import { field, text } from "../unknownField.ts";
 import { mergeWorkflowAgentMetadata, type WorkflowAgentMetadata } from "../workflowAgentAnswers.ts";
 import {
@@ -20,7 +20,7 @@ import {
   parseClaudeWorkflowRunHandles,
 } from "./claudeWorkflowProgress.ts";
 
-import { isWorkspaceImagePreviewPath } from "@t3tools/shared/filePreview";
+import { isWorkspaceImagePreviewPath } from "@l7code/shared/filePreview";
 import { normalizeClaudeTurnTokenUsage } from "../../provider/ClaudeTurnTokenUsage.ts";
 import { toMcpElicitationResponse } from "../../provider/CodexMcpElicitation.ts";
 import {
@@ -58,16 +58,16 @@ import type {
 // @effect-diagnostics-next-line nodeBuiltinImport:off -- the SDK takes a Node ChildProcess for the CLI.
 import * as NodeChildProcess from "node:child_process";
 import * as NodeUtil from "node:util";
-import { parseCliArgs } from "@t3tools/shared/cliArgs";
-import { fromLenientJson } from "@t3tools/shared/schemaJson";
-import { AgentScope } from "@t3tools/shared/AgentScope";
-import * as HostProcess from "@t3tools/shared/HostProcess";
-import { applyClaudePromptEffortPrefix } from "@t3tools/shared/model";
+import { parseCliArgs } from "@l7code/shared/cliArgs";
+import { fromLenientJson } from "@l7code/shared/schemaJson";
+import { AgentScope } from "@l7code/shared/AgentScope";
+import * as HostProcess from "@l7code/shared/HostProcess";
+import { applyClaudePromptEffortPrefix } from "@l7code/shared/model";
 import {
   CLAUDE_RESUME_COMPACTION_COMPACT_ANSWER,
   CLAUDE_RESUME_COMPACTION_NEVER_ANSWER,
   formatClaudeResumeCompactionQuestion,
-} from "@t3tools/shared/claudeCompaction";
+} from "@l7code/shared/claudeCompaction";
 import {
   type ChatAttachment,
   PROVIDER_SEND_TURN_MAX_FILE_BYTES,
@@ -107,7 +107,7 @@ import {
   type RunId,
   type ThreadId,
   resolveIdleCompaction,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 
 import { FILE_HEADERS_ONLY, formatPatch, structuredPatch } from "diff";
 import * as Cause from "effect/Cause";
@@ -149,9 +149,9 @@ import {
 import * as ServerConfig from "../../config.ts";
 import * as PortScanner from "../../preview/PortScanner.ts";
 import * as ServerSettings from "../../serverSettings.ts";
-import { expandHomePath } from "@t3tools/provider-core/server/pathExpansion";
-import { spawnAndCollect } from "@t3tools/provider-core/server/snapshotProbe";
-import { signalProcessGroup } from "@t3tools/provider-core/server/processGroup";
+import { expandHomePath } from "@l7code/provider-core/server/pathExpansion";
+import { spawnAndCollect } from "@l7code/provider-core/server/snapshotProbe";
+import { signalProcessGroup } from "@l7code/provider-core/server/processGroup";
 import {
   claudeSignedOutMessage,
   makeClaudeEnvironment,
@@ -169,46 +169,46 @@ import {
   boundProviderEventForLogging,
   shouldPersistProviderEvent,
 } from "../../provider/EventNdjsonLogger.ts";
-import * as ProviderEventLoggers from "@t3tools/provider-core/server/ProviderEventLoggers";
+import * as ProviderEventLoggers from "@l7code/provider-core/server/ProviderEventLoggers";
 import {
   claudeRateLimitEventToUpdate,
   type ClaudeScopedLimitNames,
 } from "../../provider/claudeUsageLimits.ts";
-import type { ManagedServerProvider } from "@t3tools/provider-core/server/snapshot";
-import { mergeProviderInstanceEnvironment } from "@t3tools/provider-core/server/instanceEnvironment";
+import type { ManagedServerProvider } from "@l7code/provider-core/server/snapshot";
+import { mergeProviderInstanceEnvironment } from "@l7code/provider-core/server/instanceEnvironment";
 import {
   T3_CODE_DEVICE_TOOL_INSTRUCTIONS_WITH_TOOL_SEARCH,
   T3_CODE_ORCHESTRATION_INSTRUCTIONS,
-} from "@t3tools/provider-core/server/orchestrationInstructions";
-import { buildRuntimeInstructions } from "@t3tools/provider-core/server/runtimeInstructions";
+} from "@l7code/provider-core/server/orchestrationInstructions";
+import { buildRuntimeInstructions } from "@l7code/provider-core/server/runtimeInstructions";
 import {
   mcpToolPresentation,
   normalizeMcpText,
-} from "@t3tools/provider-core/server/mcpToolPresentation";
-import * as McpProviderSession from "@t3tools/provider-core/server/mcpSession";
-import * as McpProviderSessions from "@t3tools/provider-core/server/McpProviderSessions";
-import * as IdAllocator from "@t3tools/provider-core/server/IdAllocator";
+} from "@l7code/provider-core/server/mcpToolPresentation";
+import * as McpProviderSession from "@l7code/provider-core/server/mcpSession";
+import * as McpProviderSessions from "@l7code/provider-core/server/McpProviderSessions";
+import * as IdAllocator from "@l7code/provider-core/server/IdAllocator";
 import {
   makeProviderFailure,
   makeProviderRetryTurnItem,
-} from "@t3tools/provider-core/server/failure";
-import { turnScopedSelectionTransition } from "@t3tools/provider-core/server/selectionTransition";
-import { providerMessageTextWithAttachmentPaths } from "@t3tools/provider-core/server/attachmentPrompt";
-import * as ProviderAdapter from "@t3tools/provider-core/server/ProviderAdapter";
+} from "@l7code/provider-core/server/failure";
+import { turnScopedSelectionTransition } from "@l7code/provider-core/server/selectionTransition";
+import { providerMessageTextWithAttachmentPaths } from "@l7code/provider-core/server/attachmentPrompt";
+import * as ProviderAdapter from "@l7code/provider-core/server/ProviderAdapter";
 import {
   ProviderAdapterDriverCreateError,
   type ProviderAdapterDriverCreateInput,
-} from "@t3tools/provider-core/server/adapterDriver";
+} from "@l7code/provider-core/server/adapterDriver";
 import {
   type BackgroundWorkReport,
   backgroundWorkNotification,
-} from "@t3tools/provider-core/server/notification";
-import * as ProviderContinuationRequests from "@t3tools/provider-core/server/ProviderContinuationRequests";
+} from "@l7code/provider-core/server/notification";
+import * as ProviderContinuationRequests from "@l7code/provider-core/server/ProviderContinuationRequests";
 import {
   makeSubagentChildThread,
   makeSubagentConversationArtifacts,
   subagentThreadTitle,
-} from "@t3tools/provider-core/server/subagentProjection";
+} from "@l7code/provider-core/server/subagentProjection";
 
 export const CLAUDE_PROVIDER = ProviderDriverKind.make("claudeAgent");
 const CLAUDE_AGENT_SDK_QUERY_PROTOCOL = "claude-agent-sdk.query" as const;
@@ -1684,24 +1684,24 @@ const readClaudeLaunchArgSettings = Effect.fn("ClaudeAdapterV2.readLaunchArgSett
   },
 );
 
-export const CLAUDE_T3_MCP_TOOL_WILDCARD = "mcp__t3-code__*";
+export const CLAUDE_T3_MCP_TOOL_WILDCARD = "mcp__l7-code__*";
 
 // Keep in sync with OrchestratorToolkit Tool.Readonly annotations; ClaudeAdapterV2.test.ts checks this.
 export const CLAUDE_READ_ONLY_T3_MCP_ALLOWED_TOOLS: ReadonlyArray<string> = [
-  "mcp__t3-code__orchestrator_capabilities",
-  "mcp__t3-code__list_scheduled_tasks",
-  "mcp__t3-code__t3_thread_list",
-  "mcp__t3-code__t3_thread_wait",
-  "mcp__t3-code__t3_worktree_status",
-  "mcp__t3-code__t3_worktree_list",
-  "mcp__t3-code__t3_project_list",
-  "mcp__t3-code__t3_project_read",
-  "mcp__t3-code__t3_thread_search",
-  "mcp__t3-code__t3_preview_list",
-  "mcp__t3-code__t3_environment_read",
-  "mcp__t3-code__t3_environment_links",
-  "mcp__t3-code__html_preview",
-  "mcp__t3-code__html_render",
+  "mcp__l7-code__orchestrator_capabilities",
+  "mcp__l7-code__list_scheduled_tasks",
+  "mcp__l7-code__t3_thread_list",
+  "mcp__l7-code__t3_thread_wait",
+  "mcp__l7-code__t3_worktree_status",
+  "mcp__l7-code__t3_worktree_list",
+  "mcp__l7-code__t3_project_list",
+  "mcp__l7-code__t3_project_read",
+  "mcp__l7-code__t3_thread_search",
+  "mcp__l7-code__t3_preview_list",
+  "mcp__l7-code__t3_environment_read",
+  "mcp__l7-code__t3_environment_links",
+  "mcp__l7-code__html_preview",
+  "mcp__l7-code__html_render",
 ];
 
 // T3 waits can block for an hour; exceed Claude's default 60 s timeout.
@@ -1728,7 +1728,7 @@ export function claudeMcpQueryOverrides(input: {
   return {
     allowedTools: Array.from(new Set([...(input.allowedTools ?? []), ...mcpAllowedTools])),
     mcpServers: {
-      "t3-code": {
+      "l7-code": {
         type: "http",
         url: session.endpoint,
         headers: {
@@ -8329,7 +8329,7 @@ export const makeClaudeAdapterV2 = Effect.fn("makeClaudeAdapterV2")(function* (
               failure: makeProviderFailure({
                 class: "provider_error",
                 code: "claude_mod_ui_unsupported",
-                message: `The Claude Code mod "${focusedPlugin}" is waiting for input in its terminal pane, which T3 Code cannot show. Disable the mod for sessions run from T3 Code, or run the task in the Claude Code terminal.`,
+                message: `The Claude Code mod "${focusedPlugin}" is waiting for input in its terminal pane, which L7 Code cannot show. Disable the mod for sessions run from L7 Code, or run the task in the Claude Code terminal.`,
               }),
             });
             // Closing ends the CLI process and abandons the held tool call

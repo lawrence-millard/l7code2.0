@@ -11,10 +11,10 @@ import {
   RelayEnvironmentHealthResponseProofPayload,
   RelayEnvironmentMintResponse,
   RelayEnvironmentMintResponseProofPayload,
-} from "@t3tools/contracts/relay";
+} from "@l7code/contracts/relay";
 import { describe, expect, it } from "@effect/vitest";
 import * as DateTime from "effect/DateTime";
-import { RELAY_HEALTH_RESPONSE_TYP, RELAY_MINT_RESPONSE_TYP } from "@t3tools/shared/relayJwt";
+import { RELAY_HEALTH_RESPONSE_TYP, RELAY_MINT_RESPONSE_TYP } from "@l7code/shared/relayJwt";
 import * as Effect from "effect/Effect";
 import * as Layer from "effect/Layer";
 import * as Redacted from "effect/Redacted";
@@ -64,12 +64,12 @@ const settings = RelayConfiguration.RelayConfiguration.of({
     teamId: "team-id",
     keyId: "key-id",
     privateKey: Redacted.make("private-key"),
-    bundleId: "com.t3tools.t3code.dev",
+    bundleId: "com.l7code.app.dev",
   },
   apnsDeliveryJobSigningSecret: Redacted.make("job-secret"),
   clerkSecretKey: Redacted.make("clerk-secret"),
   clerkPublishableKey: "pk_test_test",
-  clerkJwtAudience: "t3-code-relay",
+  clerkJwtAudience: "l7-code-relay",
   cloudMintPrivateKey: Redacted.make(cloudKeyPair.privateKey),
   cloudMintPublicKey: cloudKeyPair.publicKey,
   managedEndpointBaseDomain: "example.test",

@@ -1,24 +1,24 @@
-import { worktreeSetupAgentStarted } from "@t3tools/client-runtime/worktree-setup";
-import { resolveUserMessagePresentation } from "@t3tools/client-runtime/user-message";
-import { isLiveSubagentTurnItem } from "@t3tools/client-runtime/state/subagentRuntime";
+import { worktreeSetupAgentStarted } from "@l7code/client-runtime/worktree-setup";
+import { resolveUserMessagePresentation } from "@l7code/client-runtime/user-message";
+import { isLiveSubagentTurnItem } from "@l7code/client-runtime/state/subagentRuntime";
 import * as DateTime from "effect/DateTime";
 import * as Equal from "effect/Equal";
 import {
   assistantCitationLabel,
   collectAssistantCitations,
-} from "@t3tools/shared/assistantCitations";
+} from "@l7code/shared/assistantCitations";
 import { shallow } from "zustand/vanilla/shallow";
-import { claudeResumeCompactionAge } from "@t3tools/shared/claudeCompaction";
+import { claudeResumeCompactionAge } from "@l7code/shared/claudeCompaction";
 import {
   IDLE_COMPACTING_LABELS,
   IDLE_COMPACTION_TITLES,
-} from "@t3tools/client-runtime/user-message";
-import type { HandoffTimelineRun } from "@t3tools/client-runtime/handoff";
-import { renderCodexDirectivesForCopy } from "@t3tools/shared/codexMarkdownDirectives";
+} from "@l7code/client-runtime/user-message";
+import type { HandoffTimelineRun } from "@l7code/client-runtime/handoff";
+import { renderCodexDirectivesForCopy } from "@l7code/shared/codexMarkdownDirectives";
 import {
   commandDisplayText,
   commandProgramName,
-} from "@t3tools/client-runtime/work-log/command-label";
+} from "@l7code/client-runtime/work-log/command-label";
 import {
   liveActivityToolStatus,
   normalizeCompactToolLabel,
@@ -28,7 +28,7 @@ import {
   toolGroupSummaryKind,
   contextCompactionTokenCounts,
   type ToolGroupSummaryKind,
-} from "@t3tools/client-runtime/work-log/presentation";
+} from "@l7code/client-runtime/work-log/presentation";
 import {
   deriveRevertTurnCountByUserMessageId,
   formatDuration,
@@ -60,20 +60,20 @@ import {
   RunId,
   type ThreadId,
   type TurnItemId,
-} from "@t3tools/contracts";
-import type { ThreadRunSummary } from "@t3tools/client-runtime/state/shell";
-import { resolveT3McpToolDefinition } from "@t3tools/shared/t3McpToolPresentation";
-import { compactDynamicToolOutput } from "@t3tools/shared/toolOutput";
-import { htmlRenderReferencesEqual, type HtmlRenderReference } from "@t3tools/shared/htmlRender";
-import { mcpAppReferencesEqual, type McpAppReference } from "@t3tools/shared/mcpApp";
-import { dynamicToolTitle } from "@t3tools/shared/toolActivity";
+} from "@l7code/contracts";
+import type { ThreadRunSummary } from "@l7code/client-runtime/state/shell";
+import { resolveT3McpToolDefinition } from "@l7code/shared/l7McpToolPresentation";
+import { compactDynamicToolOutput } from "@l7code/shared/toolOutput";
+import { htmlRenderReferencesEqual, type HtmlRenderReference } from "@l7code/shared/htmlRender";
+import { mcpAppReferencesEqual, type McpAppReference } from "@l7code/shared/mcpApp";
+import { dynamicToolTitle } from "@l7code/shared/toolActivity";
 import { formatWorkspaceRelativePath } from "../../filePathDisplay";
 import {
   collectToolFilePaths,
   formatReadToolLabel,
   formatSearchToolLabel,
-} from "@t3tools/shared/toolActivity";
-import { isWindowsAbsolutePath } from "@t3tools/shared/path";
+} from "@l7code/shared/toolActivity";
+import { isWindowsAbsolutePath } from "@l7code/shared/path";
 
 function timelineEntryRunId(entry: TimelineEntry): RunId | null {
   if (entry.kind === "message") {
@@ -578,7 +578,7 @@ type MessagesTimelineRowContent =
       label: string;
       tokenCounts: ReturnType<typeof contextCompactionTokenCounts>;
       active: boolean;
-      /** Replaces "Context compacted" when T3 Code compacted without being asked. */
+      /** Replaces "Context compacted" when L7 Code compacted without being asked. */
       title?: string;
       failed?: true;
       /** The provider's reason, when a failed compaction gave one. */

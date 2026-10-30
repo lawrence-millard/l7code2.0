@@ -1,5 +1,5 @@
 import { assert, describe, it } from "@effect/vitest";
-import { EnvironmentId, ProviderInstanceId, ThreadId } from "@t3tools/contracts";
+import { EnvironmentId, ProviderInstanceId, ThreadId } from "@l7code/contracts";
 
 import {
   T3_MCP_BEARER_ENV,
@@ -116,7 +116,7 @@ describe("pi T3 MCP injection", () => {
     ]);
     assert.deepInclude(resolvePiLaunchArgs("--mode text"), {
       ok: false,
-      message: "Pi launch argument '--mode' is controlled by T3 Code and cannot be overridden.",
+      message: "Pi launch argument '--mode' is controlled by L7 Code and cannot be overridden.",
     });
     assert.deepInclude(resolvePiLaunchArgs("--session old.jsonl"), { ok: false });
     assert.deepInclude(resolvePiLaunchArgs("prompt pi immediately"), { ok: false });

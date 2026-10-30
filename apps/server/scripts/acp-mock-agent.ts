@@ -1157,11 +1157,11 @@ const program = Effect.gen(function* () {
             rawOutput: {
               action: {
                 type: "search",
-                query: "t3 code",
+                query: "l7 code",
                 sources: [
-                  { type: "url", url: "https://t3.codes" },
-                  { type: "url", url: "https://t3.codes" },
-                  { type: "url", url: "https://github.com/pingdotgg/t3code" },
+                  { type: "url", url: "https://github.com/lawrence-millard/l7code2.0" },
+                  { type: "url", url: "https://github.com/lawrence-millard/l7code2.0" },
+                  { type: "url", url: "https://github.com/lawrence-millard/l7code2.0" },
                 ],
               },
               id: "grok-web-search",
@@ -1171,15 +1171,15 @@ const program = Effect.gen(function* () {
           {
             sessionUpdate: "tool_call_update",
             toolCallId: "grok-web-fetch",
-            title: "Fetch: https://t3.codes",
+            title: "Fetch: https://github.com/lawrence-millard/l7code2.0",
             kind: "fetch",
             status: "completed",
-            rawInput: { variant: "WebFetch", url: "https://t3.codes" },
+            rawInput: { variant: "WebFetch", url: "https://github.com/lawrence-millard/l7code2.0" },
             rawOutput: {
               type: "WebFetch",
-              Content: { url: "https://t3.codes", content: "T3 Code page" },
+              Content: { url: "https://github.com/lawrence-millard/l7code2.0", content: "L7 Code page" },
             },
-            content: [{ type: "content", content: { type: "text", text: "T3 Code page" } }],
+            content: [{ type: "content", content: { type: "text", text: "L7 Code page" } }],
           },
           {
             sessionUpdate: "tool_call_update",
@@ -1572,7 +1572,7 @@ const program = Effect.gen(function* () {
             status: "completed",
             rawOutput: {
               exitCode: 0,
-              stdout: '{ "name": "t3" }',
+              stdout: '{ "name": "l7" }',
               stderr: "",
             },
           },

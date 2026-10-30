@@ -17,13 +17,13 @@ const workspaceFiles = [
   "apps/desktop/package.json",
   "apps/web/package.json",
   "apps/mobile/package.json",
-  "apps/mobile/modules/t3-highlights/package.json",
-  "apps/mobile/modules/t3-source-text/package.json",
-  "apps/mobile/modules/t3-review-diff/package.json",
-  "apps/mobile/modules/t3-terminal/package.json",
+  "apps/mobile/modules/l7-highlights/package.json",
+  "apps/mobile/modules/l7-source-text/package.json",
+  "apps/mobile/modules/l7-review-diff/package.json",
+  "apps/mobile/modules/l7-terminal/package.json",
   "apps/marketing/package.json",
   "infra/relay/package.json",
-  "oxlint-plugin-t3code/package.json",
+  "oxlint-plugin-l7code/package.json",
   "packages/client-runtime/package.json",
   "packages/contracts/package.json",
   "packages/shared/package.json",
@@ -288,7 +288,7 @@ try {
   );
   assertContains(
     nightlyReleaseMetadata,
-    "name=T3 Code Nightly 9.9.10-nightly.20260413.321 (abcdef123456)",
+    "name=L7 Code Nightly 9.9.10-nightly.20260413.321 (abcdef123456)",
     "Expected nightly metadata to include the short commit SHA in the release name.",
   );
 

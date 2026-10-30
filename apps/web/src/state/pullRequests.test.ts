@@ -1,4 +1,4 @@
-import { SourceControlProviderKind } from "@t3tools/contracts";
+import { SourceControlProviderKind } from "@l7code/contracts";
 import {
   EnvironmentId,
   ProjectId,
@@ -6,7 +6,7 @@ import {
   type PullRequestListInput,
   type PullRequestListResult,
   type PullRequestSummary,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import { describe, expect, it, vi } from "vite-plus/test";
 
 import {
@@ -217,11 +217,11 @@ describe("pull request list answers across a reload", () => {
       provider: SourceControlProviderKind.make("github"),
       host: "github.com",
       projectId: ProjectId.make("project-1"),
-      projectTitle: "t3code",
-      repository: "pingdotgg/t3code",
+      projectTitle: "l7code",
+      repository: "lawrence-millard/l7code2.0",
       number,
       title: `Pull request ${number}`,
-      url: `https://github.com/pingdotgg/t3code/pull/${number}`,
+      url: `https://github.com/lawrence-millard/l7code2.0/pull/${number}`,
       author: { login: "octocat", name: null, avatarUrl: null },
       headBranch: `feat/branch-${number}`,
       baseBranch: "main",
@@ -249,9 +249,9 @@ describe("pull request list answers across a reload", () => {
           detail: null,
         },
       ],
-      errors: [{ projectId: ProjectId.make("project-1"), projectTitle: "t3code", message: "boom" }],
+      errors: [{ projectId: ProjectId.make("project-1"), projectTitle: "l7code", message: "boom" }],
       truncated: true,
-      nextCursors: { "pingdotgg/t3code": "cursor-1" },
+      nextCursors: { "lawrence-millard/l7code2.0": "cursor-1" },
     }) as PullRequestListResult;
   const local = EnvironmentId.make("env-local");
   const remote = EnvironmentId.make("env-remote");
@@ -308,7 +308,7 @@ describe("pull request list answers across a reload", () => {
     rememberPullRequestListAnswer(storage, { environmentId: local, input }, answer(rows));
     const searched = { ...input, query: "fix" };
     rememberPullRequestListAnswer(storage, { environmentId: local, input: searched }, answer(rows));
-    const continued = { ...input, cursors: { "pingdotgg/t3code": "cursor-1" } };
+    const continued = { ...input, cursors: { "lawrence-millard/l7code2.0": "cursor-1" } };
     rememberPullRequestListAnswer(
       storage,
       { environmentId: local, input: continued },
@@ -458,12 +458,12 @@ describe("pull request list answers across a reload", () => {
 
   it("removes the composite snapshots it replaced", () => {
     const storage = makeStorage();
-    storage.held.set("t3.pullRequests.list:env-local,env-remote", "{}");
-    storage.held.set("t3.pullRequests.list:env-local", "{}");
+    storage.held.set("l7.pullRequests.list:env-local,env-remote", "{}");
+    storage.held.set("l7.pullRequests.list:env-local", "{}");
     storage.held.set("t3.other", "kept");
     rememberPullRequestListAnswer(storage, { environmentId: local, input }, answer([]));
     expect(
-      [...storage.held.keys()].filter((key) => key.startsWith("t3.pullRequests.list:")),
+      [...storage.held.keys()].filter((key) => key.startsWith("l7.pullRequests.list:")),
     ).toEqual([]);
     expect(storage.held.get("t3.other")).toBe("kept");
   });

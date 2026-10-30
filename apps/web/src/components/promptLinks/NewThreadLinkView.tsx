@@ -1,22 +1,22 @@
-import { scopeProjectRef, scopeThreadRef } from "@t3tools/client-runtime/environment";
-import { getCloneDestinationPath } from "@t3tools/client-runtime/operations/projects";
+import { scopeProjectRef, scopeThreadRef } from "@l7code/client-runtime/environment";
+import { getCloneDestinationPath } from "@l7code/client-runtime/operations/projects";
 import {
   findPromptLinkProjects,
   findPromptLinkPullRequestThread,
   pickPromptLinkPullRequestThread,
   resolvePromptLinkModelSelection,
-} from "@t3tools/client-runtime/prompt-links";
+} from "@l7code/client-runtime/prompt-links";
 import {
   isAtomCommandInterrupted,
   squashAtomCommandFailure,
-} from "@t3tools/client-runtime/state/runtime";
-import type { EnvironmentProject } from "@t3tools/client-runtime/state/shell";
-import type { EnvironmentId, ProjectId } from "@t3tools/contracts";
+} from "@l7code/client-runtime/state/runtime";
+import type { EnvironmentProject } from "@l7code/client-runtime/state/shell";
+import type { EnvironmentId, ProjectId } from "@l7code/contracts";
 import {
   type NewThreadLink,
   type PromptLinkRepository,
   promptLinkPullRequestUrl,
-} from "@t3tools/shared/promptLinks";
+} from "@l7code/shared/promptLinks";
 import { useAtomValue } from "@effect/atom-react";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import { Atom } from "effect/reactivity";
@@ -137,7 +137,7 @@ export function NewThreadLinkView({ link }: { readonly link: NewThreadLink }) {
       replace: true,
     }).catch(() => null);
     if (opened === null) {
-      setState({ status: "failed", message: "T3 Code could not open a new thread." });
+      setState({ status: "failed", message: "L7 Code could not open a new thread." });
       return;
     }
     setState({ status: "opened" });
@@ -203,7 +203,7 @@ export function NewThreadLinkView({ link }: { readonly link: NewThreadLink }) {
       setState({
         status: "failed",
         message:
-          "This machine cannot clone from a link. Update T3 Code on it, or clone the repository from the command palette.",
+          "This machine cannot clone from a link. Update L7 Code on it, or clone the repository from the command palette.",
       });
       return;
     }
@@ -325,7 +325,7 @@ export function NewThreadLinkView({ link }: { readonly link: NewThreadLink }) {
     }
   });
 
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- runs each launch decision once: navigates to the thread or opens a draft
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- runs each launch decision once: navigates to the thread or opens a draft
   useEffect(() => {
     if (launch === null || launchedRef.current === launch) return;
     launchedRef.current = launch;
@@ -395,7 +395,7 @@ function PullRequestLinkCheckout({
     },
   });
   const warnedRef = useRef(false);
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- shows the hidden-characters warning toast once per linked prompt
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- shows the hidden-characters warning toast once per linked prompt
   useEffect(() => {
     if (warnedRef.current || link.prompt === null) return;
     warnedRef.current = true;

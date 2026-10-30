@@ -10,7 +10,7 @@ import {
   type ServerRemoveKeybindingInput,
   type ServerUpsertKeybindingInput,
   type ServerConfigIssue,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import * as Array from "effect/Array";
 import * as Cache from "effect/Cache";
 import * as Cause from "effect/Cause";
@@ -33,8 +33,8 @@ import * as Scope from "effect/Scope";
 import * as Stream from "effect/Stream";
 import * as Semaphore from "effect/Semaphore";
 import * as ServerConfig from "./config.ts";
-import { writeFileStringAtomically } from "@t3tools/shared/atomicWrite";
-import { fromJsonStringPretty, fromLenientJson } from "@t3tools/shared/schemaJson";
+import { writeFileStringAtomically } from "@l7code/shared/atomicWrite";
+import { fromJsonStringPretty, fromLenientJson } from "@l7code/shared/schemaJson";
 import {
   DEFAULT_KEYBINDINGS,
   mergeWithDefaultKeybindings,
@@ -42,7 +42,7 @@ import {
   compileResolvedKeybindingsConfig,
   parseKeybindingShortcut,
   parseKeybindingWhenExpression,
-} from "@t3tools/shared/keybindings";
+} from "@l7code/shared/keybindings";
 
 export const ResolvedKeybindingFromConfig = KeybindingRule.pipe(
   Schema.decodeTo(

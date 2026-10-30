@@ -11,13 +11,13 @@ import * as Schema from "effect/Schema";
 import { Command, Flag } from "effect/cli";
 import { ChildProcess, ChildProcessSpawner } from "effect/process";
 
-import * as HostProcess from "@t3tools/shared/HostProcess";
-import { fromJsonStringPretty } from "@t3tools/shared/schemaJson";
+import * as HostProcess from "@l7code/shared/HostProcess";
+import { fromJsonStringPretty } from "@l7code/shared/schemaJson";
 import serverPackageJson from "../apps/server/package.json" with { type: "json" };
 
 import { windowsSystemTar } from "./lib/windows-tar.ts";
 
-export const NPM_LAUNCHER_PACKAGE_NAME = "t3";
+export const NPM_LAUNCHER_PACKAGE_NAME = "l7";
 
 const encodePackageJson = Schema.encodeEffect(fromJsonStringPretty(Schema.Unknown));
 
@@ -30,19 +30,19 @@ export class NpmLauncherCommandFailedError extends Schema.TaggedError<NpmLaunche
   }
 }
 
-/** engines requires import.meta.dirname and fetch. `t3code` is read back by npmReleaseDatabaseMigration. */
+/** engines requires import.meta.dirname and fetch. `l7code` is read back by npmReleaseDatabaseMigration. */
 export function npmLauncherPackageManifest(version: string, databaseMigration: number) {
   return {
     name: NPM_LAUNCHER_PACKAGE_NAME,
     version,
     description:
-      "T3 Code CLI. Downloads the self-contained executable for this platform from the GitHub Release.",
+      "L7 Code CLI. Downloads the self-contained executable for this platform from the GitHub Release.",
     license: serverPackageJson.license,
     repository: serverPackageJson.repository,
-    bin: { t3: "./bin/t3.mjs" },
+    bin: { t3: "./bin/l7.mjs" },
     files: ["bin", "dist"],
     engines: { node: ">=20.11" },
-    t3code: { databaseMigration },
+    l7code: { databaseMigration },
   };
 }
 

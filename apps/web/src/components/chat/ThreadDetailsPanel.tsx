@@ -5,10 +5,10 @@ import type {
   ProjectScript,
   ResolvedKeybindingsConfig,
   ThreadId,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 
 import type { DraftId } from "../../composerDraftStore";
-import { useT3ProjectFileScripts } from "../../hooks/useT3ProjectFileScripts";
+import { useT3ProjectFileScripts } from "../../hooks/useL7ProjectFileScripts";
 import { type EnvMode, type EnvironmentOption } from "../BranchToolbar.logic";
 import { BranchToolbar } from "../BranchToolbar";
 import BaseGitActionsControl from "../GitActionsControl";

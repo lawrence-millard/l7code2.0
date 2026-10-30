@@ -6,11 +6,11 @@ import {
   type ProjectScopedServerSettingKey,
   type ServerSettings,
   type ServerSettingsPatch,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import {
   clearProjectSettingsOverrides,
   resolveProjectSettings,
-} from "@t3tools/shared/projectSettings";
+} from "@l7code/shared/projectSettings";
 
 import type { SettingsTarget } from "./settings-environment-filter";
 

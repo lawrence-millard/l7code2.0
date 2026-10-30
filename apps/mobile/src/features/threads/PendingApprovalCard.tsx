@@ -3,11 +3,11 @@ import type {
   ProviderApprovalDecision,
   ProviderApprovalOption,
   RuntimeRequestId,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import {
   FULL_ACCESS_OVERRIDE_QUESTION,
   fullAccessOverrideExplanation,
-} from "@t3tools/client-runtime/state/thread-requests";
+} from "@l7code/client-runtime/state/thread-requests";
 import { useState } from "react";
 import { Pressable, View } from "react-native";
 

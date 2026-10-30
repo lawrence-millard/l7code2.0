@@ -4,8 +4,8 @@ export const config: VercelConfig = {
   git: {
     deploymentEnabled: false,
   },
-  installCommand: "npm install -g vite-plus && vp install --filter '@t3tools/marketing...'",
-  buildCommand: "vp run --filter @t3tools/marketing build",
+  installCommand: "npm install -g vite-plus && vp install --filter '@l7code/marketing...'",
+  buildCommand: "vp run --filter @l7code/marketing build",
   outputDirectory: "dist",
   // curl | sh requires plain, uncompressed scripts with no cache across deploys.
   headers: [
@@ -27,7 +27,7 @@ export const config: VercelConfig = {
   redirects: [
     {
       source: "/app",
-      destination: "https://app.t3.codes",
+      destination: "https://app.l7code.dev",
       permanent: true,
     },
   ],

@@ -1,6 +1,6 @@
-import { formatFilePathForClipboard } from "@t3tools/client-runtime/media-actions";
-import { resolvePathLinkTarget } from "@t3tools/shared/fileLinks";
-import { resolveFilesystemReadAccess } from "@t3tools/client-runtime/state/filesystem";
+import { formatFilePathForClipboard } from "@l7code/client-runtime/media-actions";
+import { resolvePathLinkTarget } from "@l7code/shared/fileLinks";
+import { resolveFilesystemReadAccess } from "@l7code/client-runtime/state/filesystem";
 import { environmentSession } from "../../state/session";
 import { NativeStackScreenOptions } from "../../native/StackHeader";
 import { StackActions, useNavigation, type StaticScreenProps } from "@react-navigation/native";
@@ -8,17 +8,17 @@ import { useId, useState } from "react";
 import { Platform, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Svg, { Defs, LinearGradient, Rect, Stop } from "react-native-svg";
-import { EnvironmentId, type ProjectReadFileResult, ThreadId } from "@t3tools/contracts";
-import { videoMimeType } from "@t3tools/shared/video";
+import { EnvironmentId, type ProjectReadFileResult, ThreadId } from "@l7code/contracts";
+import { videoMimeType } from "@l7code/shared/video";
 import {
   isWorkspaceBrowserPreviewPath,
   isWorkspaceImagePreviewPath,
   mediaMimeTypeFromExtension,
-} from "@t3tools/shared/filePreview";
-import { mediaFileReference } from "@t3tools/client-runtime/media-reference";
+} from "@l7code/shared/filePreview";
+import { mediaFileReference } from "@l7code/client-runtime/media-reference";
 
 import { ScreenContent } from "../../components/ui/ScreenContent";
-import { filePreviewDelimiter, parseDelimitedPreview } from "@t3tools/shared/delimitedPreview";
+import { filePreviewDelimiter, parseDelimitedPreview } from "@l7code/shared/delimitedPreview";
 import { DelimitedFilePreview } from "./DelimitedFilePreview";
 import { AudioFilePreview } from "./AudioFilePreview";
 import { EmptyState } from "../../components/ui/EmptyState";

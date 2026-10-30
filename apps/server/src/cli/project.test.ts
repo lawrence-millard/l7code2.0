@@ -1,5 +1,5 @@
-import * as OtelEnvironment from "@t3tools/shared/otelEnvironment";
-import { DEFAULT_SIGNAL_EXPORT } from "@t3tools/shared/observability";
+import * as OtelEnvironment from "@l7code/shared/otelEnvironment";
+import { DEFAULT_SIGNAL_EXPORT } from "@l7code/shared/observability";
 // @effect-diagnostics nodeBuiltinImport:off - CLI integration uses temporary Node paths.
 import * as NodeFS from "node:fs";
 import * as NodeOS from "node:os";
@@ -14,8 +14,8 @@ import {
   ThreadId,
   type OrchestrationV2AppThread,
   type ProjectId,
-} from "@t3tools/contracts";
-import * as NetService from "@t3tools/shared/Net";
+} from "@l7code/contracts";
+import * as NetService from "@l7code/shared/Net";
 import * as DateTime from "effect/DateTime";
 import * as Effect from "effect/Effect";
 import * as Fiber from "effect/Fiber";
@@ -39,7 +39,7 @@ import * as ProjectEnrichmentService from "../project/ProjectEnrichmentService.t
 import * as ProjectFaviconResolver from "../project/ProjectFaviconResolver.ts";
 import * as ProjectService from "../project/ProjectService.ts";
 import * as RepositoryIdentityResolver from "../project/RepositoryIdentityResolver.ts";
-import * as T3ProjectFileLoader from "../project/T3ProjectFileLoader.ts";
+import * as T3ProjectFileLoader from "../project/L7ProjectFileLoader.ts";
 import {
   makePersistedServerRuntimeState,
   persistServerRuntimeState,

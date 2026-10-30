@@ -1,12 +1,12 @@
-import type { ServerUpdateState } from "@t3tools/client-runtime/state/server";
+import type { ServerUpdateState } from "@l7code/client-runtime/state/server";
 import type {
   DesktopUpdateChannel,
   EnvironmentId,
   ServerConfig,
   ServerSelfUpdateCapability,
-} from "@t3tools/contracts";
-import { cliReleaseChannelOf, desktopUpdateChannelOf } from "@t3tools/shared/cliRelease";
-import { compareSemverVersions } from "@t3tools/shared/semver";
+} from "@l7code/contracts";
+import { cliReleaseChannelOf, desktopUpdateChannelOf } from "@l7code/shared/cliRelease";
+import { compareSemverVersions } from "@l7code/shared/semver";
 
 import {
   resolveServerSelfUpdateCapability,
@@ -275,7 +275,7 @@ export function collectChannelSwitchTargets(
       compareSemverVersions(release.version, serverVersion) <= 0
     ) {
       skip(
-        `run \`t3 update --channel ${release.channel === "nightly" ? "nightly" : "stable"} --allow-downgrade\` there`,
+        `run \`l7 update --channel ${release.channel === "nightly" ? "nightly" : "stable"} --allow-downgrade\` there`,
       );
       continue;
     }

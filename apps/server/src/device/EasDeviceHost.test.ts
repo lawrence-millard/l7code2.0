@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@effect/vitest";
 import * as NodeCrypto from "@effect/platform-node/NodeCrypto";
 import * as NodeServices from "@effect/platform-node/NodeServices";
-import { type EasDeviceHostConfig, ThreadId } from "@t3tools/contracts";
-import * as HostProcess from "@t3tools/shared/HostProcess";
+import { type EasDeviceHostConfig, ThreadId } from "@l7code/contracts";
+import * as HostProcess from "@l7code/shared/HostProcess";
 import * as Deferred from "effect/Deferred";
 import * as Effect from "effect/Effect";
 import * as Fiber from "effect/Fiber";
@@ -173,7 +173,7 @@ const fakeExpo = (
                             node: {
                               id: "someone-else",
                               status: "IN_PROGRESS",
-                              name: "T3 Code · EAS Simulator · 000000",
+                              name: "L7 Code · EAS Simulator · 000000",
                             },
                           },
                           ...(options.active ?? []).map((node) => ({ node })),

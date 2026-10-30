@@ -1,4 +1,4 @@
-import type { BrowserSearchEngine } from "@t3tools/contracts";
+import type { BrowserSearchEngine } from "@l7code/contracts";
 import * as Schema from "effect/Schema";
 
 import { isLocalLoopbackHost } from "./hostClassification.ts";

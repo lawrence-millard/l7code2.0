@@ -23,7 +23,7 @@ import {
   RunId,
   RuntimeRequestId,
   TurnItemId,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import * as Cause from "effect/Cause";
 import * as DateTime from "effect/DateTime";
 import * as Deferred from "effect/Deferred";
@@ -36,20 +36,20 @@ import * as SqlClient from "effect/sql/SqlClient";
 import * as SqlError from "effect/sql/SqlError";
 import * as Stream from "effect/Stream";
 
-import { toolOutputImages } from "@t3tools/shared/toolOutput";
+import { toolOutputImages } from "@l7code/shared/toolOutput";
 import * as SqlitePersistence from "../persistence/Sqlite.ts";
 import * as ServerConfig from "../config.ts";
 import * as GitVcsDriver from "../vcs/GitVcsDriver.ts";
 import * as EventSink from "./EventSink.ts";
 import * as EventStore from "./EventStore.ts";
-import * as IdAllocator from "@t3tools/provider-core/server/IdAllocator";
+import * as IdAllocator from "@l7code/provider-core/server/IdAllocator";
 import * as ProjectionStore from "./ProjectionStore.ts";
 import * as ProviderEventIngestor from "./ProviderEventIngestor.ts";
 import * as ThreadCommandExecutor from "./ThreadCommandExecutor.ts";
 import * as ProviderInstanceRegistry from "../provider/ProviderInstanceRegistry.ts";
-import * as ProviderAdapter from "@t3tools/provider-core/server/ProviderAdapter";
-import type { ProviderInstance } from "@t3tools/provider-core/server/driver";
-import { makeProviderFailure } from "@t3tools/provider-core/server/failure";
+import * as ProviderAdapter from "@l7code/provider-core/server/ProviderAdapter";
+import type { ProviderInstance } from "@l7code/provider-core/server/driver";
+import { makeProviderFailure } from "@l7code/provider-core/server/failure";
 import {
   makeProviderEventRoutingState,
   type ProviderEventRouteIdentity,
@@ -1601,7 +1601,7 @@ layer("ProviderEventIngestorV2", (it) => {
         type: "image",
         file: { base64: readBase64, type: "image/png", originalSize: 30_000 },
       });
-      const screenshot = toolItem("turn-item:screenshot", 2, "mcp__t3-code__device_screenshot", {
+      const screenshot = toolItem("turn-item:screenshot", 2, "mcp__l7-code__device_screenshot", {
         content: [
           {
             type: "image",

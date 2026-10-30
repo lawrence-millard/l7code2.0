@@ -4,11 +4,11 @@ import * as NodeFS from "node:fs";
 import * as NodePath from "node:path";
 
 import { describe, expect, it, vi } from "@effect/vitest";
-import * as HostProcess from "@t3tools/shared/HostProcess";
+import * as HostProcess from "@l7code/shared/HostProcess";
 import * as Effect from "effect/Effect";
 import * as Exit from "effect/Exit";
 
-import * as AcpSessionRuntime from "@t3tools/provider-acp/server/AcpSessionRuntime";
+import * as AcpSessionRuntime from "@l7code/provider-acp/server/AcpSessionRuntime";
 
 const identity = (
   pid: number,
@@ -141,7 +141,7 @@ describe("terminatePosixOwnedProcessTree", () => {
       const scratchRoot = NodePath.join(process.cwd(), "tmp");
       NodeFS.mkdirSync(scratchRoot, { recursive: true });
       const scratch = NodeFS.mkdtempSync(NodePath.join(scratchRoot, "acp-cgroup-wrapper-"));
-      const linkedNode = NodePath.join(scratch, "T3 Code AppImage 'quoted'");
+      const linkedNode = NodePath.join(scratch, "L7 Code AppImage 'quoted'");
       const bareGrok = NodePath.join(scratch, "grok");
       const relativeBin = NodePath.join(scratch, "relative-bin");
       const directoryBin = NodePath.join(scratch, "directory-bin");

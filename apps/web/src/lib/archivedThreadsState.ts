@@ -3,8 +3,8 @@ import {
   type ArchivedSnapshotEntry,
   createArchivedThreadSnapshotsAtomFamily,
   makeArchivedThreadsEnvironmentKey,
-} from "@t3tools/client-runtime/state/threads";
-import type { EnvironmentId } from "@t3tools/contracts";
+} from "@l7code/client-runtime/state/threads";
+import type { EnvironmentId } from "@l7code/contracts";
 
 import { orchestrationEnvironment } from "../state/orchestration";
 import { appAtomRegistry } from "../rpc/atomRegistry";

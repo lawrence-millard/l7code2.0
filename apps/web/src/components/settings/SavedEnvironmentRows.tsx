@@ -13,13 +13,13 @@ import {
   connectReachabilityHelpUrl,
   formatConnectReachable,
   resolveEnvironmentMachineKind,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import {
   connectionRoutes,
   hasSavedBearerRoute,
   connectionStatusText,
   environmentMcpUrl,
-} from "@t3tools/client-runtime/connection";
+} from "@l7code/client-runtime/connection";
 import * as Option from "effect/Option";
 
 import { useCopyToClipboard } from "../../hooks/useCopyToClipboard";
@@ -556,7 +556,7 @@ function ConfiguredCloudLinkRow({ canManageRelay }: { readonly canManageRelay: b
   const refreshLinkState = useEffectEvent(primaryCloudLinkState.refresh);
   // The server rechecks reachability when the tunnel's 30 s readiness poll changes.
   // Poll while mounted, so a failed read does not stop later ones.
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- 30 s interval that refreshes the cloud link reachability while mounted
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- 30 s interval that refreshes the cloud link reachability while mounted
   useEffect(() => {
     const interval = window.setInterval(() => refreshLinkState(), 30_000);
     return () => window.clearInterval(interval);
@@ -685,7 +685,7 @@ function ConfiguredCloudLinkRow({ canManageRelay }: { readonly canManageRelay: b
       ) : linkRevoked ? (
         <SettingsRow
           title={searchableSetting("t3-connect").title}
-          description="This environment was removed from T3 Connect. Run `t3 connect link` on the host to link it again."
+          description="This environment was removed from T3 Connect. Run `l7 connect link` on the host to link it again."
         />
       ) : null}
       {signedOut && isElectron ? null : (

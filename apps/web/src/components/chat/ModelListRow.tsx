@@ -1,4 +1,4 @@
-import { type ProviderDriverKind, type ProviderInstanceId } from "@t3tools/contracts";
+import { type ProviderDriverKind, type ProviderInstanceId } from "@l7code/contracts";
 import { memo } from "react";
 import { CheckIcon, StarIcon } from "lucide-react";
 import { getDisplayModelName, getProviderRowLabel } from "./providerIconUtils";

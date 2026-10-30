@@ -1,5 +1,5 @@
-import type { EnvironmentProject } from "@t3tools/client-runtime/state/shell";
-import { repositoryGroupingKeyOf, type EnvironmentId } from "@t3tools/contracts";
+import type { EnvironmentProject } from "@l7code/client-runtime/state/shell";
+import { repositoryGroupingKeyOf, type EnvironmentId } from "@l7code/contracts";
 
 import { scopedProjectKey } from "../../lib/scopedEntities";
 import type { HomeProjectScope } from "../home/homeThreadList";

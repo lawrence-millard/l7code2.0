@@ -1,5 +1,5 @@
-import { EnvironmentId, ThreadId } from "@t3tools/contracts";
-import type { RelayAgentActivityState } from "@t3tools/contracts/relay";
+import { EnvironmentId, ThreadId } from "@l7code/contracts";
+import type { RelayAgentActivityState } from "@l7code/contracts/relay";
 import { describe, expect, it } from "@effect/vitest";
 import * as NodeCryptoLayer from "@effect/platform-node/NodeCrypto";
 import * as Effect from "effect/Effect";
@@ -51,7 +51,7 @@ const target: LiveActivities.TargetRow = {
   platform: "android",
   ios_major_version: null,
   app_version: null,
-  bundle_id: "com.t3tools.t3code.dev",
+  bundle_id: "com.l7code.app.dev",
   aps_environment: null,
   push_token: "fcm-token",
   push_to_start_token: null,

@@ -29,23 +29,23 @@ import {
   resolveAddProjectPath,
   sortAddProjectProviderSources,
   type AddProjectRemoteSource,
-} from "@t3tools/client-runtime/operations/projects";
+} from "@l7code/client-runtime/operations/projects";
 import {
   connectionStatusText,
   type EnvironmentConnectionPhase,
-} from "@t3tools/client-runtime/connection";
+} from "@l7code/client-runtime/connection";
 import {
   canPreloadBrowsePath,
   createBrowseNavigationCoordinator,
   filterFilesystemBrowseEntries,
   getFilesystemBrowsePath,
   resolveFilesystemReadAccess,
-} from "@t3tools/client-runtime/state/filesystem";
+} from "@l7code/client-runtime/state/filesystem";
 import {
   appendBrowsePathSegment,
   inferProjectTitleFromPath,
   isWindowsPlatform,
-} from "@t3tools/client-runtime/state/projects";
+} from "@l7code/client-runtime/state/projects";
 import {
   AuthOrchestrationOperateScope,
   AuthSourceControlWriteScope,
@@ -56,7 +56,7 @@ import {
   ProjectId,
   resolveEnvironmentMachineKind,
   SourceControlProviderKind,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import {
   StackActions,
   useNavigation,
@@ -83,7 +83,7 @@ import { AppText as Text, AppTextInput as TextInput } from "../../components/ui/
 import { EnvironmentMachineSymbol } from "../../components/EnvironmentMachineSymbol";
 import { ErrorBanner } from "../../components/ui/ErrorBanner";
 import { SourceControlIcon } from "./SourceControlIcon";
-import { sourceControlClients } from "@t3tools/client-runtime/source-control-clients";
+import { sourceControlClients } from "@l7code/client-runtime/source-control-clients";
 import { ThemedSwitch } from "../../components/ui/ThemedSwitch";
 import { uuidv4 } from "../../lib/uuid";
 import { useAtomCommand } from "../../state/use-atom-command";
@@ -366,7 +366,7 @@ function useBrowsePathInput(environment: EnvironmentOption | null, pinnedDirecto
     return committed;
   };
 
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- invalidates the browse navigation coordinator on unmount so in-flight browses do not commit
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- invalidates the browse navigation coordinator on unmount so in-flight browses do not commit
   useEffect(
     () => () => {
       browseNavigation.invalidate();

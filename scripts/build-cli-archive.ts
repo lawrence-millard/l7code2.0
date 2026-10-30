@@ -14,9 +14,9 @@ import * as Schema from "effect/Schema";
 import { Command, Flag } from "effect/cli";
 import { ChildProcess, ChildProcessSpawner } from "effect/process";
 
-import * as HostProcess from "@t3tools/shared/HostProcess";
-import { fromYaml } from "@t3tools/shared/schemaYaml";
-import { resolveSpawnCommand } from "@t3tools/shared/shell";
+import * as HostProcess from "@l7code/shared/HostProcess";
+import { fromYaml } from "@l7code/shared/schemaYaml";
+import { resolveSpawnCommand } from "@l7code/shared/shell";
 import rootPackageJson from "../package.json" with { type: "json" };
 import serverPackageJson from "../apps/server/package.json" with { type: "json" };
 
@@ -315,7 +315,7 @@ const bundleLinuxLibatomic = Effect.fn("bundleLinuxLibatomic")(function* (input:
 });
 
 const MacSigningConfig = Config.all({
-  identity: Config.String("T3CODE_CLI_MAC_SIGN_IDENTITY").pipe(Config.option),
+  identity: Config.String("L7CODE_CLI_MAC_SIGN_IDENTITY").pipe(Config.option),
   appleApiKey: Config.String("APPLE_API_KEY").pipe(Config.option),
   appleApiKeyId: Config.String("APPLE_API_KEY_ID").pipe(Config.option),
   appleApiIssuer: Config.String("APPLE_API_ISSUER").pipe(Config.option),
@@ -357,7 +357,7 @@ const signMacArchiveContents = Effect.fn("signMacArchiveContents")(function* (in
     );
   }
   if (identity === "-") {
-    yield* Effect.log("[cli-archive] Signed ad hoc (no T3CODE_CLI_MAC_SIGN_IDENTITY).");
+    yield* Effect.log("[cli-archive] Signed ad hoc (no L7CODE_CLI_MAC_SIGN_IDENTITY).");
     return;
   }
 
@@ -482,7 +482,7 @@ const buildCliArchive = Effect.fn("buildCliArchive")(function* (input: {
   const path = yield* Path.Path;
   const repoRoot = yield* RepoRoot;
   const serverDir = path.join(repoRoot, "apps/server");
-  const executableName = input.platform === "win" ? "t3.exe" : "t3";
+  const executableName = input.platform === "win" ? "l7.exe" : "t3";
   // tsdown suffixes cross-built executables; prefer the exact target over the plain host build.
   const targetKey = `${input.platform === "mac" ? "darwin" : input.platform}-${input.arch}`;
   const targetExecutable = path.join(
@@ -507,7 +507,7 @@ const buildCliArchive = Effect.fn("buildCliArchive")(function* (input: {
     builtExecutable,
     `Run \`node apps/server/scripts/cli.ts build-exe${targetKey === hostKey ? "" : ` --target ${targetKey}`}\` first.`,
   );
-  yield* requireInput(path.join(webClient, "index.html"), "Run `vp run --filter t3 build` first.");
+  yield* requireInput(path.join(webClient, "index.html"), "Run `vp run --filter l7 build` first.");
   yield* requireInput(
     resourceMonitorDir,
     "Build the resource monitor or pass --resource-monitor-dir.",

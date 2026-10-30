@@ -1,7 +1,7 @@
-import * as HostProcess from "@t3tools/shared/HostProcess";
-import { AgentScope } from "@t3tools/shared/AgentScope";
-import { getModelSelectionStringOptionValue } from "@t3tools/shared/model";
-import { readToolOutputImage } from "@t3tools/shared/toolOutput";
+import * as HostProcess from "@l7code/shared/HostProcess";
+import { AgentScope } from "@l7code/shared/AgentScope";
+import { getModelSelectionStringOptionValue } from "@l7code/shared/model";
+import { readToolOutputImage } from "@l7code/shared/toolOutput";
 import * as Predicate from "effect/Predicate";
 import {
   ProviderDriverKind,
@@ -21,7 +21,7 @@ import {
   type ProviderApprovalDecision,
   type ProviderInstanceId,
   type OrchestrationV2ProviderTurnTokenUsage,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import { PiSettings } from "../settings.ts";
 import * as Cause from "effect/Cause";
 import * as DateTime from "effect/DateTime";
@@ -37,25 +37,25 @@ import * as Semaphore from "effect/Semaphore";
 import * as Stream from "effect/Stream";
 import * as ChildProcessSpawner from "effect/process/ChildProcessSpawner";
 
-import * as ProviderHost from "@t3tools/provider-core/server/ProviderHost";
-import { providerMessageTextWithAttachmentPaths } from "@t3tools/provider-core/server/attachmentPrompt";
-import { mcpToolPresentation } from "@t3tools/provider-core/server/mcpToolPresentation";
-import * as McpProviderSessions from "@t3tools/provider-core/server/McpProviderSessions";
+import * as ProviderHost from "@l7code/provider-core/server/ProviderHost";
+import { providerMessageTextWithAttachmentPaths } from "@l7code/provider-core/server/attachmentPrompt";
+import { mcpToolPresentation } from "@l7code/provider-core/server/mcpToolPresentation";
+import * as McpProviderSessions from "@l7code/provider-core/server/McpProviderSessions";
 import { parsePiCompactCommand, type PiCompactCommand } from "./commands.ts";
-import { mergeProviderInstanceEnvironment } from "@t3tools/provider-core/server/instanceEnvironment";
-import * as IdAllocator from "@t3tools/provider-core/server/IdAllocator";
-import * as ProviderAdapter from "@t3tools/provider-core/server/ProviderAdapter";
-import * as ProviderContinuationRequests from "@t3tools/provider-core/server/ProviderContinuationRequests";
+import { mergeProviderInstanceEnvironment } from "@l7code/provider-core/server/instanceEnvironment";
+import * as IdAllocator from "@l7code/provider-core/server/IdAllocator";
+import * as ProviderAdapter from "@l7code/provider-core/server/ProviderAdapter";
+import * as ProviderContinuationRequests from "@l7code/provider-core/server/ProviderContinuationRequests";
 import {
   ProviderAdapterDriverCreateError,
   type ProviderAdapterDriver,
   type ProviderAdapterDriverCreateInput,
-} from "@t3tools/provider-core/server/adapterDriver";
+} from "@l7code/provider-core/server/adapterDriver";
 import {
   makeProviderFailure,
   makeProviderRetryTurnItem,
-} from "@t3tools/provider-core/server/failure";
-import { turnScopedSelectionTransition } from "@t3tools/provider-core/server/selectionTransition";
+} from "@l7code/provider-core/server/failure";
+import { turnScopedSelectionTransition } from "@l7code/provider-core/server/selectionTransition";
 import {
   makePiRpcConnection,
   parsePiModelSlug,

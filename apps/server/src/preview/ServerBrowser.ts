@@ -42,11 +42,11 @@ import {
   ThreadId,
   SERVER_BROWSER_AUTOMATION_CLIENT_ID,
   type PreviewAppearancePreference,
-} from "@t3tools/contracts";
-import { AgentScope, agentScopeLauncherScript } from "@t3tools/shared/AgentScope";
-import * as HostProcess from "@t3tools/shared/HostProcess";
-import { normalizePreviewUrl } from "@t3tools/shared/preview";
-import { resolvePreviewViewport } from "@t3tools/shared/previewViewport";
+} from "@l7code/contracts";
+import { AgentScope, agentScopeLauncherScript } from "@l7code/shared/AgentScope";
+import * as HostProcess from "@l7code/shared/HostProcess";
+import { normalizePreviewUrl } from "@l7code/shared/preview";
+import { resolvePreviewViewport } from "@l7code/shared/previewViewport";
 import * as NodeCrypto from "node:crypto";
 import * as NodeFSP from "node:fs/promises";
 import * as NodePath from "node:path";

@@ -4,8 +4,8 @@ import {
   pullRequestAgentPrompt,
   pullRequestAgentThread,
 } from "./pullRequestAgentTasks";
-import { IsoDateTime, ProjectId, ThreadId } from "@t3tools/contracts";
-import { sourceControlClients } from "@t3tools/client-runtime/source-control-clients";
+import { IsoDateTime, ProjectId, ThreadId } from "@l7code/contracts";
+import { sourceControlClients } from "@l7code/client-runtime/source-control-clients";
 
 const GITHUB = sourceControlClients.get("github").changeRequest;
 

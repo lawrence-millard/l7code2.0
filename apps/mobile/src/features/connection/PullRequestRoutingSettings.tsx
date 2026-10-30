@@ -6,7 +6,7 @@ import {
   pullRequestRoutingConnectionKey,
   pullRequestRoutingPermissionFor,
   type PullRequestRoutingPermission,
-} from "@t3tools/client-runtime/connection";
+} from "@l7code/client-runtime/connection";
 import { useState } from "react";
 import { Pressable, View } from "react-native";
 

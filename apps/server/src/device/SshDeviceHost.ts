@@ -4,10 +4,10 @@ import {
   DeviceToolVersions,
   deviceToolInstallMessage,
   type SshDeviceHostConfig,
-} from "@t3tools/contracts";
-import { runSshCommand, baseSshArgs, resolveSshCommand } from "@t3tools/ssh/command";
-import * as NetService from "@t3tools/shared/Net";
-import { waitForHttpReady } from "@t3tools/shared/httpReadiness";
+} from "@l7code/contracts";
+import { runSshCommand, baseSshArgs, resolveSshCommand } from "@l7code/ssh/command";
+import * as NetService from "@l7code/shared/Net";
+import { waitForHttpReady } from "@l7code/shared/httpReadiness";
 import * as Crypto from "effect/Crypto";
 import * as Exit from "effect/Exit";
 import * as Effect from "effect/Effect";
@@ -176,7 +176,7 @@ export const make = Effect.fn("SshDeviceHost.make")(function* (
         preHostArgs: identityArgs(config),
         // Match the hub cwd so relative executables and PATH entries resolve identically.
         remoteCommandArgs: commandArgs(
-          `cd "$HOME/.t3/device/hosts/${owner}" && exec ${[command, ...args].map(quoteRemoteArg).join(" ")}`,
+          `cd "$HOME/.l7/device/hosts/${owner}" && exec ${[command, ...args].map(quoteRemoteArg).join(" ")}`,
         ),
         keepErrorOutputTail: true,
         ...(options?.stdin === undefined ? {} : { stdin: options.stdin }),

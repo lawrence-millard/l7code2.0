@@ -34,9 +34,9 @@ import {
   type VcsStatusInput,
   type VcsStatusResult,
   type WorktreeSubmodules,
-} from "@t3tools/contracts";
-import { isMissingExecutable } from "@t3tools/source-control-core/server/discovery";
-import * as HostProcess from "@t3tools/shared/HostProcess";
+} from "@l7code/contracts";
+import { isMissingExecutable } from "@l7code/source-control-core/server/discovery";
+import * as HostProcess from "@l7code/shared/HostProcess";
 import {
   makeGitVcsDriverCore,
   PATCH_RENDER_PREFIX_ARGS,
@@ -130,7 +130,7 @@ export interface CreateWorktreeProgress {
   }) => Effect.Effect<void, never>;
   readonly onSubmodulesStarted?: () => Effect.Effect<void, never>;
   readonly onSubmodulesDisabled?: (input: {
-    source: "settings" | "t3.json";
+    source: "settings" | "l7.json";
   }) => Effect.Effect<void, never>;
   readonly onSubmoduleLine?: (line: string) => Effect.Effect<void, never>;
   readonly onSubmodulesFinished?: (input: {
@@ -141,7 +141,7 @@ export interface CreateWorktreeProgress {
 
 export interface CreateWorktreeOptions {
   readonly progress?: CreateWorktreeProgress;
-  /** Null or omitted defers to the checkout's t3.json. */
+  /** Null or omitted defers to the checkout's l7.json. */
   readonly submodules?: WorktreeSubmodules | null;
   readonly worktreesDirectory?: string;
 }
@@ -907,10 +907,10 @@ export const makeVcsDriverShape = Effect.fn("makeGitVcsDriverShape")(function* (
       const commitEnv: NodeJS.ProcessEnv = {
         ...process.env,
         GIT_INDEX_FILE: tempIndexPath,
-        GIT_AUTHOR_NAME: "T3 Code",
-        GIT_AUTHOR_EMAIL: "t3code@users.noreply.github.com",
-        GIT_COMMITTER_NAME: "T3 Code",
-        GIT_COMMITTER_EMAIL: "t3code@users.noreply.github.com",
+        GIT_AUTHOR_NAME: "L7 Code",
+        GIT_AUTHOR_EMAIL: "l7code@users.noreply.github.com",
+        GIT_COMMITTER_NAME: "L7 Code",
+        GIT_COMMITTER_EMAIL: "l7code@users.noreply.github.com",
       };
 
       const cleanupTempIndex = Effect.forEach(
@@ -1200,7 +1200,7 @@ export const makeVcsDriverShape = Effect.fn("makeGitVcsDriverShape")(function* (
           });
         }
 
-        const message = `t3 checkpoint ref=${input.checkpointRef}`;
+        const message = `l7 checkpoint ref=${input.checkpointRef}`;
         // HEAD is the parent so listAuthoredPaths can see how HEAD moved between checkpoints.
         const commitTreeResult = yield* execute({
           operation,

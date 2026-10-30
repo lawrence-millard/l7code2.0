@@ -6,7 +6,7 @@ import {
   ProviderThreadId,
   RunId,
   ThreadId,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import * as Context from "effect/Context";
 import * as DateTime from "effect/DateTime";
 import * as Effect from "effect/Effect";
@@ -20,8 +20,8 @@ import {
   historicalMessage,
   renderHistory,
   selectHistory,
-} from "@t3tools/provider-core/server/handoffBudget";
-import * as IdAllocator from "@t3tools/provider-core/server/IdAllocator";
+} from "@l7code/provider-core/server/handoffBudget";
+import * as IdAllocator from "@l7code/provider-core/server/IdAllocator";
 
 export class ContextHandoffPrepareError extends Schema.TaggedError<ContextHandoffPrepareError>()(
   "ContextHandoffPrepareError",
@@ -147,7 +147,7 @@ function makeLegacyImportSummary(items: ReadonlyArray<OrchestrationV2TurnItem>):
     }
   });
   const header =
-    "Imported conversation history from the previous T3 Code orchestrator. Use it as context; do not repeat it unless the user asks.";
+    "Imported conversation history from the previous L7 Code orchestrator. Use it as context; do not repeat it unless the user asks.";
   const maxChars = 32_000;
   const selected: Array<string> = [];
   let remaining = maxChars - header.length - 2;

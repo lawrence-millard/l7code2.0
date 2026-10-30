@@ -1,4 +1,4 @@
-import * as HostProcess from "@t3tools/shared/HostProcess";
+import * as HostProcess from "@l7code/shared/HostProcess";
 import * as Console from "effect/Console";
 import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
@@ -39,10 +39,10 @@ const runStep = Effect.fn("browserSetup.runStep")(function* (
   }
 });
 
-/** Under sudo, an unspecified home uses the invoking user's ~/.t3. */
+/** Under sudo, an unspecified home uses the invoking user's ~/.l7. */
 const setupBaseDir = Effect.fn("browserSetup.baseDir")(function* (explicit: Option.Option<string>) {
   const env = yield* HostProcess.Environment;
-  const raw = Option.getOrUndefined(explicit) ?? env.T3CODE_HOME;
+  const raw = Option.getOrUndefined(explicit) ?? env.L7CODE_HOME;
   if (raw !== undefined || env.SUDO_USER === undefined) return yield* resolveBaseDir(raw);
   const spawner = yield* ChildProcessSpawner.ChildProcessSpawner;
   const entry = yield* spawner
@@ -52,7 +52,7 @@ const setupBaseDir = Effect.fn("browserSetup.baseDir")(function* (explicit: Opti
     .pipe(Effect.orElseSucceed(() => ""));
   const home = entry.trim().split(":")[5];
   const path = yield* Path.Path;
-  return home ? path.join(home, ".t3") : yield* resolveBaseDir(undefined);
+  return home ? path.join(home, ".l7") : yield* resolveBaseDir(undefined);
 });
 
 const aptOffers = Effect.fn("browserSetup.aptOffers")(function* (name: string) {
@@ -119,7 +119,7 @@ const browserSetupCommand = Command.make("setup", { baseDir: baseDirFlag }).pipe
       // sudo resets the environment, so a chosen home has to be on the command line.
       const setupCommand = yield* resolveRootCliCommand(
         PreviewBrowserHost.SETUP_SUBCOMMAND,
-        Option.isSome(baseDir) || env.T3CODE_HOME !== undefined ? ["--base-dir", baseDirPath] : [],
+        Option.isSome(baseDir) || env.L7CODE_HOME !== undefined ? ["--base-dir", baseDirPath] : [],
       );
       // Root, unless sudo came from another user, is likely the server's own account.
       const rootWarning =
@@ -236,6 +236,6 @@ const browserSetupCommand = Command.make("setup", { baseDir: baseDirFlag }).pipe
 );
 
 export const browserCommand = Command.make("browser").pipe(
-  Command.withDescription("Manage T3's headless browser on this host."),
+  Command.withDescription("Manage L7's headless browser on this host."),
   Command.withSubcommands([browserSetupCommand]),
 );

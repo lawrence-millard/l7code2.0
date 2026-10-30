@@ -1,7 +1,7 @@
 import {
   trimOptionalString as trimmed,
   toIsoUtc,
-} from "@t3tools/source-control-core/server/pullRequestUtils";
+} from "@l7code/source-control-core/server/pullRequestUtils";
 import * as Cause from "effect/Cause";
 import * as Exit from "effect/Exit";
 import * as Result from "effect/Result";
@@ -16,11 +16,11 @@ import type {
   PullRequestReviewThread,
   PullRequestReviewerCandidate,
   PullRequestState,
-} from "@t3tools/contracts";
-import { TrimmedNonEmptyString } from "@t3tools/contracts";
-import { decodeJsonResult } from "@t3tools/shared/schemaJson";
+} from "@l7code/contracts";
+import { TrimmedNonEmptyString } from "@l7code/contracts";
+import { decodeJsonResult } from "@l7code/shared/schemaJson";
 
-import { dedupeChecks } from "@t3tools/source-control-core/server/pullRequestChecks";
+import { dedupeChecks } from "@l7code/source-control-core/server/pullRequestChecks";
 
 /** Unknown enum values must not fail the whole payload. */
 const RawUserSchema = Schema.Struct({

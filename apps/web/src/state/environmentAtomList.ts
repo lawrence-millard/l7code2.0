@@ -1,4 +1,4 @@
-import type { EnvironmentId } from "@t3tools/contracts";
+import type { EnvironmentId } from "@l7code/contracts";
 import { Atom } from "effect/reactivity";
 
 export const environmentIdsKey = (environmentIds: ReadonlyArray<EnvironmentId>) =>

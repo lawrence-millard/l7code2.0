@@ -1,5 +1,5 @@
-import { scopedThreadKey, scopeThreadRef } from "@t3tools/client-runtime/environment";
-import { EnvironmentId, ThreadId } from "@t3tools/contracts";
+import { scopedThreadKey, scopeThreadRef } from "@l7code/client-runtime/environment";
+import { EnvironmentId, ThreadId } from "@l7code/contracts";
 import { expect, it, vi } from "vite-plus/test";
 import { page } from "vite-plus/test/browser";
 

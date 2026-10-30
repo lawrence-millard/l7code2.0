@@ -1,20 +1,20 @@
 export type {
   ProviderMaintenanceCapabilities,
   ProviderMaintenanceCommandAction,
-} from "@t3tools/provider-core/server/maintenance";
+} from "@l7code/provider-core/server/maintenance";
 import type {
   ProviderMaintenanceCapabilities,
   ProviderMaintenanceCommandAction,
-} from "@t3tools/provider-core/server/maintenance";
+} from "@l7code/provider-core/server/maintenance";
 import {
   ProviderDriverKind,
   type ServerProvider,
   type ServerProviderVersionAdvisory,
-} from "@t3tools/contracts";
-import { compareSemverVersions, satisfiesSemverRange } from "@t3tools/shared/semver";
-import * as HostProcess from "@t3tools/shared/HostProcess";
-import { causeErrorTag } from "@t3tools/shared/observability";
-import { resolveCommandPath, resolveSpawnCommand } from "@t3tools/shared/shell";
+} from "@l7code/contracts";
+import { compareSemverVersions, satisfiesSemverRange } from "@l7code/shared/semver";
+import * as HostProcess from "@l7code/shared/HostProcess";
+import { causeErrorTag } from "@l7code/shared/observability";
+import { resolveCommandPath, resolveSpawnCommand } from "@l7code/shared/shell";
 import * as Cache from "effect/Cache";
 import * as Config from "effect/Config";
 import * as DateTime from "effect/DateTime";
@@ -763,7 +763,7 @@ export const makeCachedProviderMaintenanceResolution = Effect.fn(
 
 function manualUpdateMessage(latestVersion: string, installPath: string | undefined): string {
   return installPath
-    ? `Version ${latestVersion} is out. T3 Code runs ${installPath}; update it with the app or tool that installed it.`
+    ? `Version ${latestVersion} is out. L7 Code runs ${installPath}; update it with the app or tool that installed it.`
     : `Version ${latestVersion} is out. Update it with the app or tool that installed it.`;
 }
 

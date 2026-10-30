@@ -25,7 +25,7 @@ import * as HttpRouter from "effect/http/HttpRouter";
 import * as HttpServerRequest from "effect/http/HttpServerRequest";
 import * as HttpServerResponse from "effect/http/HttpServerResponse";
 
-import { buildConnectAuthorizeRequestUrl } from "@t3tools/shared/connectAuth";
+import { buildConnectAuthorizeRequestUrl } from "@l7code/shared/connectAuth";
 
 import * as ServerSecretStore from "../auth/ServerSecretStore.ts";
 import * as ExternalLauncher from "../process/externalLauncher.ts";
@@ -217,7 +217,7 @@ export class CloudCliCredentialRefreshError extends Schema.TaggedError<CloudCliC
     return this.requiresLogin
       ? `Could not refresh the T3 Connect CLI credential${
           this.oauthErrorCode === undefined ? "" : ` (OAuth error: ${this.oauthErrorCode})`
-        }. Run \`t3 connect login\` to authorize again.`
+        }. Run \`l7 connect login\` to authorize again.`
       : "Could not refresh the T3 Connect CLI credential.";
   }
 }

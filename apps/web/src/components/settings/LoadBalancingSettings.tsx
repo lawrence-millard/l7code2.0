@@ -1,4 +1,4 @@
-import { resolveEnvironmentMachineKind } from "@t3tools/contracts";
+import { resolveEnvironmentMachineKind } from "@l7code/contracts";
 
 import {
   useClientSettings,

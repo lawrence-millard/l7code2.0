@@ -18,7 +18,7 @@ import {
   PreviewAutomationStatus,
   PreviewAutomationTabTargetInput,
   PreviewAutomationWaitForInput,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import * as Schema from "effect/Schema";
 import * as FileSystem from "effect/FileSystem";
 import { Tool, Toolkit } from "effect/ai";

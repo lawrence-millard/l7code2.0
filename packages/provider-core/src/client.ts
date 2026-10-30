@@ -1,4 +1,4 @@
-import type { ProviderDriverKind } from "@t3tools/contracts";
+import type { ProviderDriverKind } from "@l7code/contracts";
 import type * as Schema from "effect/Schema";
 
 export type ProviderSettingsSchema = {

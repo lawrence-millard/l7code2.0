@@ -4,13 +4,13 @@ import {
   workflowOpeningHeadline,
   type RuntimeSubagent,
   type WorkflowOpening,
-} from "@t3tools/client-runtime/state/subagentRuntime";
+} from "@l7code/client-runtime/state/subagentRuntime";
 import type {
   EnvironmentId,
   ProviderDriverKind,
   ProviderInstanceId,
   ServerProvider,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import { ChevronRightIcon, WorkflowIcon } from "lucide-react";
 import { useState } from "react";
 

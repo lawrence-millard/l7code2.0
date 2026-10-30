@@ -1,5 +1,5 @@
 {
-  "name": "@t3tools/source-control-testing",
+  "name": "@l7code/source-control-testing",
   "private": true,
   "type": "module",
   "exports": {
@@ -17,9 +17,9 @@
   },
   "dependencies": {
     "@effect/platform-node": "catalog:",
-    "@t3tools/contracts": "workspace:*",
-    "@t3tools/shared": "workspace:*",
-    "@t3tools/source-control-core": "workspace:*",
+    "@l7code/contracts": "workspace:*",
+    "@l7code/shared": "workspace:*",
+    "@l7code/source-control-core": "workspace:*",
     "effect": "catalog:"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
-import { SecretProviderId, type ServerProviderModel } from "@t3tools/contracts";
+import { SecretProviderId, type ServerProviderModel } from "@l7code/contracts";
 
 import {
   deriveProviderModelsForDisplay,

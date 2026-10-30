@@ -9,7 +9,7 @@ import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { ne } from "drizzle-orm";
 import { PgDialect } from "drizzle-orm/pg-core";
-import { DEFAULT_MANAGED_TUNNEL_LIMIT, type RelayT3ChatPlan } from "@t3tools/contracts/relay";
+import { DEFAULT_MANAGED_TUNNEL_LIMIT, type RelayT3ChatPlan } from "@l7code/contracts/relay";
 
 import * as RelayDb from "../db.ts";
 import { relayManagedEndpointAllocations } from "../persistence/schema.ts";
@@ -19,7 +19,7 @@ import * as ManagedTunnelLimits from "./ManagedTunnelLimits.ts";
 const BACKFILL_MIGRATION = "20261028062605_backfill_withdrawn_tunnel_allocations";
 
 class FakeTransaction extends Context.Service<FakeTransaction, { holdsLock: boolean }>()(
-  "t3code-relay/environments/ManagedTunnelLimits.test/FakeTransaction",
+  "l7code-relay/environments/ManagedTunnelLimits.test/FakeTransaction",
 ) {}
 
 interface FakeDbInput {

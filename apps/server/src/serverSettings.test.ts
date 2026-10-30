@@ -11,8 +11,8 @@ import {
   ServerSettings,
   ServerSettingsPatch,
   UsageLimitSourceId,
-} from "@t3tools/contracts";
-import { createModelSelection } from "@t3tools/shared/model";
+} from "@l7code/contracts";
+import { createModelSelection } from "@l7code/shared/model";
 import { assert, it } from "@effect/vitest";
 import * as Deferred from "effect/Deferred";
 import * as Effect from "effect/Effect";
@@ -29,7 +29,7 @@ import * as ServerSecretStore from "./auth/ServerSecretStore.ts";
 import { sourceControlHostSecretName } from "./sourceControl/sourceControlHostSecrets.ts";
 import * as ServerConfig from "./config.ts";
 import * as SqlitePersistence from "./persistence/Sqlite.ts";
-import { writeFileStringAtomically } from "@t3tools/shared/atomicWrite";
+import { writeFileStringAtomically } from "@l7code/shared/atomicWrite";
 import * as ServerSettingsModule from "./serverSettings.ts";
 import { resolveProviderInstanceTerminalEnvironment } from "./terminal/Manager.ts";
 
@@ -44,7 +44,7 @@ const layerServerSettings = () =>
     Layer.provideMerge(
       Layer.fresh(
         ServerConfig.layerTest(process.cwd(), {
-          prefix: "t3code-server-settings-test-",
+          prefix: "l7code-server-settings-test-",
         }),
       ),
     ),
@@ -57,7 +57,7 @@ const layerServerSettingsWithSecrets = () =>
     Layer.provideMerge(
       Layer.fresh(
         ServerConfig.layerTest(process.cwd(), {
-          prefix: "t3code-server-settings-test-",
+          prefix: "l7code-server-settings-test-",
         }),
       ),
     ),
@@ -1087,7 +1087,7 @@ it.layer(NodeServices.layer)("server settings", (it) => {
       Layer.provideMerge(Layer.fresh(SqlitePersistence.layerMemory)),
       Layer.provideMerge(
         Layer.fresh(
-          ServerConfig.layerTest(process.cwd(), { prefix: "t3code-settings-secret-cache-test-" }),
+          ServerConfig.layerTest(process.cwd(), { prefix: "l7code-settings-secret-cache-test-" }),
         ),
       ),
     );
@@ -1135,7 +1135,7 @@ it.layer(NodeServices.layer)("server settings", (it) => {
       Layer.provideMerge(
         Layer.fresh(
           ServerConfig.layerTest(process.cwd(), {
-            prefix: "t3code-inline-secret-failure-test-",
+            prefix: "l7code-inline-secret-failure-test-",
           }),
         ),
       ),
@@ -1572,7 +1572,7 @@ it.layer(NodeServices.layer)("server settings", (it) => {
       Layer.provideMerge(
         Layer.fresh(
           ServerConfig.layerTest(process.cwd(), {
-            prefix: "t3code-server-settings-legacy-failure-test-",
+            prefix: "l7code-server-settings-legacy-failure-test-",
           }),
         ),
       ),
@@ -1828,7 +1828,7 @@ it.layer(NodeServices.layer)("server settings", (it) => {
         Layer.provideMerge(
           Layer.fresh(
             ServerConfig.layerTest(process.cwd(), {
-              prefix: "t3code-server-settings-materialization-failure-test-",
+              prefix: "l7code-server-settings-materialization-failure-test-",
             }),
           ),
         ),

@@ -1,4 +1,4 @@
-import type { DesktopSnapShotState } from "@t3tools/contracts";
+import type { DesktopSnapShotState } from "@l7code/contracts";
 
 export type CaptureSetupStep = "access" | "shortcut";
 

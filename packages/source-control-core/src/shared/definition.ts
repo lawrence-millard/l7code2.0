@@ -7,8 +7,8 @@ import {
   type SourceControlProviderInfo,
   TrimmedNonEmptyString,
   TrimmedString,
-} from "@t3tools/contracts";
-import { normalizeGitRemoteUrl, parseGitRemoteRepository } from "@t3tools/shared/git";
+} from "@l7code/contracts";
+import { normalizeGitRemoteUrl, parseGitRemoteRepository } from "@l7code/shared/git";
 import * as Effect from "effect/Effect";
 import * as Schema from "effect/Schema";
 import * as SchemaTransformation from "effect/SchemaTransformation";

@@ -2,12 +2,12 @@
 import * as NodeCrypto from "node:crypto";
 
 import * as NodeServices from "@effect/platform-node/NodeServices";
-import { authScopeResponse, AuthStandardClientScopes } from "@t3tools/contracts";
+import { authScopeResponse, AuthStandardClientScopes } from "@l7code/contracts";
 import {
   computeDpopAccessTokenHash,
   computeDpopJwkThumbprint,
   type DpopPublicJwk,
-} from "@t3tools/shared/dpop";
+} from "@l7code/shared/dpop";
 import { expect, it } from "@effect/vitest";
 import * as DateTime from "effect/DateTime";
 import * as Effect from "effect/Effect";
@@ -443,7 +443,7 @@ it.layer(NodeServices.layer)("EnvironmentAuth.layer", (it) => {
       const paired = yield* serverAuth.exchangeBootstrapCredentialForAccessToken(
         pairing.credential,
         undefined,
-        { ...requestMetadata, label: "T3 Code Desktop" },
+        { ...requestMetadata, label: "L7 Code Desktop" },
       );
       const first = yield* serverAuth.exchangeBootstrapCredentialForAccessToken(
         "desktop-bootstrap-token",
@@ -609,7 +609,7 @@ it.layer(NodeServices.layer)("EnvironmentAuth.layer", (it) => {
         origin: "https://box.tail1234.ts.net",
         "x-forwarded-host": "box.tail1234.ts.net",
       });
-      yield* upgrade({ origin: "t3code://app" });
+      yield* upgrade({ origin: "l7code://app" });
       yield* upgrade({ origin: "http://localhost:5733" });
       yield* upgrade({});
 

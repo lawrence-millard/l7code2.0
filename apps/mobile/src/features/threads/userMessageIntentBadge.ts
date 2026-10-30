@@ -1,4 +1,4 @@
-import type { OrchestrationV2UserMessageInputIntent } from "@t3tools/contracts";
+import type { OrchestrationV2UserMessageInputIntent } from "@l7code/contracts";
 
 export interface UserMessageIntentBadgePresentation {
   readonly label: string;

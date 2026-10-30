@@ -1,5 +1,5 @@
-import type { ChangeRequestTerminology } from "@t3tools/client-runtime/source-control-clients";
-import type { PullRequestRef, PullRequestStack, ThreadPullRequestLink } from "@t3tools/contracts";
+import type { ChangeRequestTerminology } from "@l7code/client-runtime/source-control-clients";
+import type { PullRequestRef, PullRequestStack, ThreadPullRequestLink } from "@l7code/contracts";
 
 export function pullRequestStackMerge(
   stack: PullRequestStack,

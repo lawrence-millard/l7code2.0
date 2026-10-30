@@ -18,9 +18,9 @@ import {
   VcsProcessSpawnError,
   VcsProcessStdinWriteError,
   VcsProcessTimeoutError,
-} from "@t3tools/contracts";
-import * as HostProcess from "@t3tools/shared/HostProcess";
-import type { SourceControlProcessInput } from "@t3tools/source-control-core/server/SourceControlHost";
+} from "@l7code/contracts";
+import * as HostProcess from "@l7code/shared/HostProcess";
+import type { SourceControlProcessInput } from "@l7code/source-control-core/server/SourceControlHost";
 
 import { gitCommandDuration, gitCommandsTotal, withMetrics } from "../observability/Metrics.ts";
 import * as ProcessRunner from "../processRunner.ts";

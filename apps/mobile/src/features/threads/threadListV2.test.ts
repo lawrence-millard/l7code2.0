@@ -1,9 +1,9 @@
-import { threadSearchMatchKey } from "@t3tools/client-runtime/state/thread-search";
-import { createInboxReturnTracker } from "@t3tools/client-runtime/state/thread-inbox";
-import { presentThreadShell } from "@t3tools/client-runtime/state/models";
+import { threadSearchMatchKey } from "@l7code/client-runtime/state/thread-search";
+import { createInboxReturnTracker } from "@l7code/client-runtime/state/thread-inbox";
+import { presentThreadShell } from "@l7code/client-runtime/state/models";
 import * as DateTime from "effect/DateTime";
 import * as Schema from "effect/Schema";
-import { planPinnedReorder } from "@t3tools/client-runtime/state/thread-sort";
+import { planPinnedReorder } from "@l7code/client-runtime/state/thread-sort";
 import {
   createPendingThreadOrder,
   createThreadMovePlanner,
@@ -13,8 +13,8 @@ import {
   type PendingThreadOrder,
   type ThreadMoveAvailability,
 } from "./threadOrder";
-import type { EnvironmentThreadShell } from "@t3tools/client-runtime/state/shell";
-import { resolveSnoozePresets } from "@t3tools/client-runtime/state/thread-settled";
+import type { EnvironmentThreadShell } from "@l7code/client-runtime/state/shell";
+import { resolveSnoozePresets } from "@l7code/client-runtime/state/thread-settled";
 import {
   CommandId,
   EnvironmentId,
@@ -24,7 +24,7 @@ import {
   ProviderInstanceId,
   RunId,
   ThreadId,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import { describe, expect, it, vi } from "vite-plus/test";
 
 import type { PendingNewTask } from "../../state/use-pending-new-tasks";

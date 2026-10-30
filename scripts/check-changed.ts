@@ -23,7 +23,7 @@ import * as NodeOS from "node:os";
 
 import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
 import * as NodeServices from "@effect/platform-node/NodeServices";
-import * as HostProcess from "@t3tools/shared/HostProcess";
+import * as HostProcess from "@l7code/shared/HostProcess";
 import * as Clock from "effect/Clock";
 import * as Config from "effect/Config";
 import * as Console from "effect/Console";
@@ -310,7 +310,7 @@ const checkChanged = Effect.fn("checkChanged")(function* (input: {
     }
   }
   // It reads files other than the ones beside it, so no changed file selects it.
-  if (affected.includes("t3")) tests.add("apps/server/src/provider/AgentContextBudget.test.ts");
+  if (affected.includes("l7")) tests.add("apps/server/src/provider/AgentContextBudget.test.ts");
 
   // React Compiler coverage compiles every client source file, so run only the
   // changed files' cases, in one extra step: a -t filter in the main test step

@@ -1,6 +1,6 @@
 import * as NodeServices from "@effect/platform-node/NodeServices";
 import { assert, it } from "@effect/vitest";
-import * as HostProcess from "@t3tools/shared/HostProcess";
+import * as HostProcess from "@l7code/shared/HostProcess";
 import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
 import * as Option from "effect/Option";
@@ -18,7 +18,7 @@ it.effect("authenticates each release page until the requested channel is found"
     const httpClient = HttpClient.make((request) => {
       const url = new URL(request.url);
       assert.equal(url.origin, "https://api.github.com");
-      assert.equal(url.pathname, "/repos/pingdotgg/t3code/releases");
+      assert.equal(url.pathname, "/repos/lawrence-millard/l7code2.0/releases");
       assert.equal(request.headers.accept, "application/vnd.github+json");
       assert.equal(request.headers.authorization, "Bearer gh-token");
       const page = url.searchParams.get("page") ?? "";
@@ -72,7 +72,7 @@ it.layer(NodeServices.layer)("t3 update launcher", (it) => {
       const foreign = path.join(root, "foreign/t3");
       const elsewhere = path.join(root, "elsewhere/t3");
       const otherHome = path.join(root, "other/runtime/versions/1.0.0/t3");
-      const otherLauncher = path.join(root, "other/bin/t3");
+      const otherLauncher = path.join(root, "other/bin/l7");
       for (const file of [newExe, copy, elsewhere, otherHome]) {
         yield* fs.makeDirectory(path.dirname(file), { recursive: true });
         yield* fs.writeFileString(file, "");
@@ -105,19 +105,19 @@ it.layer(NodeServices.layer)("t3 update launcher", (it) => {
       yield* fs.writeFileString(launcher, "");
 
       const bare = yield* resolveLauncherPath.pipe(
-        Effect.provideService(HostProcess.InvokedAs, "t3"),
+        Effect.provideService(HostProcess.InvokedAs, "l7"),
         Effect.provideService(HostProcess.Environment, {
           PATH: `${path.join(root, "missing")}:${path.join(root, "bin")}`,
         }),
         Effect.provideService(HostProcess.WorkingDirectory, root),
       );
       const relative = yield* resolveLauncherPath.pipe(
-        Effect.provideService(HostProcess.InvokedAs, "./bin/t3"),
+        Effect.provideService(HostProcess.InvokedAs, "./bin/l7"),
         Effect.provideService(HostProcess.Environment, { PATH: "" }),
         Effect.provideService(HostProcess.WorkingDirectory, root),
       );
       const absent = yield* resolveLauncherPath.pipe(
-        Effect.provideService(HostProcess.InvokedAs, "t3"),
+        Effect.provideService(HostProcess.InvokedAs, "l7"),
         Effect.provideService(HostProcess.Environment, { PATH: path.join(root, "missing") }),
         Effect.provideService(HostProcess.WorkingDirectory, root),
       );

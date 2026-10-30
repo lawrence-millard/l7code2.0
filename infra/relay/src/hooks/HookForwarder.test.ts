@@ -4,7 +4,7 @@ import * as NodeServices from "@effect/platform-node/NodeServices";
 import * as NodeCrypto from "node:crypto";
 import * as EffectNodeCrypto from "@effect/platform-node/NodeCrypto";
 import { describe, expect, it } from "@effect/vitest";
-import { RelayApi } from "@t3tools/contracts/relay";
+import { RelayApi } from "@l7code/contracts/relay";
 import * as Deferred from "effect/Deferred";
 import * as Clock from "effect/Clock";
 import * as Effect from "effect/Effect";
@@ -29,7 +29,7 @@ import * as ManagedEndpointAllocations from "../environments/ManagedEndpointAllo
 import { RELAY_HTTP_ROUTER_CONFIG, traceRelayHttpRequestWith } from "../http/Api.ts";
 import * as RelayHttpApi from "../http/Api.ts";
 import * as HookForwarder from "./HookForwarder.ts";
-import { RELAY_HOOK_DELIVERY_TYP, verifyRelayJwt } from "@t3tools/shared/relayJwt";
+import { RELAY_HOOK_DELIVERY_TYP, verifyRelayJwt } from "@l7code/shared/relayJwt";
 import * as HeldHooks from "./HeldHooks.ts";
 import * as HookInbox from "./HookInbox.ts";
 import type { HeldHook } from "./HookInboxStore.ts";
@@ -44,7 +44,7 @@ const settings: RelayConfiguration.RelayConfiguration["Service"] = {
   apns: null,
   clerkSecretKey: Redacted.make("clerk-secret-key"),
   clerkPublishableKey: "pk_test_test",
-  clerkJwtAudience: "t3-code-relay",
+  clerkJwtAudience: "l7-code-relay",
   apnsDeliveryJobSigningSecret: Redacted.make("apns-delivery-secret"),
   cloudMintPrivateKey: Redacted.make(mintKeys.privateKey),
   cloudMintPublicKey: mintKeys.publicKey,
@@ -59,7 +59,7 @@ const readyAllocation: ManagedEndpointAllocations.ManagedEndpointAllocation = {
   environmentId,
   hostname: "env.example.test",
   tunnelId: "tunnel-id",
-  tunnelName: `t3coderelay-managedendpoint-dev-${endpointKey}`,
+  tunnelName: `l7coderelay-managedendpoint-dev-${endpointKey}`,
   dnsRecordId: "dns-record-id",
   readyAt: "2026-05-25T00:00:00.000Z",
   tunnelReleasedAt: null,

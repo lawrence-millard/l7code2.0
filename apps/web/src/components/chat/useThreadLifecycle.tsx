@@ -1,5 +1,5 @@
-import type { EnvironmentServerConfig } from "@t3tools/client-runtime/connection";
-import type { EnvironmentThreadShell } from "@t3tools/client-runtime/state/shell";
+import type { EnvironmentServerConfig } from "@l7code/client-runtime/connection";
+import type { EnvironmentThreadShell } from "@l7code/client-runtime/state/shell";
 import type { Dispatch } from "react";
 import type { ComposerThreadTarget } from "../../composerDraftStore";
 import type { ComposerHandleRef } from "../../composerHandleContext";
@@ -22,24 +22,24 @@ import {
   type ThreadId,
   ProviderInteractionMode,
   RuntimeMode,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import {
   effectiveSnoozed,
   snoozeWakeLabel,
   threadWokeAt,
-} from "@t3tools/client-runtime/state/thread-settled";
+} from "@l7code/client-runtime/state/thread-settled";
 import { useAcknowledgeThreadWoke, useThreadActions } from "../../hooks/useThreadActions";
 import { settleAndAdvance } from "../../settleAndAdvance";
 import type { ChatShortcutCommands } from "./useChatShortcuts";
 import { resolveThreadLastVisitedAt } from "../Sidebar.logic";
-import { scopedThreadKey, scopeThreadRef } from "@t3tools/client-runtime/environment";
+import { scopedThreadKey, scopeThreadRef } from "@l7code/client-runtime/environment";
 import { type SetStateAction, useRef, useState } from "react";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 import {
   isAtomCommandInterrupted,
   squashAtomCommandFailure,
   type AtomCommandResult,
-} from "@t3tools/client-runtime/state/runtime";
+} from "@l7code/client-runtime/state/runtime";
 import { useUiStateStore } from "../../uiStateStore";
 import { type ChatMessage } from "../../types";
 import { AlarmClockIcon, CheckCircle2Icon } from "lucide-react";
@@ -66,7 +66,7 @@ import {
 } from "./ThreadActivityBanners";
 import { useForceStopThread } from "./useForceStopThread";
 import { useAtomValue } from "@effect/atom-react";
-import type { RunStopPresentation } from "@t3tools/client-runtime/state/thread-execution";
+import type { RunStopPresentation } from "@l7code/client-runtime/state/thread-execution";
 import { Atom } from "effect/reactivity";
 import { environmentThreadDetails } from "../../state/threads";
 import type { useLocalDispatchState } from "./useLocalDispatchState";

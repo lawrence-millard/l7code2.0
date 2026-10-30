@@ -1,13 +1,13 @@
 import {
   formatFilePathForClipboard,
   type MediaActionId,
-} from "@t3tools/client-runtime/media-actions";
+} from "@l7code/client-runtime/media-actions";
 import {
   mediaReferenceFileName,
   type MediaReference,
-} from "@t3tools/client-runtime/media-reference";
-import { resolveAssetUrl } from "@t3tools/client-runtime/state/assets";
-import { settlePromise, squashAtomCommandFailure } from "@t3tools/client-runtime/state/runtime";
+} from "@l7code/client-runtime/media-reference";
+import { resolveAssetUrl } from "@l7code/client-runtime/state/assets";
+import { settlePromise, squashAtomCommandFailure } from "@l7code/client-runtime/state/runtime";
 import {
   AuthFilesystemReadScope,
   type AssetResource,
@@ -15,7 +15,7 @@ import {
   type EnvironmentId,
   sessionGrantsScope,
   type SessionGrantInput,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import { AsyncResult } from "effect/reactivity";
 import { useRef, useState, type ReactElement } from "react";
 

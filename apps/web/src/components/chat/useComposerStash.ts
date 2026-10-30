@@ -5,7 +5,7 @@ import {
   PROVIDER_SEND_TURN_MAX_ATTACHMENTS,
   type PreviewAnnotationPayload,
   type ThreadContextRecord,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import {
   type ComposerFileAttachment,
   type ComposerThreadDraftState,
@@ -45,7 +45,7 @@ import {
   verifyStashedAttachmentUpload,
 } from "../../lib/attachmentUploadQueue";
 import { remainingComposerAttachmentSlots } from "./composerThreadImport";
-import { replaceComposerContextReferences } from "@t3tools/shared/composerContextReferences";
+import { replaceComposerContextReferences } from "@l7code/shared/composerContextReferences";
 import { resizeSnapShotSource } from "../../lib/snapShotSource";
 import { registerCommands } from "../../shortcuts/dispatcher";
 import { selectThreadTerminalUiState, useTerminalUiStateStore } from "../../terminalUiStateStore";
@@ -694,7 +694,7 @@ export function useComposerStash(input: {
       ).terminalOpen,
     ),
   }));
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- registers the capture-phase stash shortcut with the command registry while the composer is mounted
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- registers the capture-phase stash shortcut with the command registry while the composer is mounted
   useEffect(() => {
     if (backgroundThread) return;
     return registerCommands(

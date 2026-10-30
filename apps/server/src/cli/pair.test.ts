@@ -5,9 +5,9 @@ import * as NodeOS from "node:os";
 import * as NodePath from "node:path";
 
 import * as NodeServices from "@effect/platform-node/NodeServices";
-import { AuthStandardClientScopes, ORCHESTRATION_PROTOCOL_VERSION } from "@t3tools/contracts";
-import * as NetService from "@t3tools/shared/Net";
-import * as HostProcess from "@t3tools/shared/HostProcess";
+import { AuthStandardClientScopes, ORCHESTRATION_PROTOCOL_VERSION } from "@l7code/contracts";
+import * as NetService from "@l7code/shared/Net";
+import * as HostProcess from "@l7code/shared/HostProcess";
 import { assert, describe, expect, it } from "@effect/vitest";
 import * as Cause from "effect/Cause";
 import * as ConfigProvider from "effect/ConfigProvider";
@@ -36,7 +36,7 @@ import {
 import { DevServerNotProxiableError, resolveTailscaleLocalTarget } from "./pair.ts";
 
 import packageJson from "../../package.json" with { type: "json" };
-import { buildPairingAppLink } from "@t3tools/shared/remote";
+import { buildPairingAppLink } from "@l7code/shared/remote";
 
 const layerCliRuntime = Layer.mergeAll(NodeServices.layer, NetService.layer);
 
@@ -103,7 +103,7 @@ const withDescriptorServer = <A, E, R>(
   Effect.acquireUseRelease(
     Effect.callback<NodeHttp.Server>((resume) => {
       const server = NodeHttp.createServer((request, response) => {
-        if (request.url === "/.well-known/t3/environment") {
+        if (request.url === "/.well-known/l7/environment") {
           response.writeHead(200, { "content-type": "application/json" });
           response.end(JSON.stringify(descriptor));
           return;
@@ -137,7 +137,7 @@ describe("t3 pair", () => {
               if (command.args[0] === "serve") {
                 const target = command.args.at(-1)!;
                 const descriptor = yield* Effect.promise(async () =>
-                  (await fetch(new URL("/.well-known/t3/environment", target))).json(),
+                  (await fetch(new URL("/.well-known/l7/environment", target))).json(),
                 );
                 expect(descriptor).toEqual(testDescriptor);
                 serving = true;
@@ -176,7 +176,7 @@ describe("t3 pair", () => {
                 if (String(input).startsWith(origin)) return fetch(input, init);
                 assert.equal(
                   String(input),
-                  "https://pair-test.tail.ts.net/.well-known/t3/environment",
+                  "https://pair-test.tail.ts.net/.well-known/l7/environment",
                 );
                 return serving
                   ? Response.json(testDescriptor)
@@ -288,7 +288,7 @@ describe("t3 pair", () => {
         const rendered = String(
           typeof error === "object" && error !== null && "cause" in error ? error.cause : error,
         );
-        assert.include(rendered, "No running T3 Code server found.");
+        assert.include(rendered, "No running L7 Code server found.");
       }),
     ).pipe(Effect.provide(NodeServices.layer)),
   );
@@ -318,13 +318,13 @@ describe("t3 pair", () => {
           runCli(["pair"]).pipe(
             Effect.provideService(HostProcess.WorkingDirectory, worktree),
             Effect.provide(
-              ConfigProvider.layer(ConfigProvider.fromEnv({ env: { T3CODE_HOME: sharedHome } })),
+              ConfigProvider.layer(ConfigProvider.fromEnv({ env: { L7CODE_HOME: sharedHome } })),
             ),
             Effect.flip,
           ),
         );
 
-        assert.include(String(error), "No running T3 Code server found.");
+        assert.include(String(error), "No running L7 Code server found.");
         assert.notInclude(String(error), sharedHome);
         assert.deepEqual(NodeFS.readdirSync(NodePath.join(sharedHome, "userdata")), [
           "server-runtime.json",

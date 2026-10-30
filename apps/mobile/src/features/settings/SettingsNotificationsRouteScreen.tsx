@@ -1,5 +1,5 @@
 import * as Dialog from "../../components/ui/Dialog";
-import { AuthRelayWriteScope } from "@t3tools/contracts";
+import { AuthRelayWriteScope } from "@l7code/contracts";
 import { readEnvironmentScope } from "../../state/session";
 import { ScreenScrollView as ScrollView } from "../../components/ui/ScreenScrollView";
 import { useAuth } from "@clerk/expo";
@@ -19,7 +19,7 @@ import {
   settleAsyncResult,
   settlePromise,
   squashAtomCommandFailure,
-} from "@t3tools/client-runtime/state/runtime";
+} from "@l7code/client-runtime/state/runtime";
 import { supportsAgentAwarenessPush } from "../agent-awareness/capabilities";
 import {
   openAndroidLiveUpdateSettings,
@@ -326,7 +326,7 @@ function ConfiguredSettingsNotificationsRouteScreen() {
 
     Dialog.alert(
       "Disable notifications",
-      "Open system Settings to disable notifications for T3 Code.",
+      "Open system Settings to disable notifications for L7 Code.",
       [
         { text: "Cancel", style: "cancel" },
         { text: "Open Settings", onPress: () => void Linking.openSettings() },
@@ -459,7 +459,7 @@ function ConfiguredSettingsNotificationsRouteScreen() {
                 void openAndroidLiveUpdateSettings().catch(() => {
                   Dialog.alert(
                     "Couldn't open Settings",
-                    "Open Android Settings, select T3 Code, then enable Live Updates in Notifications.",
+                    "Open Android Settings, select L7 Code, then enable Live Updates in Notifications.",
                   );
                 });
               }}

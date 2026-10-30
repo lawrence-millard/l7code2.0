@@ -1,15 +1,15 @@
 export type LoopbackAuthorizationStage = "dev" | "nightly" | "latest";
 
-declare const __T3CODE_BUILD_CHANNEL__: "nightly" | "latest" | undefined;
+declare const __L7CODE_BUILD_CHANNEL__: "nightly" | "latest" | undefined;
 
 function resolveLoopbackAuthorizationStage(): LoopbackAuthorizationStage {
-  return typeof __T3CODE_BUILD_CHANNEL__ === "undefined" ? "dev" : __T3CODE_BUILD_CHANNEL__;
+  return typeof __L7CODE_BUILD_CHANNEL__ === "undefined" ? "dev" : __L7CODE_BUILD_CHANNEL__;
 }
 
 const stageBrands = {
-  dev: "T3 Code (Dev)",
-  nightly: "T3 Code (Nightly)",
-  latest: "T3 Code",
+  dev: "L7 Code (Dev)",
+  nightly: "L7 Code (Nightly)",
+  latest: "L7 Code",
 } as const satisfies Record<LoopbackAuthorizationStage, string>;
 
 export function renderLoopbackAuthorizationCompleteHtml(

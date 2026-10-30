@@ -1,8 +1,8 @@
-import { EnvironmentId, ThreadId } from "@t3tools/contracts";
+import { EnvironmentId, ThreadId } from "@l7code/contracts";
 import type {
   PreviewStreamEvents,
   PreviewStreamInput,
-} from "@t3tools/client-runtime/preview/server-browser-stream";
+} from "@l7code/client-runtime/preview/server-browser-stream";
 
 import "~/index.css";
 import { describe, expect, it, vi } from "vite-plus/test";
@@ -16,7 +16,7 @@ const mocks = vi.hoisted(() => ({
   painted: null as (() => void) | null,
 }));
 
-vi.mock(import("@t3tools/client-runtime/preview/server-browser-stream"), async (original) => ({
+vi.mock(import("@l7code/client-runtime/preview/server-browser-stream"), async (original) => ({
   ...(await original()),
   createPreviewFramePainter: (_canvas, onPainted) => {
     mocks.painted = onPainted ?? null;

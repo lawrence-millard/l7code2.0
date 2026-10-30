@@ -1,6 +1,6 @@
-import type { ThreadId, TurnItemId } from "@t3tools/contracts";
+import type { ThreadId, TurnItemId } from "@l7code/contracts";
 import * as Context from "effect/Context";
-import * as NodeSqliteClient from "@t3tools/shared/nodeSqliteClient";
+import * as NodeSqliteClient from "@l7code/shared/nodeSqliteClient";
 import * as DateTime from "effect/DateTime";
 import * as Effect from "effect/Effect";
 import * as Layer from "effect/Layer";

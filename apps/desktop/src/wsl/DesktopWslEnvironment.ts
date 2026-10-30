@@ -9,8 +9,8 @@ import * as Schema from "effect/Schema";
 import * as Stream from "effect/Stream";
 import { ChildProcess, ChildProcessSpawner } from "effect/process";
 
-import { buildRemoteNodeEnvScript } from "@t3tools/ssh/tunnel";
-import { satisfiesSemverRange } from "@t3tools/shared/semver";
+import { buildRemoteNodeEnvScript } from "@l7code/ssh/tunnel";
+import { satisfiesSemverRange } from "@l7code/shared/semver";
 
 import * as DesktopEnvironment from "../app/DesktopEnvironment.ts";
 import { parseWslDistroList, type WslDistro } from "./wslPathParsing.ts";
@@ -116,7 +116,7 @@ export class DesktopWslEnvironment extends Context.Service<
       options?: EnsureWslNodePtyOptions,
     ) => Effect.Effect<EnsureWslNodePtyResult>;
   }
->()("@t3tools/desktop/wsl/DesktopWslEnvironment") {}
+>()("@l7code/desktop/wsl/DesktopWslEnvironment") {}
 
 const buildDistroArgs = (distro: string | null): ReadonlyArray<string> =>
   distro ? ["-d", distro] : [];
@@ -249,8 +249,8 @@ const runWslShell = (
 
 const shellQuote = (value: string): string => `'${value.replaceAll("'", "'\\''")}'`;
 
-const WSL_RUNTIME_READY_MARKER = ".t3code-wsl-runtime-ready";
-const WSL_RUNTIME_SELECTED_MARKER = ".t3code-wsl-runtime-selected";
+const WSL_RUNTIME_READY_MARKER = ".l7code-wsl-runtime-ready";
+const WSL_RUNTIME_SELECTED_MARKER = ".l7code-wsl-runtime-selected";
 const WSL_RUNTIME_SELECTION_GRACE_MINUTES = 5;
 
 const sanitizeWslRuntimeId = (value: string): string => value.replace(/[^A-Za-z0-9._-]/g, "_");
@@ -263,7 +263,7 @@ export const buildWslRuntimeInstallScript = (
   const safeRuntimeId = sanitizeWslRuntimeId(runtimeId);
   return [
     "set -eu",
-    'runtime_parent="$HOME/.t3/wsl-runtime"',
+    'runtime_parent="$HOME/.l7/wsl-runtime"',
     `runtime_root="$runtime_parent/${safeRuntimeId}"`,
     `ready_marker="$runtime_root/${WSL_RUNTIME_READY_MARKER}"`,
     "runtime_entry_runs() {",
@@ -352,7 +352,7 @@ export const buildWslRuntimePruneScript = (runtimeId: string): string => {
   const safeRuntimeId = sanitizeWslRuntimeId(runtimeId);
   return [
     "set -eu",
-    'runtime_parent="$HOME/.t3/wsl-runtime"',
+    'runtime_parent="$HOME/.l7/wsl-runtime"',
     `current_runtime="$runtime_parent/${safeRuntimeId}"`,
     '[ -d "$runtime_parent" ] || exit 0',
     // Serialize pruning so backends cannot select and delete different previous caches.
@@ -403,7 +403,7 @@ export const buildWslRuntimeInvalidateScript = (runtimeId: string): string => {
   const safeRuntimeId = sanitizeWslRuntimeId(runtimeId);
   return [
     "set -eu",
-    `rm -f "$HOME/.t3/wsl-runtime/${safeRuntimeId}/${WSL_RUNTIME_READY_MARKER}"`,
+    `rm -f "$HOME/.l7/wsl-runtime/${safeRuntimeId}/${WSL_RUNTIME_READY_MARKER}"`,
   ].join("\n");
 };
 
@@ -419,7 +419,7 @@ const NODE_PTY_BINARY_MISSING_EXIT_CODE = 4;
 
 const formatNodePtyProbeFailureReason = (exitCode: number): string | null =>
   exitCode === NODE_PTY_BINARY_MISSING_EXIT_CODE
-    ? "WSL support is missing from this T3 Code build: the packaged Linux node-pty binary was not included. Install a build that includes WSL support."
+    ? "WSL support is missing from this L7 Code build: the packaged Linux node-pty binary was not included. Install a build that includes WSL support."
     : null;
 
 // Capture login-shell PATH because the server launches provider CLIs by name.
@@ -595,7 +595,7 @@ const probeWslRuntimeImpl = Effect.fn("DesktopWslEnvironment.probeWslRuntimeImpl
     const trimmedTail = probe.stderr.trim().slice(-500);
     return {
       ok: false,
-      reason: `${linuxAppRoot}/t3 --version failed (exit ${probe.exitCode})${trimmedTail ? `: ${trimmedTail}` : ""}`,
+      reason: `${linuxAppRoot}/l7 --version failed (exit ${probe.exitCode})${trimmedTail ? `: ${trimmedTail}` : ""}`,
     } as const;
   }
   const resolvedPath = parseResolvedPath(probe.stdout);

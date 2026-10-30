@@ -1,9 +1,9 @@
-import type { ModelSelection, ProviderDriverKind, ProviderInstanceId } from "@t3tools/contracts";
+import type { ModelSelection, ProviderDriverKind, ProviderInstanceId } from "@l7code/contracts";
 import {
   CLAUDE_RESUME_COMPACTION_NEVER_ANSWER,
   COMPACTION_SUGGESTION_MIN_TOKENS,
   isClaudeResumeCompactionQuestion,
-} from "@t3tools/shared/claudeCompaction";
+} from "@l7code/shared/claudeCompaction";
 import {
   resolveSelectableProviderInstanceEntry,
   type ProviderInstanceEntry,

@@ -93,7 +93,7 @@ repeating the call's outcome and duration, so event counts are not call counts.
 
 ## Delivery
 
-The server sends batches to the ingest endpoint at `ingest.t3.codes`, which archives
+The server sends batches to the ingest endpoint at `ingest.l7code.dev`, which archives
 every event and forwards some of them to PostHog. A send can fail after the endpoint
 has stored the batch, so every retry is a copy.
 [Delivery](../../apps/server/src/telemetry/AnalyticsService.ts) gives each event a
@@ -110,4 +110,4 @@ must not reject a connection. PostHog person profiles remain disabled.
 
 Dev-runner servers and the CI archive smoke test turn telemetry off, which also
 stops relay tracing, because each would count as a new install. Set
-`T3CODE_TELEMETRY_ENABLED=true` to test analytics or relay tracing from a dev server.
+`L7CODE_TELEMETRY_ENABLED=true` to test analytics or relay tracing from a dev server.

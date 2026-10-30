@@ -8,8 +8,8 @@ import * as FileSystem from "effect/FileSystem";
 import * as Layer from "effect/Layer";
 import * as Option from "effect/Option";
 import * as Path from "effect/Path";
-import * as HostProcess from "@t3tools/shared/HostProcess";
-import { symlinksSupported } from "@t3tools/shared/testing/symlinks";
+import * as HostProcess from "@l7code/shared/HostProcess";
+import { symlinksSupported } from "@l7code/shared/testing/symlinks";
 
 import { buildSshChildEnvironment, isSshAuthFailure } from "./auth.ts";
 
@@ -46,7 +46,7 @@ describe("ssh auth", () => {
       assert.equal(env.SSH_ASKPASS, askpassPath);
       assert.equal(env.SSH_ASKPASS_REQUIRE, "force");
       assert.equal(env.T3_SSH_AUTH_SECRET, "super-secret");
-      assert.equal(env.DISPLAY, "t3code");
+      assert.equal(env.DISPLAY, "l7code");
       assert.equal(yield* fs.exists(askpassPath), true);
       assert.include(yield* fs.readFileString(askpassPath), 'printf "%s\\n" "$T3_SSH_AUTH_SECRET"');
     }).pipe(
@@ -102,13 +102,13 @@ describe("ssh auth", () => {
         const runtimeDirectoryOf = (askpass: string) => path.dirname(path.dirname(askpass));
 
         const first = yield* askpassPath();
-        const ownedTarget = yield* fs.makeTempDirectory({ prefix: "t3code-ssh-symlink-target-" });
+        const ownedTarget = yield* fs.makeTempDirectory({ prefix: "l7code-ssh-symlink-target-" });
         yield* fs.remove(runtimeDirectoryOf(first), { recursive: true });
         yield* fs.symlink(ownedTarget, runtimeDirectoryOf(first));
 
         const next = yield* askpassPath();
         assert.notEqual(next, first);
-        assert.equal(yield* fs.exists(path.join(ownedTarget, "t3code-ssh-askpass")), false);
+        assert.equal(yield* fs.exists(path.join(ownedTarget, "l7code-ssh-askpass")), false);
 
         yield* fs.remove(runtimeDirectoryOf(first));
         yield* fs.remove(ownedTarget, { recursive: true });

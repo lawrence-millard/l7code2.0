@@ -42,34 +42,34 @@ import {
   type ThreadPullRequestKey,
   type VcsCreateWorktreeInput,
   type VcsCreateWorktreeResult,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import {
   hasProjectSettingsOverrides,
   resolveProjectSettings,
-} from "@t3tools/shared/projectSettings";
+} from "@l7code/shared/projectSettings";
 import {
   mergeGitStatusParts,
   resolveAutoFeatureBranchName,
   sanitizeBranchFragment,
   sanitizeFeatureBranchName,
-} from "@t3tools/shared/git";
-import { isSshRemoteUrl } from "@t3tools/shared/sourceControl";
+} from "@l7code/shared/git";
+import { isSshRemoteUrl } from "@l7code/shared/sourceControl";
 import {
   type ChangeRequestTerminology,
   UNKNOWN_SOURCE_CONTROL_CLIENT,
-} from "@t3tools/source-control-core/shared/definition";
+} from "@l7code/source-control-core/shared/definition";
 import {
   normalizeThreadPullRequestKey,
   threadPullRequestKeyOf,
 } from "../sourceControl/threadPullRequests.ts";
 import { sourceControlDefinitions } from "../sourceControl/sourceControlDefinitions.ts";
 
-import { GitManagerError, GitPullRequestMaterializationError } from "@t3tools/contracts";
+import { GitManagerError, GitPullRequestMaterializationError } from "@l7code/contracts";
 import {
   historicalMessage,
   renderHistory,
   selectHistory,
-} from "@t3tools/provider-core/server/handoffBudget";
+} from "@l7code/provider-core/server/handoffBudget";
 import * as TextGeneration from "../textGeneration/TextGeneration.ts";
 import {
   conventionalCommitsTextGenerationPolicy,
@@ -83,12 +83,12 @@ import * as ProviderRegistry from "../provider/ProviderRegistry.ts";
 import { extractBranchNameFromRemoteRef } from "./remoteRefs.ts";
 import { detachStackFrame } from "./detachStackFrame.ts";
 import * as ServerSettings from "../serverSettings.ts";
-import type { GitManagerServiceError } from "@t3tools/contracts";
+import type { GitManagerServiceError } from "@l7code/contracts";
 import * as GitVcsDriver from "../vcs/GitVcsDriver.ts";
-import * as SourceControlProvider from "@t3tools/source-control-core/server/SourceControlProvider";
-import * as SourceControlRateLimit from "@t3tools/source-control-core/server/SourceControlRateLimit";
+import * as SourceControlProvider from "@l7code/source-control-core/server/SourceControlProvider";
+import * as SourceControlRateLimit from "@l7code/source-control-core/server/SourceControlRateLimit";
 import * as SourceControlProviderRegistry from "../sourceControl/SourceControlProviderRegistry.ts";
-import type { ChangeRequest } from "@t3tools/contracts";
+import type { ChangeRequest } from "@l7code/contracts";
 
 export interface GitActionProgressReporter {
   readonly publish: (event: GitActionProgressEvent) => Effect.Effect<void, never>;
@@ -263,7 +263,7 @@ function resolvePullRequestWorktreeLocalBranchName(
 
   const sanitizedHeadBranch = sanitizeBranchFragment(pullRequest.headBranch).trim();
   const suffix = sanitizedHeadBranch.length > 0 ? sanitizedHeadBranch : "head";
-  return `t3code/pr-${pullRequest.number}/${suffix}`;
+  return `l7code/pr-${pullRequest.number}/${suffix}`;
 }
 
 export function parseRepositoryNameWithOwnerFromRemoteUrl(
@@ -2304,7 +2304,7 @@ export const make = Effect.gen(function* () {
 
     const bodyFile = path.join(
       tempDir,
-      `t3code-pr-body-${process.pid}-${yield* randomUUIDv4(cwd)}.md`,
+      `l7code-pr-body-${process.pid}-${yield* randomUUIDv4(cwd)}.md`,
     );
     yield* fileSystem.writeFileString(bodyFile, generated.body).pipe(
       Effect.mapError(

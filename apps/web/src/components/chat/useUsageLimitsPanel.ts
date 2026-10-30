@@ -3,8 +3,8 @@ import type {
   ProviderInstanceId,
   ServerProvider,
   UsageLimitSourceSnapshots,
-} from "@t3tools/contracts";
-import { collectProviderUsageLimits, hasProviderUsageLimits } from "@t3tools/shared/usageLimits";
+} from "@l7code/contracts";
+import { collectProviderUsageLimits, hasProviderUsageLimits } from "@l7code/shared/usageLimits";
 import { useState } from "react";
 import { useStableCallback } from "../../hooks/useStableCallback";
 import { toastManager } from "../ui/toast";

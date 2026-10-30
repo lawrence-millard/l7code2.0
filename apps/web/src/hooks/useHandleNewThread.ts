@@ -2,8 +2,8 @@ import {
   scopedProjectKey,
   scopeProjectRef,
   scopeThreadRef,
-} from "@t3tools/client-runtime/environment";
-import { DEFAULT_SERVER_SETTINGS, type ScopedProjectRef, type ThreadId } from "@t3tools/contracts";
+} from "@l7code/client-runtime/environment";
+import { DEFAULT_SERVER_SETTINGS, type ScopedProjectRef, type ThreadId } from "@l7code/contracts";
 import { type AnyRouter, useRouter } from "@tanstack/react-router";
 import {
   composerDraftHasUserContent,
@@ -19,8 +19,8 @@ import {
   deriveLogicalProjectKeyFromSettings,
   getProjectOrderKey,
   selectProjectGroupingSettings,
-} from "@t3tools/client-runtime/state/project-grouping";
-import { resolveNewThreadEnvMode, resolveProjectSettings } from "@t3tools/shared/projectSettings";
+} from "@l7code/client-runtime/state/project-grouping";
+import { resolveNewThreadEnvMode, resolveProjectSettings } from "@l7code/shared/projectSettings";
 import {
   readProject,
   readProjects,
@@ -34,8 +34,8 @@ import {
   resolveNewDraftStartFromOrigin,
   resolveNewThreadModelSelectionOverride,
 } from "../lib/chatThreadActions";
-import type { EnvironmentProject } from "@t3tools/client-runtime/state/shell";
-import { readT3ProjectFile } from "../lib/t3ProjectFileDefaults";
+import type { EnvironmentProject } from "@l7code/client-runtime/state/shell";
+import { readT3ProjectFile } from "../lib/l7ProjectFileDefaults";
 import { appAtomRegistry } from "../rpc/atomRegistry";
 import { environmentSummaries } from "../state/presentation";
 import { environmentServerConfigsAtom } from "../state/server";
@@ -45,7 +45,7 @@ import { getClientSettings } from "./useSettings";
 import { useThreadRouteTarget } from "./useThreadRouteTarget";
 import { readUnloadedThreadCount } from "../state/olderSettledShelf";
 import { resolveProjectDefaultProviderModelSelection } from "../providerInstances";
-import { resolveNewThreadModelSelection } from "@t3tools/shared/usageLimits";
+import { resolveNewThreadModelSelection } from "@l7code/shared/usageLimits";
 
 interface NewThreadWorkspaceOptions {
   branch?: string | null;

@@ -1,4 +1,4 @@
-import * as HostProcess from "@t3tools/shared/HostProcess";
+import * as HostProcess from "@l7code/shared/HostProcess";
 import {
   CLI_RELEASE_BASE_URL_ENV,
   CLI_RELEASE_CHANNELS,
@@ -6,7 +6,7 @@ import {
   cliReleaseChannelOf,
   newestCliReleaseVersion,
   type CliReleaseChannel,
-} from "@t3tools/shared/cliRelease";
+} from "@l7code/shared/cliRelease";
 import * as Console from "effect/Console";
 import * as Duration from "effect/Duration";
 import * as Effect from "effect/Effect";
@@ -167,7 +167,7 @@ export const findWindowsShim = Effect.fn("cli.update.find_windows_shim")(functio
   const path = yield* Path.Path;
   const environment = yield* HostProcess.Environment;
   const candidates = [
-    ...(environment["T3CODE_INSTALL_BIN_DIR"] ? [environment["T3CODE_INSTALL_BIN_DIR"]] : []),
+    ...(environment["L7CODE_INSTALL_BIN_DIR"] ? [environment["L7CODE_INSTALL_BIN_DIR"]] : []),
     ...(environment["PATH"] ?? environment["Path"] ?? "").split(";"),
   ].filter((entry) => entry.trim().length > 0);
   for (const directory of candidates) {
@@ -261,7 +261,7 @@ const belongsToBootService = Effect.fn("cli.update.belongs_to_boot_service")(fun
   const runner = yield* ProcessRunner.ProcessRunner;
   if (platform === "linux") {
     const cgroup = yield* fs.readFileString(`/proc/${pid}/cgroup`).pipe(Effect.option);
-    return Option.isSome(cgroup) && cgroup.value.includes("/t3code.service");
+    return Option.isSome(cgroup) && cgroup.value.includes("/l7code.service");
   }
   if (platform === "darwin") {
     const parent = yield* runner
@@ -325,7 +325,7 @@ const runUpdate = Effect.fn("cli.update.run")(function* (input: {
         `t3@${targetVersion} is a preview build.`,
         "  Preview builds are cut by maintainers from unreleased branches to exercise the release",
         "  pipeline. They can be broken, receive no fixes, and are never offered as updates; you",
-        `  will have to switch back to ${currentChannel} yourself with \`t3 update --channel ${currentChannel} --allow-downgrade\`.`,
+        `  will have to switch back to ${currentChannel} yourself with \`l7 update --channel ${currentChannel} --allow-downgrade\`.`,
       ].join("\n"),
     );
     if (!(process.stdin.isTTY && process.stdout.isTTY)) {
@@ -368,8 +368,8 @@ const runUpdate = Effect.fn("cli.update.run")(function* (input: {
   if (executableCurrent && serviceCurrent) {
     yield* Console.log(
       serviceVersion !== undefined
-        ? `t3 and its background service are already on ${targetVersion} (${targetChannel}).`
-        : `t3 is already on ${targetVersion} (${targetChannel}).`,
+        ? `l7 and its background service are already on ${targetVersion} (${targetChannel}).`
+        : `l7 is already on ${targetVersion} (${targetChannel}).`,
     );
     return;
   }
@@ -392,8 +392,8 @@ const runUpdate = Effect.fn("cli.update.run")(function* (input: {
       : executableCurrent
         ? `Updating the background service ${serviceVersion ?? "(unknown version)"} -> ${targetVersion} (${targetChannel}).`
         : alreadyOnDisk
-          ? "Switching T3 Code"
-          : "Updating T3 Code",
+          ? "Switching L7 Code"
+          : "Updating L7 Code",
     executableCurrent
       ? ""
       : `${currentVersion} → ${targetVersion}${targetChannel === "stable" ? "" : ` (${targetChannel})`}`,
@@ -414,7 +414,7 @@ const runUpdate = Effect.fn("cli.update.run")(function* (input: {
       ).pipe(Effect.catchTags({ QuitError: () => Effect.succeed(false) }));
     } else {
       yield* Console.log(
-        "  Not a terminal, so the service keeps running its current version. Rerun with --yes to restart it now, or run `t3 service restart` later.",
+        "  Not a terminal, so the service keeps running its current version. Rerun with --yes to restart it now, or run `l7 service restart` later.",
       );
     }
   }
@@ -516,7 +516,7 @@ const runUpdate = Effect.fn("cli.update.run")(function* (input: {
     });
   }
 
-  progress.success(`Installed T3 Code ${targetVersion}`);
+  progress.success(`Installed L7 Code ${targetVersion}`);
   if (Option.isSome(repointed)) {
     yield* Console.log("  Run t3 to get started.\n");
   } else {
@@ -532,7 +532,7 @@ const runUpdate = Effect.fn("cli.update.run")(function* (input: {
     yield* Console.log(`  Background service already on ${targetVersion}`);
   } else if (serviceInstalled) {
     yield* Console.log(
-      `  Background service still running ${serviceVersion ?? "an unknown version"}. Run \`t3 service restart\` when you are ready to switch it to ${targetVersion}.`,
+      `  Background service still running ${serviceVersion ?? "an unknown version"}. Run \`l7 service restart\` when you are ready to switch it to ${targetVersion}.`,
     );
   } else if (status.installed && !servesThisHome) {
     yield* Console.log(

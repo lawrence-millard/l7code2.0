@@ -1,4 +1,4 @@
-import type { ModelPreferences } from "@t3tools/contracts/settings";
+import type { ModelPreferences } from "@l7code/contracts/settings";
 import {
   DEFAULT_MODEL_BY_PROVIDER,
   DEFAULT_TEXT_GENERATION_MODEL,
@@ -21,7 +21,7 @@ import {
   ServerSettings,
   type ServerSettingsPatch,
   withIdleCompaction,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import * as Option from "effect/Option";
 import * as Schema from "effect/Schema";
 import { deepMerge } from "./Struct.ts";

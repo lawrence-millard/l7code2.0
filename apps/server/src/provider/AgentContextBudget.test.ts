@@ -1,7 +1,7 @@
 import * as NodeServices from "@effect/platform-node/NodeServices";
 import { expect, it } from "@effect/vitest";
-import { ProviderInstanceId } from "@t3tools/contracts";
-import { McpProviderSessions } from "@t3tools/provider-core/server/McpProviderSessions";
+import { ProviderInstanceId } from "@l7code/contracts";
+import { McpProviderSessions } from "@l7code/provider-core/server/McpProviderSessions";
 import * as Effect from "effect/Effect";
 import * as Layer from "effect/Layer";
 import { McpServer } from "effect/ai";
@@ -90,7 +90,7 @@ const claudeSystemAppend = () => {
     nativeThreadId: "context-budget",
     resume: false,
     cwd: null,
-    mcpServers: { "t3-code": { type: "http", url: "http://127.0.0.1/mcp" } },
+    mcpServers: { "l7-code": { type: "http", url: "http://127.0.0.1/mcp" } },
   });
   return typeof systemPrompt === "object" && "append" in systemPrompt ? systemPrompt.append : "";
 };

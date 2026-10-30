@@ -21,8 +21,8 @@ import {
   type OrchestrationV2ServerCommand,
   type OrchestrationV2ThreadProjection,
   type ServerProvider,
-} from "@t3tools/contracts";
-import { checkpointWorkspace } from "@t3tools/provider-testing/replayWorkspace";
+} from "@l7code/contracts";
+import { checkpointWorkspace } from "@l7code/provider-testing/replayWorkspace";
 import * as DateTime from "effect/DateTime";
 import * as Effect from "effect/Effect";
 import * as Fiber from "effect/Fiber";
@@ -62,7 +62,7 @@ import type { McpInvocationScope } from "./McpInvocationContext.ts";
 import { idleThreadProjection, liveThreadShell } from "./McpToolAccess.testkit.ts";
 import * as OrchestratorMcpService from "./OrchestratorMcpService.ts";
 import { resolveRuntimeMode } from "./delegatedTaskModes.ts";
-import type * as ProviderAdapter from "@t3tools/provider-core/server/ProviderAdapter";
+import type * as ProviderAdapter from "@l7code/provider-core/server/ProviderAdapter";
 
 const decodeTarget = Schema.decodeUnknownEffect(OrchestratorMcpTarget);
 
@@ -1052,7 +1052,7 @@ describe("OrchestratorMcpService provider resolution", () => {
     version: input.enabled === false ? null : "test",
     status: input.enabled === false ? "disabled" : "ready",
     auth: { status: input.enabled === false ? "unknown" : "authenticated" },
-    ...(input.enabled === false ? { message: "Provider is disabled in T3 Code settings." } : {}),
+    ...(input.enabled === false ? { message: "Provider is disabled in L7 Code settings." } : {}),
     checkedAt: "2026-09-13T00:00:00.000Z",
     models:
       input.model === undefined

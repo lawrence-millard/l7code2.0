@@ -4,14 +4,14 @@ import {
   type EnvironmentId,
   type ProjectScript,
   type T3ProjectFileScript,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import { useAtomValue } from "@effect/atom-react";
-import { DEFAULT_RESOLVED_KEYBINDINGS } from "@t3tools/shared/keybindings";
+import { DEFAULT_RESOLVED_KEYBINDINGS } from "@l7code/shared/keybindings";
 import {
   isAtomCommandInterrupted,
   squashAtomCommandFailure,
-} from "@t3tools/client-runtime/state/runtime";
-import { projectScriptMenuLabel } from "@t3tools/shared/projectScripts";
+} from "@l7code/client-runtime/state/runtime";
+import { projectScriptMenuLabel } from "@l7code/shared/projectScripts";
 import { ChevronDownIcon, DownloadIcon, PlusIcon, SettingsIcon, WrenchIcon } from "lucide-react";
 import React, { useState } from "react";
 
@@ -156,7 +156,7 @@ export default function ProjectScriptsControl({
     <>
       {scripts.length > 0 && <MenuSeparator />}
       <MenuGroup>
-        <MenuGroupLabel>From t3.json</MenuGroupLabel>
+        <MenuGroupLabel>From l7.json</MenuGroupLabel>
         {importableScripts.map((fileScript) => (
           <MenuItem
             density={presentation === "menu" ? "touch" : "default"}

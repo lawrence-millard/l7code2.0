@@ -18,9 +18,9 @@ import {
   cliArchiveTarCommand,
   cliReleaseDownloadBaseUrl,
   parseChecksums,
-} from "@t3tools/shared/cliRelease";
+} from "@l7code/shared/cliRelease";
 
-import * as HostProcess from "@t3tools/shared/HostProcess";
+import * as HostProcess from "@l7code/shared/HostProcess";
 
 import * as ProcessRunner from "../processRunner.ts";
 import { isExactServiceVersion, parseServiceState, SERVICE_STATE_FILE } from "./serviceProtocol.ts";
@@ -58,7 +58,7 @@ export function pinnedRuntimePaths(
   const versionDir = path.join(pinnedRuntimeVersionsDir(path, baseDir), version);
   return {
     versionDir,
-    entryPath: path.join(versionDir, platform === "win32" ? "t3.exe" : "t3"),
+    entryPath: path.join(versionDir, platform === "win32" ? "l7.exe" : "l7"),
     sentinelPath: path.join(versionDir, ".install-complete"),
   };
 }
@@ -371,8 +371,8 @@ const PINNED_RUNTIME_PRUNED_PREFIX = ".pruned-";
  */
 const PINNED_RUNTIME_PRUNE_GRACE = Duration.hours(1);
 /**
- * One `t3` launcher path per line, appended by the install scripts and by any prune that finds a
- * launcher on PATH. A service does not see the installer's `T3CODE_INSTALL_BIN_DIR` or the
+ * One `l7` launcher path per line, appended by the install scripts and by any prune that finds a
+ * launcher on PATH. A service does not see the installer's `L7CODE_INSTALL_BIN_DIR` or the
  * interactive PATH, so this is how it finds a custom one, including installs that predate the file.
  */
 const PINNED_RUNTIME_LAUNCHERS_FILE = "launchers";
@@ -386,10 +386,10 @@ export function launcherOwnsVersionsDir(
   return relative.length > 0 && !relative.startsWith("..") && !path.isAbsolute(relative);
 }
 
-/** The executable a `t3.cmd` shim written by the install script or `t3 update` runs. */
+/** The executable a `t3.cmd` shim written by the install script or `l7 update` runs. */
 export const windowsShimTarget = (contents: string) => /^"([^"]+)"/m.exec(contents)?.[1];
 
-/** Where the `t3` launchers written by the install scripts and `t3 update` point. */
+/** Where the `l7` launchers written by the install scripts and `l7 update` point. */
 const shellLauncherTargets = Effect.fn("cloud.pinned_runtime.shell_launcher_targets")(function* (
   baseDir: string,
 ) {
@@ -398,13 +398,13 @@ const shellLauncherTargets = Effect.fn("cloud.pinned_runtime.shell_launcher_targ
   const platform = yield* HostProcess.Platform;
   const environment = yield* HostProcess.Environment;
   const home = yield* HostProcess.HomeDirectory;
-  const launcherName = platform === "win32" ? "t3.cmd" : "t3";
+  const launcherName = platform === "win32" ? "l7.cmd" : "l7";
   const launchersFile = path.join(baseDir, PINNED_RUNTIME_DIR, PINNED_RUNTIME_LAUNCHERS_FILE);
   const recorded = (yield* fs.readFileString(launchersFile).pipe(Effect.orElseSucceed(() => "")))
     .split(/\r?\n/)
     .filter((launcher) => launcher.trim().length > 0);
   const found = [
-    environment["T3CODE_INSTALL_BIN_DIR"] || path.join(home, ".local", "bin"),
+    environment["L7CODE_INSTALL_BIN_DIR"] || path.join(home, ".local", "bin"),
     ...(environment["PATH"] ?? environment["Path"] ?? "").split(platform === "win32" ? ";" : ":"),
   ]
     .filter((directory) => path.isAbsolute(directory))
@@ -446,8 +446,8 @@ const shellLauncherTargets = Effect.fn("cloud.pinned_runtime.shell_launcher_targ
 });
 
 /**
- * Resolved executables rather than command lines: a server started through the `t3` symlink
- * shows up as `t3 serve`, possibly from another T3 home that runs this home's runtimes. Windows
+ * Resolved executables rather than command lines: a server started through the `l7` symlink
+ * shows up as `l7 serve`, possibly from another T3 home that runs this home's runtimes. Windows
  * has no symlink launcher, and its `t3.cmd` shim runs the absolute path, so command lines do there.
  */
 const runningExecutables = Effect.fn("cloud.pinned_runtime.running_executables")(function* () {

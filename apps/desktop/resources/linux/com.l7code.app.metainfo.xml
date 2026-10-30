@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.l7code.app</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <name>L7 Code</name>
+  <summary>Desktop GUI for coding agents</summary>
+  <developer id="com.l7code">
+    <name>L7 Code Inc.</name>
+  </developer>
+  <description>
+    <p>
+      L7 Code is an open-source desktop app for coding agents. Work with your
+      existing agent subscriptions, review code changes, and run commands in
+      your projects.
+    </p>
+    <p>
+      Connect from desktop, web, or mobile to continue working remotely.
+    </p>
+  </description>
+  <launchable type="desktop-id">l7code.desktop</launchable>
+  <icon type="stock">l7code</icon>
+  <provides>
+    <binary>l7code</binary>
+  </provides>
+  <categories>
+    <category>Development</category>
+  </categories>
+  <url type="homepage">https://github.com/lawrence-millard/l7code2.0</url>
+  <url type="bugtracker">https://github.com/lawrence-millard/l7code2.0/issues</url>
+  <url type="vcs-browser">https://github.com/lawrence-millard/l7code2.0</url>
+</component>

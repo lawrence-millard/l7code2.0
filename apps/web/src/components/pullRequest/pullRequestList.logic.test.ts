@@ -1,10 +1,10 @@
-import { SourceControlProviderKind } from "@t3tools/contracts";
+import { SourceControlProviderKind } from "@l7code/contracts";
 import type {
   EnvironmentId,
   ProjectId,
   PullRequestAction,
   PullRequestListEntry,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import { describe, expect, it } from "vite-plus/test";
 
 import {
@@ -51,10 +51,10 @@ function entry(
     provider: SourceControlProviderKind.make("github"),
     host: "github.com",
     projectId: "project-1",
-    projectTitle: "t3code",
-    repository: "pingdotgg/t3code",
+    projectTitle: "l7code",
+    repository: "lawrence-millard/l7code2.0",
     title: "Add the pull requests page",
-    url: `https://github.com/pingdotgg/t3code/pull/${overrides.number}`,
+    url: `https://github.com/lawrence-millard/l7code2.0/pull/${overrides.number}`,
     author: { login: "octocat", name: null, avatarUrl: null },
     headBranch: `feat/branch-${overrides.number}`,
     baseBranch: "main",
@@ -98,7 +98,7 @@ describe("visible pull request line-count targets", () => {
     );
     expect([...keys]).toEqual([secondKey]);
     expect(pullRequestStatsBatches(entriesByKey, keys)[0]?.input.refs).toEqual([
-      { projectId: "project-1", repository: "pingdotgg/t3code", number: 2 },
+      { projectId: "project-1", repository: "lawrence-millard/l7code2.0", number: 2 },
     ]);
   });
 
@@ -360,7 +360,7 @@ describe("remembered pull request list controls", () => {
   // regression: #9188 corrupt stored list controls broke the page
   it("falls back to the default controls when storage is corrupt", () => {
     const storage = makeStorage();
-    storage.setItem("t3.pullRequests.preferences", "{not json");
+    storage.setItem("l7.pullRequests.preferences", "{not json");
     expect(readPullRequestListPreferences(storage)).toEqual({ involvement: "all", state: "open" });
   });
 
@@ -557,7 +557,7 @@ describe("pull request list overrides", () => {
   const entry = (number: number, state: "open" | "closed" | "merged") =>
     ({
       host: "github.com",
-      repository: "pingdotgg/t3code",
+      repository: "lawrence-millard/l7code2.0",
       number,
       state,
       isDraft: false,
