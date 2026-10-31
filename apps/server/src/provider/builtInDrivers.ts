@@ -8,6 +8,7 @@ import { CodexDriver, type CodexDriverEnv } from "./Drivers/CodexDriver.ts";
 import { CursorDriver, type CursorDriverEnv } from "@l7code/provider-cursor/server";
 import { FxDriver, type FxDriverEnv } from "@l7code/provider-fx/server";
 import { GrokDriver, type GrokDriverEnv } from "@l7code/provider-grok/server";
+import { CommandCodeDriver, type CommandCodeDriverEnv } from "@l7code/provider-command-code/server";
 import { OpenCodeDriver, type OpenCodeDriverEnv } from "@l7code/provider-opencode/server";
 import { MuseDriver, type MuseDriverEnv } from "@l7code/provider-muse/server";
 import { PiDriver, type PiDriverEnv } from "@l7code/provider-pi/server";
@@ -24,6 +25,7 @@ export type BuiltInDriversEnv =
   | CursorDriverEnv
   | FxDriverEnv
   | GrokDriverEnv
+  | CommandCodeDriverEnv
   | OpenCodeDriverEnv
   | PiDriverEnv
   | MuseDriverEnv;
@@ -33,6 +35,7 @@ export const BUILT_IN_DRIVERS: ReadonlyArray<AnyProviderDriver<BuiltInDriversEnv
   ClaudeDriver,
   CursorDriver,
   GrokDriver,
+  CommandCodeDriver,
   FxDriver,
   OpenCodeDriver,
   AntigravityDriver,
