@@ -5,7 +5,7 @@ import {
   DesktopPendingSnapShot,
   type ClientSettings,
   type DesktopSnapShotEvent,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import * as Crypto from "effect/Crypto";
 import * as Effect from "effect/Effect";
 import * as Fiber from "effect/Fiber";
@@ -492,9 +492,9 @@ const layerTest = (
           DesktopEnvironment.DesktopEnvironment,
           DesktopEnvironment.DesktopEnvironment.of({
             platform,
-            displayName: "T3 Code (Dev)",
+            displayName: "L7 Code (Dev)",
             stateDir: "/state",
-            linuxDesktopEntryName: "com.t3tools.T3Code.desktop",
+            linuxDesktopEntryName: "com.l7code.L7Code.desktop",
             appRoot: "/repo",
             linuxApplicationsDir: "/test-data/applications",
           } as DesktopEnvironment.DesktopEnvironment["Service"]),
@@ -1508,8 +1508,8 @@ it.each([
 );
 
 it.each([
-  { names: ["⠙ t3code"], expected: "Verified text" },
-  { names: ["⠋ t3code", "⠙ t3code"], expected: undefined },
+  { names: ["⠙ l7code"], expected: "Verified text" },
+  { names: ["⠋ l7code", "⠙ l7code"], expected: undefined },
 ])("reads a changing Wayland title only when unambiguous: $names", async ({ names, expected }) => {
   vi.stubEnv("XDG_SESSION_TYPE", "wayland");
   const tree = vi.fn(async () => ({ value: "Verified text", children: [] }));
@@ -1525,12 +1525,12 @@ it.each([
     assert.strictEqual(
       await readAccessibleWindowText(
         {
-          title: "⠋ t3code",
+          title: "⠋ l7code",
           bounds: { x: 479, y: 342, width: 700, height: 520 },
           owner: { processId: 123 },
         },
         "linux",
-        "⠋ t3code",
+        "⠋ l7code",
       ),
       expected,
     );
@@ -1545,7 +1545,7 @@ it.each([
   ["com.google.Chrome", "Google Chrome – Profile"],
   ["org.chromium.Chromium", "Chromium"],
 ])("reads macOS %s page context with an accessibility title suffix", async (bundleId, suffix) => {
-  const title = "Issues · pingdotgg/t3code";
+  const title = "Issues · lawrence-millard/l7code2.0";
   const bounds = { x: 0, y: 33, width: 1470, height: 857 };
   const window = {
     role: "window",
@@ -1575,7 +1575,7 @@ it.each([
 });
 
 it("does not borrow another Chrome process context when the captured PID has no windows", async () => {
-  const title = "Issues · pingdotgg/t3code";
+  const title = "Issues · lawrence-millard/l7code2.0";
   const bounds = { x: 0, y: 33, width: 1470, height: 857 };
   const otherWindow = {
     role: "window",
@@ -1791,7 +1791,7 @@ it.effect("flags revoked macOS permissions on read and re-registers once they re
       const revoked = yield* service.state;
       assert.equal(
         revoked.message,
-        "Allow Screen Recording in System Settings, then restart T3 Code.",
+        "Allow Screen Recording in System Settings, then restart L7 Code.",
       );
       assert.deepEqual(revoked.macPermissions, { screenRecording: false, accessibility: true });
 
@@ -1804,7 +1804,7 @@ it.effect("flags revoked macOS permissions on read and re-registers once they re
       const blocked = yield* service.state;
       assert.equal(
         blocked.message,
-        "Allow Screen Recording in System Settings, then restart T3 Code.",
+        "Allow Screen Recording in System Settings, then restart L7 Code.",
       );
       assert.isFalse(blocked.shortcutRegistered);
 
@@ -2146,7 +2146,7 @@ it.effect.each([false, true])(
       platform: "macos",
       id: 42,
       title: "Setup",
-      owner: { name: "T3 Code", processId: 123, path: "/Applications/T3 Code.app" },
+      owner: { name: "L7 Code", processId: 123, path: "/Applications/L7 Code.app" },
       bounds: { x: 0, y: 0, width: 800, height: 600 },
     };
     activeWindowMock.mockReset().mockResolvedValue(active);
@@ -2163,7 +2163,7 @@ it.effect.each([false, true])(
           assert.equal(error.reason, "setup-failed");
           assert.equal(
             error.message,
-            'Could not capture a test snapshot. Capturing the window failed. macOS grants Screen Recording and Accessibility to each app separately. In System Settings, open Privacy & Security and check that "T3 Code (Dev)" is allowed for both.',
+            'Could not capture a test snapshot. Capturing the window failed. macOS grants Screen Recording and Accessibility to each app separately. In System Settings, open Privacy & Security and check that "L7 Code (Dev)" is allowed for both.',
           );
         } else yield* service.setup("test-mac-capture");
         assert.equal(macCaptureMock.mock.calls.length, 1);

@@ -10,9 +10,9 @@ import {
   RunAttemptId,
   RunId,
   ThreadId,
-} from "@t3tools/contracts";
-import { resolveSelfInvocation } from "@t3tools/shared/nodeRuntime";
-import { htmlRenderFromToolItem } from "@t3tools/shared/toolOutput";
+} from "@l7code/contracts";
+import { resolveSelfInvocation } from "@l7code/shared/nodeRuntime";
+import { htmlRenderFromToolItem } from "@l7code/shared/toolOutput";
 import * as Crypto from "effect/Crypto";
 import * as DateTime from "effect/DateTime";
 import * as Deferred from "effect/Deferred";
@@ -26,16 +26,16 @@ import { ChildProcessSpawner } from "effect/process";
 import type * as EffectAcpSchema from "effect-acp/compat";
 import * as EffectAcpErrors from "effect-acp/errors";
 
-import * as ProviderHost from "@t3tools/provider-core/server/ProviderHost";
-import * as McpProviderSessions from "@t3tools/provider-core/server/McpProviderSessions";
-import * as TestProviderHost from "@t3tools/provider-testing/TestProviderHost";
-import type * as AcpSessionRuntime from "@t3tools/provider-acp/server/AcpSessionRuntime";
+import * as ProviderHost from "@l7code/provider-core/server/ProviderHost";
+import * as McpProviderSessions from "@l7code/provider-core/server/McpProviderSessions";
+import * as TestProviderHost from "@l7code/provider-testing/TestProviderHost";
+import type * as AcpSessionRuntime from "@l7code/provider-acp/server/AcpSessionRuntime";
 import { makeAntigravityAcpRuntime } from "../../provider/acp/AntigravityAcpSupport.ts";
 import { resolveAttachmentPath } from "../../attachmentStore.ts";
 import { normalizeAntigravitySessionUpdate } from "../../provider/acp/AntigravityProtocol.ts";
 import { ANTIGRAVITY_SIGN_IN_REQUIRED_MESSAGE } from "../../provider/antigravityAuthSupport.ts";
-import * as IdAllocator from "@t3tools/provider-core/server/IdAllocator";
-import * as ProviderAdapter from "@t3tools/provider-core/server/ProviderAdapter";
+import * as IdAllocator from "@l7code/provider-core/server/IdAllocator";
+import * as ProviderAdapter from "@l7code/provider-core/server/ProviderAdapter";
 import {
   makeAntigravityAcpAdapterFlavor,
   makeAntigravityAdapterV2,
@@ -781,25 +781,25 @@ describe("AntigravityAdapterV2 html_render pages", () => {
 
       assert.deepEqual(tool("published"), {
         status: "completed",
-        toolName: "t3-code.html_render",
+        toolName: "l7-code.html_render",
         page: page("replacement"),
         output: { htmlRender: page("replacement") },
       });
       assert.deepEqual(tool("unpublished"), {
         status: "completed",
-        toolName: "t3-code.html_render",
+        toolName: "l7-code.html_render",
         page: undefined,
         output: "Summary of unpublished",
       });
       assert.deepEqual(tool("failed"), {
         status: "failed",
-        toolName: "t3-code.html_render",
+        toolName: "l7-code.html_render",
         page: undefined,
         output: "Summary of failed",
       });
       assert.deepEqual(tool("error"), {
         status: "completed",
-        toolName: "t3-code.html_render",
+        toolName: "l7-code.html_render",
         page: undefined,
         output: [],
       });
@@ -817,7 +817,7 @@ describe("AntigravityAdapterV2 html_render pages", () => {
       for (const name of ["failed-retry", "error-retry"]) {
         assert.deepEqual(tool(name), {
           status: "completed",
-          toolName: "t3-code.html_render",
+          toolName: "l7-code.html_render",
           page: page(name),
           output: { htmlRender: page(name) },
         });

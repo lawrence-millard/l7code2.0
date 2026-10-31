@@ -1,6 +1,6 @@
 import { useAtomValue } from "@effect/atom-react";
-import { enabledEnvironmentIds } from "@t3tools/client-runtime/state/connections";
-import { arrayElementsEqual } from "@t3tools/client-runtime/state/entities";
+import { enabledEnvironmentIds } from "@l7code/client-runtime/state/connections";
+import { arrayElementsEqual } from "@l7code/client-runtime/state/entities";
 import {
   createEnvironmentThreadDetailAtoms,
   createEnvironmentThreadShellAtoms,
@@ -10,8 +10,8 @@ import {
   createOlderSettledThreadAtoms,
   createThreadEnvironmentAtoms,
   createThreadFamilyAtoms,
-} from "@t3tools/client-runtime/state/threads";
-import type { EnvironmentId, OrchestrationV2ThreadShell, ThreadId } from "@t3tools/contracts";
+} from "@l7code/client-runtime/state/threads";
+import type { EnvironmentId, OrchestrationV2ThreadShell, ThreadId } from "@l7code/contracts";
 import * as Option from "effect/Option";
 import { AsyncResult, Atom } from "effect/reactivity";
 import { useEffect } from "react";
@@ -47,7 +47,7 @@ export function useThreadFamily(
   environmentId: EnvironmentId | null,
   rootThreadId: ThreadId | null,
 ): void {
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- mounts the subagent tree into the thread family registry while the caller shows it
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- mounts the subagent tree into the thread family registry while the caller shows it
   useEffect(() => {
     if (environmentId === null || rootThreadId === null) return;
     return threadFamilies.mount(appAtomRegistry, environmentId, rootThreadId);

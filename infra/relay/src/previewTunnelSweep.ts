@@ -32,12 +32,12 @@ export interface PreviewTunnelSweepAttributes {
 }
 
 export type PreviewTunnelSweep = Resource<
-  "T3CodeRelay.PreviewTunnelSweep",
+  "L7CodeRelay.PreviewTunnelSweep",
   PreviewTunnelSweepProps,
   PreviewTunnelSweepAttributes
 >;
 
-export const PreviewTunnelSweep = Resource<PreviewTunnelSweep>("T3CodeRelay.PreviewTunnelSweep");
+export const PreviewTunnelSweep = Resource<PreviewTunnelSweep>("L7CodeRelay.PreviewTunnelSweep");
 
 const API = "https://api.cloudflare.com/client/v4";
 const PAGE_SIZE = 100;

@@ -3,7 +3,7 @@ import {
   applyTerminalAttachStreamEvent,
   INITIAL_TERMINAL_OUTPUT_CURSOR,
   nextTerminalAttachSeedState,
-} from "@t3tools/client-runtime/state/terminal";
+} from "@l7code/client-runtime/state/terminal";
 import { synchronizeTerminalSession } from "../../components/ThreadTerminalDrawer";
 
 import { GhosttyTerminalCore, type GhosttyCell, type GhosttyRow } from "./core";
@@ -657,7 +657,7 @@ describe("terminalLinkAtPositionWithRange", () => {
     const cells = [
       cell("🙂"),
       cell(""),
-      ...Array.from("https://t3.codes", (character) => cell(character)),
+      ...Array.from("https://github.com/lawrence-millard/l7code2.0", (character) => cell(character)),
     ];
     const row: GhosttyRow = {
       cells,
@@ -669,9 +669,9 @@ describe("terminalLinkAtPositionWithRange", () => {
       wrapsToNext: false,
     };
 
-    expect(terminalLinkAtPositionWithRange([row], 0, 2)?.text).toBe("https://t3.codes");
+    expect(terminalLinkAtPositionWithRange([row], 0, 2)?.text).toBe("https://github.com/lawrence-millard/l7code2.0");
     expect(terminalLinkAtPositionWithRange([row], 0, cells.length - 1)?.text).toBe(
-      "https://t3.codes",
+      "https://github.com/lawrence-millard/l7code2.0",
     );
     expect(terminalLinkAtPositionWithRange([row], 0, 0)).toBeNull();
     expect(terminalLinkAtPositionWithRange([row], 0, 8)?.range).toEqual({
@@ -724,10 +724,10 @@ describe("terminalLinkAtPositionWithRange", () => {
     });
     const headCut = [row("ple.com/missing", true), row("head", true)];
     expect(terminalLinkAtPositionWithRange(headCut, 0, 4)).toBeNull();
-    const tailCut = [row("https://t3.codes", false, true)];
+    const tailCut = [row("https://github.com/lawrence-millard/l7code2.0", false, true)];
     expect(terminalLinkAtPositionWithRange(tailCut, 0, 8)).toBeNull();
-    const complete = [row("https://t3.codes", false), row("", false)];
-    expect(terminalLinkAtPositionWithRange(complete, 0, 8)?.text).toBe("https://t3.codes");
+    const complete = [row("https://github.com/lawrence-millard/l7code2.0", false), row("", false)];
+    expect(terminalLinkAtPositionWithRange(complete, 0, 8)?.text).toBe("https://github.com/lawrence-millard/l7code2.0");
     const wideFull: GhosttyRow = {
       cells: [
         { ...cell("🙂"), wide: 1 },
@@ -741,15 +741,15 @@ describe("terminalLinkAtPositionWithRange", () => {
     expect(terminalLinkAtPositionWithRange([wideFull], 0, 8)).toBeNull();
     const unwrittenTail: GhosttyRow = {
       cells: [
-        ...Array.from("https://t3.codes", (character) => cell(character)),
+        ...Array.from("https://github.com/lawrence-millard/l7code2.0", (character) => cell(character)),
         cell(""),
         cell(""),
       ],
-      text: "https://t3.codes",
+      text: "https://github.com/lawrence-millard/l7code2.0",
       isWrapContinuation: false,
       wrapsToNext: false,
     };
-    expect(terminalLinkAtPositionWithRange([unwrittenTail], 0, 8)?.text).toBe("https://t3.codes");
+    expect(terminalLinkAtPositionWithRange([unwrittenTail], 0, 8)?.text).toBe("https://github.com/lawrence-millard/l7code2.0");
   });
 });
 

@@ -4,16 +4,16 @@ import {
   CodexSettings,
   isProviderDriverKind,
   ProviderDriverKind,
-} from "@t3tools/contracts";
-import { acpRegistryClient } from "@t3tools/provider-acp-registry/client";
-import { makeProviderClientRegistry } from "@t3tools/provider-core/client";
-import { modelShortName } from "@t3tools/provider-core/modelShortName";
-import { cursorClient } from "@t3tools/provider-cursor/client";
-import { fxClient } from "@t3tools/provider-fx/client";
-import { grokClient } from "@t3tools/provider-grok/client";
-import { museClient } from "@t3tools/provider-muse/client";
-import { openCodeClient } from "@t3tools/provider-opencode/client";
-import { piClient } from "@t3tools/provider-pi/client";
+} from "@l7code/contracts";
+import { acpRegistryClient } from "@l7code/provider-acp-registry/client";
+import { makeProviderClientRegistry } from "@l7code/provider-core/client";
+import { modelShortName } from "@l7code/provider-core/modelShortName";
+import { cursorClient } from "@l7code/provider-cursor/client";
+import { fxClient } from "@l7code/provider-fx/client";
+import { grokClient } from "@l7code/provider-grok/client";
+import { museClient } from "@l7code/provider-muse/client";
+import { openCodeClient } from "@l7code/provider-opencode/client";
+import { piClient } from "@l7code/provider-pi/client";
 
 export const providerClients = makeProviderClientRegistry([
   {

@@ -2,9 +2,9 @@ import { useAtomValue } from "@effect/atom-react";
 import {
   isAtomCommandInterrupted,
   squashAtomCommandFailure,
-} from "@t3tools/client-runtime/state/runtime";
-import type { EnvironmentId } from "@t3tools/contracts";
-import { proposedPlanTitle, stripDisplayedPlanMarkdown } from "@t3tools/shared/proposedPlanText";
+} from "@l7code/client-runtime/state/runtime";
+import type { EnvironmentId } from "@l7code/contracts";
+import { proposedPlanTitle, stripDisplayedPlanMarkdown } from "@l7code/shared/proposedPlanText";
 import { useRef, useState, type ReactNode } from "react";
 import { View } from "react-native";
 

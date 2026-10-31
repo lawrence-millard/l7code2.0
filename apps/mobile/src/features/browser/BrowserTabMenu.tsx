@@ -9,8 +9,8 @@ import {
   type PreviewAdjustInput,
   type PreviewSessionSnapshot,
   type PreviewViewportSetting,
-} from "@t3tools/contracts";
-import { PREVIEW_VIEWPORT_PRESETS } from "@t3tools/shared/previewViewport";
+} from "@l7code/contracts";
+import { PREVIEW_VIEWPORT_PRESETS } from "@l7code/shared/previewViewport";
 
 import { ControlPill } from "../../components/ui/ControlPill";
 import { Menu } from "../../components/ui/Menu";

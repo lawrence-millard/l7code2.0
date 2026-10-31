@@ -1,4 +1,4 @@
-import type { ResolvedKeybindingsConfig } from "@t3tools/contracts";
+import type { ResolvedKeybindingsConfig } from "@l7code/contracts";
 
 import { isTerminalCloseShortcut, type ShortcutEventLike } from "../keybindings";
 

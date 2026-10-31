@@ -13,14 +13,14 @@ import * as HttpClient from "effect/http/HttpClient";
 import type * as HttpServerRequest from "effect/http/HttpServerRequest";
 import * as HttpServerResponse from "effect/http/HttpServerResponse";
 import * as HttpApiBuilder from "effect/http-api/HttpApiBuilder";
-import { EnvironmentId } from "@t3tools/contracts";
-import { RelayApi, type RelayHookDeliveryProofPayload } from "@t3tools/contracts/relay";
+import { EnvironmentId } from "@l7code/contracts";
+import { RelayApi, type RelayHookDeliveryProofPayload } from "@l7code/contracts/relay";
 import {
   normalizeRelayIssuer,
   RELAY_HOOK_DELIVERY_HEADER,
   RELAY_HOOK_DELIVERY_TYP,
   signRelayJwt,
-} from "@t3tools/shared/relayJwt";
+} from "@l7code/shared/relayJwt";
 
 import * as RelayConfiguration from "../Config.ts";
 import { MANAGED_ENDPOINT_KEY_PATTERN } from "../deploymentConfig.ts";
@@ -101,7 +101,7 @@ export class HookRateLimiter extends Context.Service<
     readonly allowHook: (key: string) => Effect.Effect<boolean>;
     readonly allowEndpoint: (endpointKey: string) => Effect.Effect<boolean>;
   }
->()("t3code-relay/hooks/HookForwarder/HookRateLimiter") {}
+>()("l7code-relay/hooks/HookForwarder/HookRateLimiter") {}
 
 export class HookForwarder extends Context.Service<
   HookForwarder,
@@ -110,7 +110,7 @@ export class HookForwarder extends Context.Service<
       request: HttpServerRequest.HttpServerRequest,
     ) => Effect.Effect<HttpServerResponse.HttpServerResponse>;
   }
->()("t3code-relay/hooks/HookForwarder") {}
+>()("l7code-relay/hooks/HookForwarder") {}
 
 class HookBodyTooLarge extends Schema.TaggedError<HookBodyTooLarge>()("HookBodyTooLarge", {}) {}
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
-import { EnvironmentId, ThreadId, type ScopedThreadRef } from "@t3tools/contracts";
+import { EnvironmentId, ThreadId, type ScopedThreadRef } from "@l7code/contracts";
 
 import {
   formatThreadLink,
@@ -68,7 +68,7 @@ describe("thread links", () => {
   });
 
   it("rejects other links and an empty id", () => {
-    expect(parseThreadLinkHref("https://t3.codes")).toBeNull();
+    expect(parseThreadLinkHref("https://github.com/lawrence-millard/l7code2.0")).toBeNull();
     expect(parseThreadLinkHref("t3-thread://v1/")).toBeNull();
     expect(parseThreadLinkHref("t3-thread://v1/ ")).toBeNull();
     expect(parseThreadLinkHref("t3-thread://v2/env-1")).toBeNull();

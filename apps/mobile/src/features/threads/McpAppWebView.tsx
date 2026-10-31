@@ -1,7 +1,7 @@
 import { Button } from "../../components/ui/Button";
 import { AppActivityIndicator } from "../../components/ui/AppActivityIndicator";
 import * as Dialog from "../../components/ui/Dialog";
-import type { EnvironmentId, ThreadId, TurnItemId } from "@t3tools/contracts";
+import type { EnvironmentId, ThreadId, TurnItemId } from "@l7code/contracts";
 import {
   makeMcpAppHost,
   McpAppHostRefusal,
@@ -10,16 +10,16 @@ import {
   type McpAppCallToolResult,
   type McpAppHost,
   type McpAppHostContext,
-} from "@t3tools/client-runtime/mcp-apps";
-import { scopeThreadRef } from "@t3tools/client-runtime/environment";
-import { squashAtomCommandFailure } from "@t3tools/client-runtime/state/runtime";
-import { CommandId, MessageId } from "@t3tools/contracts";
+} from "@l7code/client-runtime/mcp-apps";
+import { scopeThreadRef } from "@l7code/client-runtime/environment";
+import { squashAtomCommandFailure } from "@l7code/client-runtime/state/runtime";
+import { CommandId, MessageId } from "@l7code/contracts";
 import {
   mcpAppAllowAttribute,
   mcpAppFileName,
   mcpAppReferencesEqual,
   type McpAppReference,
-} from "@t3tools/shared/mcpApp";
+} from "@l7code/shared/mcpApp";
 import * as Predicate from "effect/Predicate";
 import { AsyncResult } from "effect/reactivity";
 import Constants from "expo-constants";
@@ -183,7 +183,7 @@ export function ThreadMcpApp(props: {
     reopenDocument();
     setPresentedFullscreen(false);
   });
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- Navigation focus is outside React; listen only while the app is presented full screen, and stop on unmount.
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- Navigation focus is outside React; listen only while the app is presented full screen, and stop on unmount.
   useEffect(() => {
     if (!presentedFullscreen) return;
     return navigation.addListener("focus", () => returnedFromFullscreen());
@@ -230,7 +230,7 @@ export function ThreadMcpApp(props: {
   // The attached WebView owns its host; state lets the tool-call effect pair
   // a host only with an atom from a render after that host existed.
   const [host, setHost] = useState<McpAppHost | null>(null);
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- resends host context to the MCP app host after commits that change theme, insets, tool or size
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- resends host context to the MCP app host after commits that change theme, insets, tool or size
   useEffect(() => {
     const previous = latest.current;
     latest.current = live;
@@ -249,7 +249,7 @@ export function ThreadMcpApp(props: {
   // The host sends the call once the app initializes, so a stored item that
   // lands late still reaches it. A completed call can arrive under a new
   // revision, which is a new atom, so the host follows the current one.
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- subscribes the MCP host to the current tool call
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- subscribes the MCP host to the current tool call
   useEffect(() => {
     if (host === null) return;
     return appAtomRegistry.subscribe(
@@ -298,7 +298,7 @@ export function ThreadMcpApp(props: {
         platform: "mobile",
         locale: Intl.DateTimeFormat().resolvedOptions().locale,
         timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        userAgent: `t3-code/${Constants.expoConfig?.version ?? "0.0.0"}`,
+        userAgent: `l7-code/${Constants.expoConfig?.version ?? "0.0.0"}`,
         deviceCapabilities: { touch: true, hover: false },
         safeAreaInsets: isFullscreen
           ? { top: 0, right: current.insets.right, bottom: 0, left: current.insets.left }

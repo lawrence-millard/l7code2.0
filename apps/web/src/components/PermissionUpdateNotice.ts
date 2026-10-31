@@ -1,4 +1,4 @@
-import { sessionHasLegacyPermissions, type EnvironmentId } from "@t3tools/contracts";
+import { sessionHasLegacyPermissions, type EnvironmentId } from "@l7code/contracts";
 import type { AnyRouter } from "@tanstack/react-router";
 import * as Schema from "effect/Schema";
 import { Atom } from "effect/reactivity";
@@ -25,7 +25,7 @@ const legacyPermissionEnvironmentsAtom = Atom.make((get) =>
 ).pipe(Atom.withLabel("web-legacy-permission-environments"));
 
 const dismissalKey = (environmentId: EnvironmentId) =>
-  `t3code:permission-update:v1:${environmentId}`;
+  `l7code:permission-update:v1:${environmentId}`;
 
 function showPermissionNotice(
   router: AnyRouter,

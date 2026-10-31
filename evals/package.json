@@ -1,5 +1,5 @@
 {
-  "name": "@t3tools/evals",
+  "name": "@l7code/evals",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@effect/platform-node": "catalog:",
-    "@t3tools/contracts": "workspace:*",
-    "@t3tools/provider-core": "workspace:*",
-    "@t3tools/shared": "workspace:*",
+    "@l7code/contracts": "workspace:*",
+    "@l7code/provider-core": "workspace:*",
+    "@l7code/shared": "workspace:*",
     "effect": "catalog:"
   },
   "devDependencies": {

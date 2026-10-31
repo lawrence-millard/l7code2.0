@@ -1,4 +1,4 @@
-import type { ProviderOptionDescriptor } from "@t3tools/contracts";
+import type { ProviderOptionDescriptor } from "@l7code/contracts";
 
 import type { ComposerControlSize } from "./ComposerControl";
 

@@ -3,7 +3,7 @@
 // Hermes has no WebAssembly, so wasm2c supplies C for T3Highlights.
 // Token and language IDs are an ABI; generate native code and JS tables from the same version.
 // After bumping @pierre/highlights:
-// WASM2C=/path/to/wabt-1.0.42/bin/wasm2c vp run --filter @t3tools/mobile generate:highlights
+// WASM2C=/path/to/wabt-1.0.42/bin/wasm2c vp run --filter @l7code/mobile generate:highlights
 
 import * as NodeChildProcess from "node:child_process";
 import * as NodeCrypto from "node:crypto";
@@ -17,7 +17,7 @@ const WASM2C_VERSION = "1.0.42";
 const THEMES = { light: "pierre-light", dark: "pierre-dark" } as const;
 
 const mobileRoot = NodePath.resolve(import.meta.dirname, "..");
-const moduleRoot = NodePath.join(mobileRoot, "modules/t3-highlights");
+const moduleRoot = NodePath.join(mobileRoot, "modules/l7-highlights");
 const generatedDataPath = NodePath.join(mobileRoot, "src/lib/highlights.generated.ts");
 
 interface ThemeStyle {

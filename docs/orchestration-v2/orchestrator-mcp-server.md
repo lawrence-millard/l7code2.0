@@ -34,7 +34,7 @@ The orchestration tools share the existing authenticated HTTP MCP endpoint:
 http://127.0.0.1:<server-port>/mcp
 ```
 
-The provider-visible server key is `t3-code`. The endpoint registers both the
+The provider-visible server key is `l7-code`. The endpoint registers both the
 preview toolkit and the orchestration toolkit.
 
 Before `ProviderSessionManager` opens a new V2 provider session, it asks
@@ -62,11 +62,11 @@ Codex app-server receives the remote MCP server through command-line config
 overrides:
 
 ```text
--c mcp_servers.t3-code.url=http://127.0.0.1:<port>/mcp
--c mcp_servers.t3-code.bearer_token_env_var="T3_MCP_BEARER_TOKEN"
+-c mcp_servers.l7-code.url=http://127.0.0.1:<port>/mcp
+-c mcp_servers.l7-code.bearer_token_env_var="L7CODE_MCP_BEARER_TOKEN"
 ```
 
-The provider-session token is placed in `T3_MCP_BEARER_TOKEN`. Both the
+The provider-session token is placed in `L7CODE_MCP_BEARER_TOKEN`. Both the
 production Codex launcher and the injectable test launcher use the same
 projection helper.
 
@@ -77,7 +77,7 @@ Claude receives an HTTP MCP server in its query options:
 ```ts
 {
   mcpServers: {
-    "t3-code": {
+    "l7-code": {
       type: "http",
       url: "http://127.0.0.1:<port>/mcp",
       headers: {
@@ -87,7 +87,7 @@ Claude receives an HTTP MCP server in its query options:
   },
   allowedTools: [
     // existing allowed tools
-    "mcp__t3-code__*",
+    "mcp__l7-code__*",
   ],
 }
 ```
@@ -156,11 +156,11 @@ extension into the server cache and spawns
 
 ```text
 T3_MCP_URL=http://127.0.0.1:<port>/mcp
-T3_MCP_BEARER_TOKEN=<provider-session-token>
+L7CODE_MCP_BEARER_TOKEN=<provider-session-token>
 ```
 
-The extension preserves public names under `mcp__t3-code__` for saved loadouts
-and tool selectors. Modern Pi also receives hidden `mcp__t3_code__` aliases,
+The extension preserves public names under `mcp__l7-code__` for saved loadouts
+and tool selectors. Modern Pi also receives hidden `mcp__l7_code__` aliases,
 which reserve the normalized namespace against configured MCP servers without
 adding declarations or search results. On Pi 0.99+,
 `orchestrator_capabilities`, `delegate_task`, and `task_status` remain directly

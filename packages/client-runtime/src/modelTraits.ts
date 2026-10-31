@@ -2,14 +2,14 @@ import type {
   ModelSelection,
   ProviderDriverKind,
   ProviderOptionDescriptor,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import {
   applyClaudePromptEffortPrefix,
   buildProviderOptionSelectionsFromDescriptors,
   getProviderOptionCurrentLabel,
   getProviderOptionCurrentValue,
   isClaudeUltrathinkPrompt,
-} from "@t3tools/shared/model";
+} from "@l7code/shared/model";
 import { REASONING_EFFORT_OPTION_IDS } from "./state/threadExecution.ts";
 
 export const ULTRATHINK_PROMPT_PREFIX = "Ultrathink:\n";

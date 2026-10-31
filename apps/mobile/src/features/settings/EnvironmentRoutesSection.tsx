@@ -11,12 +11,12 @@ import {
   connectionRoutes,
   isLearned,
   pendingRouteOrder,
-} from "@t3tools/client-runtime/connection";
-import { type EnvironmentId, sessionGrantsScope } from "@t3tools/contracts";
+} from "@l7code/client-runtime/connection";
+import { type EnvironmentId, sessionGrantsScope } from "@l7code/contracts";
 import {
   AUTH_SCOPE_OPTIONS,
   sessionPermissionsUnavailableMessage,
-} from "@t3tools/shared/authScopeOptions";
+} from "@l7code/shared/authScopeOptions";
 import { AsyncResult } from "effect/reactivity";
 import * as Option from "effect/Option";
 import { useState } from "react";

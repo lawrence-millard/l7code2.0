@@ -10,15 +10,15 @@ import {
   RunId,
   type RuntimeMode,
   ThreadId,
-} from "@t3tools/contracts";
-import { ACP_PROTOCOL } from "@t3tools/provider-acp/server/adapter";
-import { FxSettings } from "@t3tools/provider-fx/settings";
-import { FX_DRIVER_KIND, makeFxAdapterV2 } from "@t3tools/provider-fx/testing";
-import * as IdAllocator from "@t3tools/provider-core/server/IdAllocator";
-import * as McpProviderSessions from "@t3tools/provider-core/server/McpProviderSessions";
-import { ProviderAdapterV2RuntimePolicy } from "@t3tools/provider-core/server/ProviderAdapter";
-import * as TestProviderHost from "@t3tools/provider-testing/TestProviderHost";
-import { resolveSelfInvocation } from "@t3tools/shared/nodeRuntime";
+} from "@l7code/contracts";
+import { ACP_PROTOCOL } from "@l7code/provider-acp/server/adapter";
+import { FxSettings } from "@l7code/provider-fx/settings";
+import { FX_DRIVER_KIND, makeFxAdapterV2 } from "@l7code/provider-fx/testing";
+import * as IdAllocator from "@l7code/provider-core/server/IdAllocator";
+import * as McpProviderSessions from "@l7code/provider-core/server/McpProviderSessions";
+import { ProviderAdapterV2RuntimePolicy } from "@l7code/provider-core/server/ProviderAdapter";
+import * as TestProviderHost from "@l7code/provider-testing/TestProviderHost";
+import { resolveSelfInvocation } from "@l7code/shared/nodeRuntime";
 import * as DateTime from "effect/DateTime";
 import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";

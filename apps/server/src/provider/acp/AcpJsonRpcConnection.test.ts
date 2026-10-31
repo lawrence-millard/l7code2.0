@@ -6,7 +6,7 @@ import * as NodeFS from "node:fs";
 
 import * as NodeServices from "@effect/platform-node/NodeServices";
 import { assert, it } from "@effect/vitest";
-import * as HostProcess from "@t3tools/shared/HostProcess";
+import * as HostProcess from "@l7code/shared/HostProcess";
 import * as Deferred from "effect/Deferred";
 import * as Effect from "effect/Effect";
 import * as Exit from "effect/Exit";
@@ -17,8 +17,8 @@ import * as Stream from "effect/Stream";
 import { ChildProcessSpawner } from "effect/process";
 import { describe, expect } from "vite-plus/test";
 
-import * as AcpSessionRuntime from "@t3tools/provider-acp/server/AcpSessionRuntime";
-import { AgentScope } from "@t3tools/shared/AgentScope";
+import * as AcpSessionRuntime from "@l7code/provider-acp/server/AcpSessionRuntime";
+import { AgentScope } from "@l7code/shared/AgentScope";
 import * as EffectAcpErrors from "effect-acp/errors";
 
 const __dirname = NodePath.dirname(NodeURL.fileURLToPath(import.meta.url));
@@ -218,7 +218,7 @@ describe("AcpSessionRuntime", () => {
         Effect.provideService(AgentScope, {
           ...AgentScope.defaultValue(),
           wrap: ({ command, args }) =>
-            Effect.succeed({ command, args, unit: "t3code-acp-test.scope" }),
+            Effect.succeed({ command, args, unit: "l7code-acp-test.scope" }),
           stop: (unit) => Deferred.succeed(stopped, unit).pipe(Effect.asVoid),
         }),
       );
@@ -226,7 +226,7 @@ describe("AcpSessionRuntime", () => {
       expect(yield* Deferred.isDone(stopped)).toBe(false);
       yield* runtime.notify("_test/exit", {});
       const events = yield* runtime.getEvents().pipe(Stream.take(1), Stream.runCollect);
-      expect(yield* Deferred.await(stopped)).toBe("t3code-acp-test.scope");
+      expect(yield* Deferred.await(stopped)).toBe("l7code-acp-test.scope");
       const event = events[0];
       expect(event).toMatchObject({ _tag: "ConnectionTerminated", error: { code: 19 } });
       if (event?._tag !== "ConnectionTerminated") return;
@@ -469,7 +469,7 @@ describe("AcpSessionRuntime", () => {
         (event) => event.method === "session/new" && event.status === "started",
       );
       expect(created?.payload).toMatchObject({
-        mcpServers: [{ type: "acp", name: "t3-code", serverId: "t3-code" }],
+        mcpServers: [{ type: "acp", name: "l7-code", serverId: "l7-code" }],
       });
     }).pipe(
       Effect.provide(
@@ -482,8 +482,8 @@ describe("AcpSessionRuntime", () => {
           cwd: process.cwd(),
           clientInfo: { name: "t3-test", version: "0.0.0" },
           authMethodId: "test",
-          mcpServers: [{ type: "stdio", name: "t3-code", command: "/usr/bin/node", args: [] }],
-          acpMcpServers: [{ type: "acp", name: "t3-code", serverId: "t3-code" }],
+          mcpServers: [{ type: "stdio", name: "l7-code", command: "/usr/bin/node", args: [] }],
+          acpMcpServers: [{ type: "acp", name: "l7-code", serverId: "l7-code" }],
           requestLogger: (event) =>
             Effect.sync(() => {
               requestEvents.push(event);

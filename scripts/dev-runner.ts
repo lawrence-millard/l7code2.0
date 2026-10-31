@@ -4,10 +4,10 @@ import * as NodeOS from "node:os";
 
 import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
 import * as NodeServices from "@effect/platform-node/NodeServices";
-import * as NetService from "@t3tools/shared/Net";
-import { resolveGitWorktreePath, resolveWorktreeT3Home } from "@t3tools/shared/devHome";
-import * as HostProcess from "@t3tools/shared/HostProcess";
-import { resolveSpawnCommand } from "@t3tools/shared/shell";
+import * as NetService from "@l7code/shared/Net";
+import { resolveGitWorktreePath, resolveWorktreeT3Home } from "@l7code/shared/devHome";
+import * as HostProcess from "@l7code/shared/HostProcess";
+import { resolveSpawnCommand } from "@l7code/shared/shell";
 import * as Config from "effect/Config";
 import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
@@ -60,35 +60,35 @@ export function isProxiableBindHost(host: string): boolean {
 }
 
 export const DEFAULT_T3_HOME = Effect.map(Effect.service(Path.Path), (path) =>
-  path.join(NodeOS.homedir(), ".t3"),
+  path.join(NodeOS.homedir(), ".l7"),
 );
 
 const MODE_ARGS = {
   dev: [
     "run",
-    "--filter=@t3tools/contracts",
-    "--filter=@t3tools/web",
-    "--filter=t3",
+    "--filter=@l7code/contracts",
+    "--filter=@l7code/web",
+    "--filter=l7",
     "--parallel",
     "dev",
   ],
-  "dev:server": ["run", "--filter=t3", "dev"],
-  "dev:web": ["run", "--filter=@t3tools/web", "dev"],
-  "dev:desktop": ["run", "--filter=@t3tools/desktop", "--filter=@t3tools/web", "dev"],
+  "dev:server": ["run", "--filter=l7", "dev"],
+  "dev:web": ["run", "--filter=@l7code/web", "dev"],
+  "dev:desktop": ["run", "--filter=@l7code/desktop", "--filter=@l7code/web", "dev"],
 } as const satisfies Record<string, ReadonlyArray<string>>;
 
 // `--built`: the web package rebuilds into apps/web/dist and the backend serves
 // it, so no Vite dev server runs.
 const BUILT_DEV_ARGS = [
   "run",
-  "--filter=@t3tools/web",
-  "--filter=t3",
+  "--filter=@l7code/web",
+  "--filter=l7",
   "--parallel",
   "dev:built",
 ] as const;
 
 type DevMode = keyof typeof MODE_ARGS;
-// Only backend ports honor --host/T3CODE_HOST; web ports stay loopback.
+// Only backend ports honor --host/L7CODE_HOST; web ports stay loopback.
 type PortAvailabilityCheck<R = never> = (
   port: number,
   role?: "server" | "web",
@@ -115,7 +115,7 @@ export class DevRunnerConfigurationError extends Schema.TaggedError<DevRunnerCon
 export class DevRunnerInvalidPortOffsetError extends Schema.TaggedError<DevRunnerInvalidPortOffsetError>()(
   "DevRunnerInvalidPortOffsetError",
   {
-    configKey: Schema.Literal("T3CODE_PORT_OFFSET"),
+    configKey: Schema.Literal("L7CODE_PORT_OFFSET"),
     portOffset: Schema.Number,
     minimum: Schema.Number,
   },
@@ -216,8 +216,8 @@ const optionalIntegerConfig = (name: string): Config.Config<number | undefined> 
     Config.map((value) => Option.getOrUndefined(value)),
   );
 const OffsetConfig = Config.all({
-  portOffset: optionalIntegerConfig("T3CODE_PORT_OFFSET"),
-  devInstance: optionalStringConfig("T3CODE_DEV_INSTANCE"),
+  portOffset: optionalIntegerConfig("L7CODE_PORT_OFFSET"),
+  devInstance: optionalStringConfig("L7CODE_DEV_INSTANCE"),
 });
 
 export function resolveOffset(config: {
@@ -232,7 +232,7 @@ export function resolveOffset(config: {
     if (config.portOffset < 0) {
       return Effect.fail(
         new DevRunnerInvalidPortOffsetError({
-          configKey: "T3CODE_PORT_OFFSET",
+          configKey: "L7CODE_PORT_OFFSET",
           portOffset: config.portOffset,
           minimum: 0,
         }),
@@ -240,7 +240,7 @@ export function resolveOffset(config: {
     }
     return Effect.succeed({
       offset: config.portOffset,
-      source: `T3CODE_PORT_OFFSET=${config.portOffset}`,
+      source: `L7CODE_PORT_OFFSET=${config.portOffset}`,
     });
   }
 
@@ -249,12 +249,12 @@ export function resolveOffset(config: {
     if (/^\d+$/.test(seed)) {
       return Effect.succeed({
         offset: Number(seed),
-        source: `numeric T3CODE_DEV_INSTANCE=${seed}`,
+        source: `numeric L7CODE_DEV_INSTANCE=${seed}`,
       });
     }
 
     const offset = ((Hash.string(seed) >>> 0) % MAX_HASH_OFFSET) + 1;
-    return Effect.succeed({ offset, source: `hashed T3CODE_DEV_INSTANCE=${seed}` });
+    return Effect.succeed({ offset, source: `hashed L7CODE_DEV_INSTANCE=${seed}` });
   }
 
   const worktreePath = config.worktreePath?.trim();
@@ -327,9 +327,9 @@ export const createDevRunnerEnv = Effect.fn("dev-runner.createDevRunnerEnv")(fun
   };
 
   if (configuredBaseDir !== undefined) {
-    output.T3CODE_HOME = resolvedBaseDir;
+    output.L7CODE_HOME = resolvedBaseDir;
   } else {
-    delete output.T3CODE_HOME;
+    delete output.L7CODE_HOME;
   }
 
   // Managed T3 service shells leak launcher variables that make dev servers fail version checks.
@@ -339,10 +339,10 @@ export const createDevRunnerEnv = Effect.fn("dev-runner.createDevRunnerEnv")(fun
 
   // Each worktree has its own state, so a dev server would count as a new
   // install of the developer's real accounts. Set it explicitly to opt in.
-  output.T3CODE_TELEMETRY_ENABLED = baseEnv.T3CODE_TELEMETRY_ENABLED ?? "false";
+  output.L7CODE_TELEMETRY_ENABLED = baseEnv.L7CODE_TELEMETRY_ENABLED ?? "false";
 
   if (!isDesktopMode) {
-    output.T3CODE_PORT = String(serverPort);
+    output.L7CODE_PORT = String(serverPort);
     // An inherited HOST pins Vite's HMR socket via explicitHost in apps/web/vite.config.ts.
     // Only desktop mode should set it.
     delete output.HOST;
@@ -356,58 +356,58 @@ export const createDevRunnerEnv = Effect.fn("dev-runner.createDevRunnerEnv")(fun
       // which merges `.env`/`.env.local` *under* this env, so a developer
       // with either URL in their `.env` would get it back and silently lose
       // single-origin mode.
-      output.T3CODE_SINGLE_ORIGIN_DEV = "1";
+      output.L7CODE_SINGLE_ORIGIN_DEV = "1";
     } else {
       output.VITE_HTTP_URL = `http://localhost:${serverPort}`;
       output.VITE_WS_URL = `ws://localhost:${serverPort}`;
-      delete output.T3CODE_SINGLE_ORIGIN_DEV;
+      delete output.L7CODE_SINGLE_ORIGIN_DEV;
     }
   } else {
-    output.T3CODE_PORT = String(serverPort);
+    output.L7CODE_PORT = String(serverPort);
     output.VITE_HTTP_URL = `http://${DESKTOP_DEV_LOOPBACK_HOST}:${serverPort}`;
     output.VITE_WS_URL = `ws://${DESKTOP_DEV_LOOPBACK_HOST}:${serverPort}`;
     // Desktop pins the renderer to loopback on purpose; an ambient marker
     // must not make Vite drop those URLs.
-    delete output.T3CODE_SINGLE_ORIGIN_DEV;
-    delete output.T3CODE_MODE;
-    delete output.T3CODE_NO_BROWSER;
-    delete output.T3CODE_HOST;
-    delete output.T3CODE_DEV_AUTH_TOKEN;
+    delete output.L7CODE_SINGLE_ORIGIN_DEV;
+    delete output.L7CODE_MODE;
+    delete output.L7CODE_NO_BROWSER;
+    delete output.L7CODE_HOST;
+    delete output.L7CODE_DEV_AUTH_TOKEN;
   }
 
   if (!isDesktopMode && host !== undefined) {
-    output.T3CODE_HOST = host;
+    output.L7CODE_HOST = host;
   }
 
   if (!isDesktopMode) {
-    output.T3CODE_NO_BROWSER = browser === true ? "0" : "1";
+    output.L7CODE_NO_BROWSER = browser === true ? "0" : "1";
   }
 
   if (autoBootstrapProjectFromCwd !== undefined) {
-    output.T3CODE_AUTO_BOOTSTRAP_PROJECT_FROM_CWD = autoBootstrapProjectFromCwd ? "1" : "0";
+    output.L7CODE_AUTO_BOOTSTRAP_PROJECT_FROM_CWD = autoBootstrapProjectFromCwd ? "1" : "0";
   } else {
-    delete output.T3CODE_AUTO_BOOTSTRAP_PROJECT_FROM_CWD;
+    delete output.L7CODE_AUTO_BOOTSTRAP_PROJECT_FROM_CWD;
   }
 
   if (logWebSocketEvents !== undefined) {
-    output.T3CODE_LOG_WS_EVENTS = logWebSocketEvents ? "1" : "0";
+    output.L7CODE_LOG_WS_EVENTS = logWebSocketEvents ? "1" : "0";
   } else {
-    delete output.T3CODE_LOG_WS_EVENTS;
+    delete output.L7CODE_LOG_WS_EVENTS;
   }
 
   if (mode === "dev") {
-    output.T3CODE_MODE = "web";
-    delete output.T3CODE_DESKTOP_WS_URL;
+    output.L7CODE_MODE = "web";
+    delete output.L7CODE_DESKTOP_WS_URL;
   }
 
   if (mode === "dev:server" || mode === "dev:web") {
-    output.T3CODE_MODE = "web";
-    delete output.T3CODE_DESKTOP_WS_URL;
+    output.L7CODE_MODE = "web";
+    delete output.L7CODE_DESKTOP_WS_URL;
   }
 
   if (isDesktopMode) {
     output.HOST = DESKTOP_DEV_LOOPBACK_HOST;
-    delete output.T3CODE_DESKTOP_WS_URL;
+    delete output.L7CODE_DESKTOP_WS_URL;
   }
 
   return output;
@@ -633,7 +633,7 @@ const prepareFirstStart = Effect.fn("dev-runner.prepareFirstStart")(function* (i
         );
       }
     }
-    const source = path.join(yield* HostProcess.HomeDirectory, ".t3", "userdata", "statev2.sqlite");
+    const source = path.join(yield* HostProcess.HomeDirectory, ".l7", "userdata", "statev2.sqlite");
     // A V1 state.sqlite counts as data too: the server imports it only while
     // statev2.sqlite is missing, so seeding would hide it.
     if (
@@ -649,7 +649,7 @@ const prepareFirstStart = Effect.fn("dev-runner.prepareFirstStart")(function* (i
           );
         } else {
           yield* Effect.logInfo(
-            `[dev-runner] seeding ${input.worktreeHome} from ${source} (read-only). --no-seed or T3CODE_DEV_SEED=0 skips this.`,
+            `[dev-runner] seeding ${input.worktreeHome} from ${source} (read-only). --no-seed or L7CODE_DEV_SEED=0 skips this.`,
           );
           yield* runRepoScript(
             "apps/server/scripts/migrate-dev-db.ts",
@@ -693,7 +693,7 @@ export const runDevRunnerWithInput = Effect.fn("dev-runner.runDevRunnerWithInput
     Effect.mapError(
       (cause) =>
         new DevRunnerConfigurationError({
-          configKeys: ["T3CODE_PORT_OFFSET", "T3CODE_DEV_INSTANCE"],
+          configKeys: ["L7CODE_PORT_OFFSET", "L7CODE_DEV_INSTANCE"],
           cause,
         }),
     ),
@@ -729,8 +729,8 @@ export const runDevRunnerWithInput = Effect.fn("dev-runner.runDevRunnerWithInput
 
   const hostEnvironment = yield* HostProcess.Environment;
   // A dev server started inside a worktree defaults to that worktree's own
-  // (gitignored) `.t3` — see @t3tools/shared/devHome for why this must
-  // outrank an ambient T3CODE_HOME. `--home-dir` still wins.
+  // (gitignored) `.l7` — see @l7code/shared/devHome for why this must
+  // outrank an ambient L7CODE_HOME. `--home-dir` still wins.
   const worktreeHome = yield* resolveWorktreeT3Home(yield* HostProcess.WorkingDirectory);
   // Trim before choosing: `--home-dir ""` is not a selection, and treating it
   // as one would skip the worktree default and land on the shared home —
@@ -738,7 +738,7 @@ export const runDevRunnerWithInput = Effect.fn("dev-runner.runDevRunnerWithInput
   const resolvedT3Home =
     (input.t3Home?.trim() || undefined) ??
     worktreeHome ??
-    (hostEnvironment.T3CODE_HOME?.trim() || undefined);
+    (hostEnvironment.L7CODE_HOME?.trim() || undefined);
   const env = yield* createDevRunnerEnv({
     mode: input.mode,
     baseEnv: hostEnvironment,
@@ -757,10 +757,10 @@ export const runDevRunnerWithInput = Effect.fn("dev-runner.runDevRunnerWithInput
     serverOffset !== offset || webOffset !== offset
       ? ` selectedOffset(server=${serverOffset},web=${webOffset})`
       : "";
-  const baseDir = env.T3CODE_HOME ?? (yield* DEFAULT_T3_HOME);
+  const baseDir = env.L7CODE_HOME ?? (yield* DEFAULT_T3_HOME);
 
   yield* Effect.logInfo(
-    `[dev-runner] mode=${input.mode} source=${source}${selectionSuffix} serverPort=${String(env.T3CODE_PORT)} webPort=${String(env.PORT)} baseDir=${baseDir}`,
+    `[dev-runner] mode=${input.mode} source=${source}${selectionSuffix} serverPort=${String(env.L7CODE_PORT)} webPort=${String(env.PORT)} baseDir=${baseDir}`,
   );
 
   // Before the share block: --dry-run only resolves and prints. Sharing would
@@ -792,7 +792,7 @@ export const runDevRunnerWithInput = Effect.fn("dev-runner.runDevRunnerWithInput
           ...(input.built
             ? {
                 localTarget: {
-                  port: Number(env.T3CODE_PORT),
+                  port: Number(env.L7CODE_PORT),
                   host: ["::1", "[::1]"].includes(input.host?.trim() ?? "") ? "[::1]" : "127.0.0.1",
                 },
               }
@@ -826,8 +826,8 @@ export const runDevRunnerWithInput = Effect.fn("dev-runner.runDevRunnerWithInput
         // The app is reached from the tailnet origin. Vite already allows
         // *.ts.net hosts; the backend needs the origin for credentialed
         // requests that bypass the proxy (desktop renderer, direct calls).
-        env.T3CODE_DEV_ALLOWED_ORIGINS = [
-          env.T3CODE_DEV_ALLOWED_ORIGINS,
+        env.L7CODE_DEV_ALLOWED_ORIGINS = [
+          env.L7CODE_DEV_ALLOWED_ORIGINS,
           new URL(shared.url).origin,
         ]
           .filter((entry) => entry && entry.length > 0)
@@ -837,13 +837,13 @@ export const runDevRunnerWithInput = Effect.fn("dev-runner.runDevRunnerWithInput
         }
         if (input.built) {
           built = true;
-          env.T3CODE_BUILT_DEV = "1";
-        } else if (env.T3CODE_BUNDLED_DEV === undefined) {
+          env.L7CODE_BUILT_DEV = "1";
+        } else if (env.L7CODE_BUNDLED_DEV === undefined) {
           // A shared origin serves a remote browser, where unbundled dev's
           // per-module requests each pay a tailnet round trip — a cold module
           // graph takes minutes to first paint. Bundled dev collapses that to a
           // few chunk requests.
-          env.T3CODE_BUNDLED_DEV = "1";
+          env.L7CODE_BUNDLED_DEV = "1";
         }
         yield* Effect.logInfo(`[dev-runner] shared on tailnet: ${shared.url}`);
       } else if (input.built) {
@@ -917,7 +917,7 @@ const devRunnerCli = Command.make("dev-runner", {
   ),
   t3Home: Flag.String("home-dir").pipe(
     Flag.withDescription(
-      "Explicit T3 Code data directory; runtime state is stored under userdata (equivalent to T3CODE_HOME). Inside a git worktree this defaults to that worktree's own .t3 so dev state stays off the shared home.",
+      "Explicit L7 Code data directory; runtime state is stored under userdata (equivalent to L7CODE_HOME). Inside a git worktree this defaults to that worktree's own .l7 so dev state stays off the shared home.",
     ),
     Flag.optional,
     Flag.map(Option.getOrUndefined),
@@ -928,23 +928,23 @@ const devRunnerCli = Command.make("dev-runner", {
   ),
   autoBootstrapProjectFromCwd: Flag.Boolean("auto-bootstrap-project-from-cwd").pipe(
     Flag.withDescription(
-      "Auto-bootstrap toggle (equivalent to T3CODE_AUTO_BOOTSTRAP_PROJECT_FROM_CWD).",
+      "Auto-bootstrap toggle (equivalent to L7CODE_AUTO_BOOTSTRAP_PROJECT_FROM_CWD).",
     ),
-    Flag.withFallbackConfig(optionalBooleanConfig("T3CODE_AUTO_BOOTSTRAP_PROJECT_FROM_CWD")),
+    Flag.withFallbackConfig(optionalBooleanConfig("L7CODE_AUTO_BOOTSTRAP_PROJECT_FROM_CWD")),
   ),
   logWebSocketEvents: Flag.Boolean("log-websocket-events").pipe(
-    Flag.withDescription("WebSocket event logging toggle (equivalent to T3CODE_LOG_WS_EVENTS)."),
+    Flag.withDescription("WebSocket event logging toggle (equivalent to L7CODE_LOG_WS_EVENTS)."),
     Flag.withAlias("log-ws-events"),
-    Flag.withFallbackConfig(optionalBooleanConfig("T3CODE_LOG_WS_EVENTS")),
+    Flag.withFallbackConfig(optionalBooleanConfig("L7CODE_LOG_WS_EVENTS")),
   ),
   host: Flag.String("host").pipe(
-    Flag.withDescription("Server host/interface override (forwards to T3CODE_HOST)."),
-    Flag.withFallbackConfig(optionalStringConfig("T3CODE_HOST")),
+    Flag.withDescription("Server host/interface override (forwards to L7CODE_HOST)."),
+    Flag.withFallbackConfig(optionalStringConfig("L7CODE_HOST")),
   ),
   port: Flag.Int("port").pipe(
     Flag.withSchema(Schema.Int.check(Schema.isBetween({ minimum: 1, maximum: 65535 }))),
-    Flag.withDescription("Server port override (forwards to T3CODE_PORT)."),
-    Flag.withFallbackConfig(optionalPortConfig("T3CODE_PORT")),
+    Flag.withDescription("Server port override (forwards to L7CODE_PORT)."),
+    Flag.withFallbackConfig(optionalPortConfig("L7CODE_PORT")),
   ),
   devUrl: Flag.String("dev-url").pipe(
     Flag.withSchema(Schema.URLFromString),
@@ -966,9 +966,9 @@ const devRunnerCli = Command.make("dev-runner", {
   ),
   seed: Flag.Boolean("seed").pipe(
     Flag.withDescription(
-      "Seed an empty worktree database from ~/.t3 on first start (read-only, via migrate-dev-db) if the source is at most 500 MiB. On by default; --no-seed or T3CODE_DEV_SEED=0 skips it.",
+      "Seed an empty worktree database from ~/.l7 on first start (read-only, via migrate-dev-db) if the source is at most 500 MiB. On by default; --no-seed or L7CODE_DEV_SEED=0 skips it.",
     ),
-    Flag.withFallbackConfig(optionalBooleanConfig("T3CODE_DEV_SEED")),
+    Flag.withFallbackConfig(optionalBooleanConfig("L7CODE_DEV_SEED")),
   ),
   built: Flag.Boolean("built").pipe(
     Flag.withDescription(

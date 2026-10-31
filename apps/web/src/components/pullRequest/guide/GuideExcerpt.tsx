@@ -5,7 +5,7 @@ import type {
   SelectedLineRange,
 } from "@pierre/diffs";
 import { FileDiff } from "@pierre/diffs/react";
-import type { PullRequestReviewGuideExcerpt, PullRequestReviewPosition } from "@t3tools/contracts";
+import type { PullRequestReviewGuideExcerpt, PullRequestReviewPosition } from "@l7code/contracts";
 import { ArrowUpRightIcon } from "lucide-react";
 import { useState } from "react";
 
@@ -36,7 +36,7 @@ import {
   excerptRows,
   fileDiffRows,
   rowsToPatch,
-} from "@t3tools/client-runtime/review-guide-tour";
+} from "@l7code/client-runtime/review-guide-tour";
 import { GuideNoteMarker } from "./GuideNotes";
 import { GuideProse } from "./GuideProse";
 

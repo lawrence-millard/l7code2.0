@@ -1,5 +1,5 @@
-import type { ServerSettings, ServerSettingsPatch } from "@t3tools/contracts";
-import { isModelSelectionProviderEnabled } from "@t3tools/shared/serverSettings";
+import type { ServerSettings, ServerSettingsPatch } from "@l7code/contracts";
+import { isModelSelectionProviderEnabled } from "@l7code/shared/serverSettings";
 import * as Struct from "effect/Struct";
 
 import type { EnvironmentConnectionPhase } from "../connection/presentation.ts";

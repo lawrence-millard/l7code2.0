@@ -1,4 +1,4 @@
-import { hostFreezeNotice } from "@t3tools/client-runtime/connection";
+import { hostFreezeNotice } from "@l7code/client-runtime/connection";
 
 import { appAtomRegistry } from "../rpc/atomRegistry";
 import { environmentSummaries } from "../state/presentation";

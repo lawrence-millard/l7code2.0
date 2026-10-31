@@ -1,6 +1,6 @@
-import { EnvironmentId } from "@t3tools/contracts";
-import { runAtomCommand } from "@t3tools/client-runtime/state/runtime";
-import { refreshUsageLimits } from "@t3tools/client-runtime/state/usage";
+import { EnvironmentId } from "@l7code/contracts";
+import { runAtomCommand } from "@l7code/client-runtime/state/runtime";
+import { refreshUsageLimits } from "@l7code/client-runtime/state/usage";
 import { Atom, type AtomRegistry } from "effect/reactivity";
 
 import { serverEnvironment } from "../../state/server";

@@ -1,5 +1,5 @@
 {
-  "name": "@t3tools/shared",
+  "name": "@l7code/shared",
   "private": true,
   "type": "module",
   "exports": {
@@ -159,9 +159,9 @@
       "types": "./src/projectSettings.ts",
       "import": "./src/projectSettings.ts"
     },
-    "./t3ProjectFile": {
-      "types": "./src/t3ProjectFile.ts",
-      "import": "./src/t3ProjectFile.ts"
+    "./l7ProjectFile": {
+      "types": "./src/l7ProjectFile.ts",
+      "import": "./src/l7ProjectFile.ts"
     },
     "./orchestrationTiming": {
       "types": "./src/orchestrationTiming.ts",
@@ -395,9 +395,9 @@
       "types": "./src/orchestrationV2Timeline.ts",
       "import": "./src/orchestrationV2Timeline.ts"
     },
-    "./t3McpToolPresentation": {
-      "types": "./src/t3McpToolPresentation.ts",
-      "import": "./src/t3McpToolPresentation.ts"
+    "./l7McpToolPresentation": {
+      "types": "./src/l7McpToolPresentation.ts",
+      "import": "./src/l7McpToolPresentation.ts"
     },
     "./Array": {
       "types": "./src/Array.ts",
@@ -523,7 +523,7 @@
   "dependencies": {
     "@noble/curves": "catalog:",
     "@noble/hashes": "catalog:",
-    "@t3tools/contracts": "workspace:*",
+    "@l7code/contracts": "workspace:*",
     "effect": "catalog:",
     "jose": "catalog:",
     "mdast-util-directive": "catalog:",

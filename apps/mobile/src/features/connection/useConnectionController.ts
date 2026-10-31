@@ -2,12 +2,12 @@ import { useAtomValue } from "@effect/atom-react";
 import {
   RelayConnectionRegistration,
   RelayConnectionTarget,
-} from "@t3tools/client-runtime/connection";
-import type { EnvironmentId } from "@t3tools/contracts";
+} from "@l7code/client-runtime/connection";
+import type { EnvironmentId } from "@l7code/contracts";
 import type {
   RelayClientEnvironmentRecord,
   RelayEnvironmentStatusResponse,
-} from "@t3tools/contracts/relay";
+} from "@l7code/contracts/relay";
 import * as Option from "effect/Option";
 import { useMemo } from "react";
 

@@ -4,7 +4,7 @@ import type {
   MessageId,
   ScopedThreadRef,
   ThreadId,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import { useAtomValue } from "@effect/atom-react";
 import { Atom } from "effect/reactivity";
 

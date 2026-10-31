@@ -4,12 +4,12 @@ import {
   serializeRenderedMarkdownFragment,
   serializeTableElementToMarkdown,
 } from "./markdown-clipboard";
-import { EnvironmentId, MessageId, ThreadId } from "@t3tools/contracts";
+import { EnvironmentId, MessageId, ThreadId } from "@l7code/contracts";
 import {
   collectAssistantCitations,
   serializeAssistantCitation,
-} from "@t3tools/shared/assistantCitations";
-import { markdownMathRanges, parseMarkdownWithMath } from "@t3tools/shared/markdownMath";
+} from "@l7code/shared/assistantCitations";
+import { markdownMathRanges, parseMarkdownWithMath } from "@l7code/shared/markdownMath";
 
 const TEXT_NODE = 3;
 const ELEMENT_NODE = 1;

@@ -1,4 +1,4 @@
-import type { EnvironmentId } from "@t3tools/contracts";
+import type { EnvironmentId } from "@l7code/contracts";
 import type { NavigationState, PartialState } from "@react-navigation/native";
 import { Atom } from "effect/reactivity";
 

@@ -1,9 +1,9 @@
 import type {
   EnvironmentPresentation,
   PreparedConnection,
-} from "@t3tools/client-runtime/connection";
-import { connectionCatalogDisplayUrl } from "@t3tools/client-runtime/connection";
-import type { EnvironmentId, ServerConfig } from "@t3tools/contracts";
+} from "@l7code/client-runtime/connection";
+import { connectionCatalogDisplayUrl } from "@l7code/client-runtime/connection";
+import type { EnvironmentId, ServerConfig } from "@l7code/contracts";
 import * as Option from "effect/Option";
 import { Atom } from "effect/reactivity";
 

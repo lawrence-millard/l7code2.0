@@ -8,11 +8,11 @@ import {
   type EnvironmentId,
   type ScheduledTask,
   type ThreadId,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import {
   isAtomCommandInterrupted,
   squashAtomCommandFailure,
-} from "@t3tools/client-runtime/state/runtime";
+} from "@l7code/client-runtime/state/runtime";
 
 import { ThreadDetailsSection } from "./ThreadDetailsSection";
 import { cn } from "../../lib/utils";

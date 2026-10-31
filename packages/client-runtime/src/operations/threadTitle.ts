@@ -1,7 +1,7 @@
-import type { ChatAttachment } from "@t3tools/contracts";
-import { assistantCitationsToPlainText } from "@t3tools/shared/assistantCitations";
-import { replaceComposerContextReferences } from "@t3tools/shared/composerContextReferences";
-import { truncate } from "@t3tools/shared/String";
+import type { ChatAttachment } from "@l7code/contracts";
+import { assistantCitationsToPlainText } from "@l7code/shared/assistantCitations";
+import { replaceComposerContextReferences } from "@l7code/shared/composerContextReferences";
+import { truncate } from "@l7code/shared/String";
 
 export interface ThreadTitleSeedInput {
   readonly text: string;

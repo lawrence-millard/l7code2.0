@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // @effect-diagnostics nodeBuiltinImport:off
 /**
- * Turns a raw CLIProxyAPI capture of one T3 Code turn into a template in `templates/`. Keeps only
+ * Turns a raw CLIProxyAPI capture of one L7 Code turn into a template in `templates/`. Keeps only
  * what run.ts reads, and drops user data. Usage: `pnpm mcp-tool-use:trim-capture
  * <claude|codex> <capture.json> <out.json.gz>`. Read the output before you commit it.
  */
@@ -128,7 +128,7 @@ const trimCodex = (native: Native) => {
     if (item.role === "assistant") return [];
     const text = textOf(item);
     // T3's own text comes from source, and the prompt from each case.
-    if (text.includes("<t3_code_")) return [];
+    if (text.includes("<l7_code_")) return [];
     if (item.role === "user") {
       const env = /<environment_context>[\s\S]*?<\/environment_context>/.exec(text)?.[0];
       return env ? [{ ...item, content: [{ type: "input_text", text: env }] }] : [];
@@ -152,7 +152,7 @@ const trimCodex = (native: Native) => {
   input.push({
     type: "message",
     role: "developer",
-    content: [{ type: "input_text", text: "<t3_code_runtime></t3_code_runtime>" }],
+    content: [{ type: "input_text", text: "<l7_code_runtime></l7_code_runtime>" }],
   });
   const { reasoning, instructions, text, tool_choice } = native;
   return { reasoning, instructions, text, tool_choice, input };

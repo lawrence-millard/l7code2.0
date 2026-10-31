@@ -5,9 +5,9 @@ import {
   normalizeDevinToolCall,
   extractDevinSubagentUpdate,
   makeAcpRegistryAdapterV2,
-} from "@t3tools/provider-acp-registry/testing";
-import { AcpRegistrySettings } from "@t3tools/provider-acp-registry/settings";
-import { AcpRegistryCatalog } from "@t3tools/provider-acp-registry/server/AcpRegistrySupport";
+} from "@l7code/provider-acp-registry/testing";
+import { AcpRegistrySettings } from "@l7code/provider-acp-registry/settings";
+import { AcpRegistryCatalog } from "@l7code/provider-acp-registry/server/AcpRegistrySupport";
 import { decodeAcpReplayTranscript, makeAcpReplayRuntime } from "./AcpAdapterV2.testkit.ts";
 // @effect-diagnostics nodeBuiltinImport:off
 import * as NodeFS from "node:fs";
@@ -28,11 +28,11 @@ import {
   type OrchestrationV2TurnItem,
   type ProviderOptionDescriptor,
   type ProviderUserInputAnswers,
-} from "@t3tools/contracts";
-import { GrokSettings } from "@t3tools/provider-grok/settings";
-import * as HostProcess from "@t3tools/shared/HostProcess";
-import { deriveBlockedOnThreadWait } from "@t3tools/shared/orchestrationV2PendingBackgroundWork";
-import { resolveSelfInvocation } from "@t3tools/shared/nodeRuntime";
+} from "@l7code/contracts";
+import { GrokSettings } from "@l7code/provider-grok/settings";
+import * as HostProcess from "@l7code/shared/HostProcess";
+import { deriveBlockedOnThreadWait } from "@l7code/shared/orchestrationV2PendingBackgroundWork";
+import { resolveSelfInvocation } from "@l7code/shared/nodeRuntime";
 import * as DateTime from "effect/DateTime";
 import * as Deferred from "effect/Deferred";
 import type * as Duration from "effect/Duration";
@@ -55,26 +55,26 @@ import * as EffectAcpErrors from "effect-acp/errors";
 import type * as EffectAcpProtocol from "effect-acp/protocol";
 import type * as EffectAcpSchema from "effect-acp/compat";
 
-import { writeFakeCli } from "@t3tools/provider-testing/fakeCli";
-import * as TestProviderHost from "@t3tools/provider-testing/TestProviderHost";
-import * as McpProviderSessions from "@t3tools/provider-core/server/McpProviderSessions";
-import * as AcpSessionRuntime from "@t3tools/provider-acp/server/AcpSessionRuntime";
+import { writeFakeCli } from "@l7code/provider-testing/fakeCli";
+import * as TestProviderHost from "@l7code/provider-testing/TestProviderHost";
+import * as McpProviderSessions from "@l7code/provider-core/server/McpProviderSessions";
+import * as AcpSessionRuntime from "@l7code/provider-acp/server/AcpSessionRuntime";
 import {
   ACP_EMPTY_OPTION_VALUE,
   ACP_SESSION_MODE_OPTION_ID,
   acpProviderOptionDescriptors,
-} from "@t3tools/provider-acp/server/sessionConfig";
+} from "@l7code/provider-acp/server/sessionConfig";
 import {
   extractXAiAcpSubagentUpdate,
   makeGrokAdapterV2,
   makeXAiPromptCompletionRuntime,
   normalizeXAiAcpToolCallState,
   registerXAiBackgroundTaskTracking,
-} from "@t3tools/provider-grok/testing";
-import * as IdAllocator from "@t3tools/provider-core/server/IdAllocator";
-import * as ProviderAdapter from "@t3tools/provider-core/server/ProviderAdapter";
+} from "@l7code/provider-grok/testing";
+import * as IdAllocator from "@l7code/provider-core/server/IdAllocator";
+import * as ProviderAdapter from "@l7code/provider-core/server/ProviderAdapter";
 import { makeTurnInput } from "./AcpAdapterV2.testkit.ts";
-import type * as ProviderContinuationRequests from "@t3tools/provider-core/server/ProviderContinuationRequests";
+import type * as ProviderContinuationRequests from "@l7code/provider-core/server/ProviderContinuationRequests";
 import {
   AcpProviderCapabilitiesV2,
   acpPerTurnPromptUsage,
@@ -87,15 +87,15 @@ import {
   type AcpAdapterV2Flavor,
   type AcpAdapterV2RuntimeInput,
   type AcpAdapterV2SubagentUpdate,
-} from "@t3tools/provider-acp/server/adapter";
+} from "@l7code/provider-acp/server/adapter";
 
 import { appendUserInputAttachmentPaths } from "../../provider/userInputAttachments.ts";
 
-import { makeGrokAcpAdapterFlavor } from "@t3tools/provider-grok/testing";
+import { makeGrokAcpAdapterFlavor } from "@l7code/provider-grok/testing";
 import {
   acpRegistryPromptFailure,
   registerMistralVibeAcpExtensions,
-} from "@t3tools/provider-acp-registry/testing";
+} from "@l7code/provider-acp-registry/testing";
 
 const DEFAULT_GROK_SETTINGS = Schema.decodeSync(GrokSettings)({});
 const DROID_SETTINGS = Schema.decodeSync(AcpRegistrySettings)({ agentId: "factory-droid" });
@@ -532,9 +532,9 @@ function assertReinjectedInstructions(
   request: string,
 ) {
   const text = blocks[0]?.text ?? "";
-  assert.include(text, "T3 Code interaction mode: Default");
-  assert.include(text, "## T3 Code browser");
-  assert.include(text, "T3 Code orchestration");
+  assert.include(text, "L7 Code interaction mode: Default");
+  assert.include(text, "## L7 Code browser");
+  assert.include(text, "L7 Code orchestration");
   assert.include(text, `<user_request>\n${request}\n</user_request>`);
 }
 
@@ -1805,17 +1805,17 @@ describe("AcpAdapterV2", () => {
 
       const command = yield* runTurn(0, defaultPolicy, "/compact");
       assert.isTrue(command.prompt.startsWith("/compact"));
-      assert.notInclude(command.prompt, "<t3_code_instructions>");
+      assert.notInclude(command.prompt, "<l7_code_instructions>");
       assert.equal(command.textBlockCount, 1);
       const whitespaceCommand = yield* runTurn(1, defaultPolicy, "  /repro-skill");
       assert.equal(whitespaceCommand.prompt, "  /repro-skill");
       assert.equal(whitespaceCommand.textBlockCount, 1);
-      assert.notInclude(whitespaceCommand.prompt, "<t3_code_instructions>");
+      assert.notInclude(whitespaceCommand.prompt, "<l7_code_instructions>");
       const firstDefault = yield* runTurn(2, defaultPolicy, "First default request.");
       assert.equal(firstDefault.textBlockCount, 2);
-      assert.include(firstDefault.prompt, "T3 Code interaction mode: Default");
-      assert.include(firstDefault.prompt, "## T3 Code browser");
-      assert.include(firstDefault.prompt, "T3 Code orchestration");
+      assert.include(firstDefault.prompt, "L7 Code interaction mode: Default");
+      assert.include(firstDefault.prompt, "## L7 Code browser");
+      assert.include(firstDefault.prompt, "L7 Code orchestration");
       assert.notInclude(
         firstDefault.methods,
         "session/set_config_option",
@@ -1828,14 +1828,14 @@ describe("AcpAdapterV2", () => {
 
       const planPolicy = policy("plan");
       const firstPlan = yield* runTurn(4, planPolicy, "Plan this change.");
-      assert.include(firstPlan.prompt, "T3 Code interaction mode: Plan");
+      assert.include(firstPlan.prompt, "L7 Code interaction mode: Plan");
       assert.include(firstPlan.methods, "session/set_config_option");
       assert.include(
         (yield* runTurn(5, planPolicy, "Continue planning.")).prompt,
         "Continue planning.",
       );
       const restoredBuild = yield* runTurn(6, defaultPolicy, "Implement the change.");
-      assert.include(restoredBuild.prompt, "T3 Code interaction mode: Default");
+      assert.include(restoredBuild.prompt, "L7 Code interaction mode: Default");
       assert.include(
         restoredBuild.methods,
         "session/set_config_option",
@@ -2019,7 +2019,7 @@ describe("AcpAdapterV2", () => {
                         title: "Wait for the child",
                         status: "in_progress",
                         rawInput: {
-                          server: "t3-code",
+                          server: "l7-code",
                           tool: "t3_thread_wait",
                           arguments: { threadId: "child" },
                         },
@@ -2638,7 +2638,7 @@ describe("AcpAdapterV2", () => {
           (item) =>
             item.threadId === task?.childThreadId &&
             item.type === "dynamic_tool" &&
-            item.toolName === "t3-code.task_status",
+            item.toolName === "l7-code.task_status",
         ),
       );
       const childMcp = items.find(
@@ -3117,12 +3117,12 @@ describe("AcpAdapterV2", () => {
         results: undefined,
       });
       assert.deepEqual(webItem("grok-web-search", "completed"), {
-        title: "Web search: t3 code",
-        patterns: ["t3 code"],
-        results: [{ url: "https://t3.codes" }, { url: "https://github.com/pingdotgg/t3code" }],
+        title: "Web search: l7 code",
+        patterns: ["l7 code"],
+        results: [{ url: "https://github.com/lawrence-millard/l7code2.0" }, { url: "https://github.com/lawrence-millard/l7code2.0" }],
       });
       assert.deepEqual(webItem("grok-web-fetch", "completed")?.results, [
-        { url: "https://t3.codes", snippet: "T3 Code page" },
+        { url: "https://github.com/lawrence-millard/l7code2.0", snippet: "L7 Code page" },
       ]);
       const completedCompaction = items.find(
         (item) =>
@@ -3725,7 +3725,7 @@ describe("AcpAdapterV2", () => {
         mcpServers: [
           {
             type: "stdio",
-            name: "t3-code",
+            name: "l7-code",
             command: process.execPath,
             args: [
               process.argv[1] === undefined ? "t3" : NodePath.resolve(process.argv[1]),

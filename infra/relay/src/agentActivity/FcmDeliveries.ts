@@ -4,7 +4,7 @@ import {
   RelayAgentActivityAggregateState,
   RelayAgentAwarenessPreferences,
   type RelayDeliveryResult,
-} from "@t3tools/contracts/relay";
+} from "@l7code/contracts/relay";
 import * as Crypto from "effect/Crypto";
 import type * as PlatformError from "effect/PlatformError";
 import * as Context from "effect/Context";
@@ -135,7 +135,7 @@ export class FcmDeliveries extends Context.Service<
       | EnvironmentLinks.EnvironmentLinkUserListPersistenceError
     >;
   }
->()("t3code-relay/agentActivity/FcmDeliveries") {}
+>()("l7code-relay/agentActivity/FcmDeliveries") {}
 
 const make = Effect.gen(function* () {
   const config = yield* RelayConfiguration.RelayConfiguration;

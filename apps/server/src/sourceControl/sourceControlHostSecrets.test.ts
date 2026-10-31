@@ -1,6 +1,6 @@
 import { assert, it } from "@effect/vitest";
-import { SecretProviderId } from "@t3tools/contracts";
-import * as SecretResolver from "@t3tools/secret-provider-core/server/SecretResolver";
+import { SecretProviderId } from "@l7code/contracts";
+import * as SecretResolver from "@l7code/secret-provider-core/server/SecretResolver";
 import * as Effect from "effect/Effect";
 
 import {

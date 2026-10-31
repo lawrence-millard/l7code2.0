@@ -8,7 +8,7 @@ import {
   ProviderTurnId,
   RunId,
   ThreadId,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import * as Cause from "effect/Cause";
 import * as DateTime from "effect/DateTime";
 import * as Effect from "effect/Effect";
@@ -21,7 +21,7 @@ import {
   ContextHandoffBackgroundWorkError,
 } from "./failure.ts";
 import * as IdAllocator from "./IdAllocator.ts";
-import * as ProviderAdapter from "@t3tools/provider-core/server/ProviderAdapter";
+import * as ProviderAdapter from "@l7code/provider-core/server/ProviderAdapter";
 
 it("redacts credentials and URL secrets from provider failures", () => {
   const failure = makeProviderFailure({
@@ -92,7 +92,7 @@ it("preserves actionable T3 errors wrapped by turn startup", () => {
     new ProviderSetupError({
       instanceId: ProviderInstanceId.make("codex"),
       operation: "runtime",
-      detail: "Codex 0.144.3 does not work with this T3 Code release.",
+      detail: "Codex 0.144.3 does not work with this L7 Code release.",
     }),
   ]) {
     const cause = new ProviderAdapter.ProviderAdapterTurnStartError({

@@ -1,4 +1,4 @@
-import type { EnvironmentId } from "@t3tools/contracts";
+import type { EnvironmentId } from "@l7code/contracts";
 
 export function toggleSettingsEnvironment(
   selected: ReadonlySet<EnvironmentId> | null,

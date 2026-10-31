@@ -13,7 +13,7 @@ import {
   ProviderInstanceId,
   RunId,
   ThreadId,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import * as Effect from "effect/Effect";
 import * as Layer from "effect/Layer";
 import { McpSchema, McpServer } from "effect/ai";
@@ -22,9 +22,9 @@ import * as ServerConfig from "../config.ts";
 import { CodexProviderCapabilitiesV2 } from "../orchestration-v2/Adapters/CodexAdapterV2.ts";
 import * as Orchestrator from "../orchestration-v2/Orchestrator.ts";
 import * as ProjectionStore from "../orchestration-v2/ProjectionStore.ts";
-import type * as ProviderAdapter from "@t3tools/provider-core/server/ProviderAdapter";
+import type * as ProviderAdapter from "@l7code/provider-core/server/ProviderAdapter";
 import * as ProviderAdapterRegistry from "../orchestration-v2/ProviderAdapterRegistry.ts";
-import { makeSubagentChildThread } from "@t3tools/provider-core/server/subagentProjection";
+import { makeSubagentChildThread } from "@l7code/provider-core/server/subagentProjection";
 import * as ThreadForkService from "../orchestration-v2/ThreadForkService.ts";
 import * as ThreadLaunch from "../orchestration-v2/ThreadLaunchService.ts";
 import * as ThreadManagement from "../orchestration-v2/ThreadManagementService.ts";
@@ -149,7 +149,7 @@ const layerTools = Layer.mergeAll(
         Effect.succeed({
           id: input.projectId,
           title: input.title ?? "Untitled",
-          workspaceRoot: "/p/t3code",
+          workspaceRoot: "/p/l7code",
           defaultModelSelection: null,
           scripts: [],
           createdAt: "2026-10-18T00:00:00.000Z",
@@ -174,7 +174,7 @@ const layerTools = Layer.mergeAll(
       cloneRepository: (input) =>
         Effect.succeed({
           cwd: input.destinationPath,
-          remoteUrl: "https://github.com/pingdotgg/t3code.git",
+          remoteUrl: "https://github.com/lawrence-millard/l7code2.0.git",
           repository: null,
         }),
     }),
@@ -208,7 +208,7 @@ const clientScope = (
   environmentId: EnvironmentId.make("environment:box"),
   requestNamespace: `client:${sessionId}`,
   thread: undefined,
-  client: { sessionId, label: `T3 Code · ${sessionId}`, access, linked },
+  client: { sessionId, label: `L7 Code · ${sessionId}`, access, linked },
   capabilities: new Set(["orchestration", "worktree", "pull-requests"]),
   issuedAt: 0,
 });
@@ -281,7 +281,7 @@ it.layer(Layer.provideMerge(layerTools, layerOrchestration))("work a link starts
       const shell = yield* projections.getThreadShell(launched);
       assert.deepEqual(shell?.linkOrigin, {
         sessionId: "laptop",
-        label: "T3 Code · laptop",
+        label: "L7 Code · laptop",
         access: "auto",
       });
 
@@ -390,7 +390,7 @@ it.layer(Layer.provideMerge(layerTools, layerOrchestration))("work a link starts
       const launched = yield* launch(trusted, "Started from the desk");
       assert.deepEqual((yield* projections.getThreadShell(launched))?.linkOrigin, {
         sessionId: "trusted",
-        label: "T3 Code · trusted",
+        label: "L7 Code · trusted",
         access: "full-access",
       });
 
@@ -402,7 +402,7 @@ it.layer(Layer.provideMerge(layerTools, layerOrchestration))("work a link starts
       assert.equal(renamed.isError, false, JSON.stringify(renamed.content));
       for (const [name, args] of [
         ["t3_project_update", { projectId, title: "The desk's now" }],
-        ["t3_project_create", { title: "t3code", workspaceRoot: "/p/t3code" }],
+        ["t3_project_create", { title: "l7code", workspaceRoot: "/p/l7code" }],
       ] as const) {
         const changed = yield* call(trusted, name, args);
         assert.equal(changed.isError, false, `${name}: ${JSON.stringify(changed.content)}`);

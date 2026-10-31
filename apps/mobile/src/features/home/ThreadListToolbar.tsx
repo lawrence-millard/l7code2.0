@@ -56,7 +56,7 @@ export function ThreadListToolbar(props: {
     Keyboard.dismiss();
   };
 
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- subscribes to BackHandler while searching to close search on Android back
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- subscribes to BackHandler while searching to close search on Android back
   useEffect(() => {
     if (!searching || !listFocused) return;
     const subscription = BackHandler.addEventListener("hardwareBackPress", () => {
@@ -112,7 +112,7 @@ export function ThreadListToolbar(props: {
         onCloseSearch={closeSearch}
         onOpenSearch={openSearch}
         searchAccessibilityLabel="Search threads"
-        titleAccessibilityLabel="T3 Code, Threads"
+        titleAccessibilityLabel="L7 Code, Threads"
         onOpenEnvironments={props.onOpenEnvironments}
         filter={filterButton}
       />

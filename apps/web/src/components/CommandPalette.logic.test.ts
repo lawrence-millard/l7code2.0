@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vite-plus/test";
-import { EnvironmentId, ProjectId, ProviderInstanceId, ThreadId } from "@t3tools/contracts";
+import { EnvironmentId, ProjectId, ProviderInstanceId, ThreadId } from "@l7code/contracts";
 import type { Thread } from "../types";
 import { makeThreadFixture } from "../test-fixtures";
 import {
@@ -227,7 +227,7 @@ describe("buildThreadActionItems", () => {
       icon: null,
       run: async () => undefined,
     });
-    const projects = [action("new-thread-in:t3code", "t3code"), action("new-thread-in:web", "web")];
+    const projects = [action("new-thread-in:l7code", "l7code"), action("new-thread-in:web", "web")];
     const newThreadIn = {
       kind: "submenu" as const,
       value: "action:new-thread-in",
@@ -251,7 +251,7 @@ describe("buildThreadActionItems", () => {
         projectSearchItems: [],
         threadSearchItems: [
           ...buildThreadActionItems({
-            threads: [makeThread({ title: "Thread about t3code" })],
+            threads: [makeThread({ title: "Thread about l7code" })],
             projectByKey: new Map(),
             icon: null,
             runThread: async () => undefined,
@@ -259,12 +259,12 @@ describe("buildThreadActionItems", () => {
         ],
       }).map((group) => [group.label, group.items.map((item) => item.title)]);
 
-    expect(search("new thread in t3code", false)[0]).toEqual([
+    expect(search("new thread in l7code", false)[0]).toEqual([
       "Suggestions",
-      ["New thread in t3code"],
+      ["New thread in l7code"],
     ]);
     expect(search("new thread", false).map(([label]) => label)).not.toContain("Suggestions");
-    expect(search("t3", true)).toEqual([["Projects", ["t3code"]]]);
+    expect(search("t3", true)).toEqual([["Projects", ["l7code"]]]);
     expect(search("add project", true)).toEqual([["Actions", ["Add project"]]]);
   });
 
@@ -423,8 +423,8 @@ describe("buildThreadActionItems", () => {
             {
               kind: "action",
               value: "action:new-thread",
-              searchTerms: ["New thread in t3code"],
-              title: "New thread in t3code",
+              searchTerms: ["New thread in l7code"],
+              title: "New thread in l7code",
               icon: null,
               run: async () => undefined,
             },
@@ -558,15 +558,15 @@ describe("buildThreadActionItems", () => {
               value: "action:new-thread",
               searchTerms: ["new thread", "chat"],
               // Styled: not a string, so only `searchTitle` holds its words.
-              title: ["New thread in ", "t3code"],
-              searchTitle: "New thread in t3code",
+              title: ["New thread in ", "l7code"],
+              searchTitle: "New thread in l7code",
               icon: null,
               run: async () => undefined,
             },
           ],
         },
       ],
-      query: "> new t3code",
+      query: "> new l7code",
       isInSubmenu: false,
       projectSearchItems: [],
       threadSearchItems: [],
@@ -645,7 +645,7 @@ describe("buildThreadActionItems", () => {
     });
     const items = buildThreadActionItems({
       threads: [idThread, titleThread],
-      projectByKey: new Map([[`${LOCAL_ENVIRONMENT_ID}:${PROJECT_ID}`, { title: "T3 Code" }]]),
+      projectByKey: new Map([[`${LOCAL_ENVIRONMENT_ID}:${PROJECT_ID}`, { title: "L7 Code" }]]),
       icon: null,
       runThread: async (_thread) => undefined,
     });
@@ -800,8 +800,8 @@ describe("filterPinnedBrowseEntries", () => {
 it.each([
   "#10839",
   "10839",
-  "pingdotgg/t3code#10839",
-  "https://github.com/pingdotgg/t3code/pull/10839",
+  "lawrence-millard/l7code2.0#10839",
+  "https://github.com/lawrence-millard/l7code2.0/pull/10839",
 ])("finds linked threads from PR query %s", (query) => {
   const items = buildThreadActionItems({
     threads: [
@@ -810,9 +810,9 @@ it.each([
         pullRequests: [
           {
             host: "github.com",
-            repository: "pingdotgg/t3code",
+            repository: "lawrence-millard/l7code2.0",
             number: 10839,
-            url: "https://github.com/pingdotgg/t3code/pull/10839",
+            url: "https://github.com/lawrence-millard/l7code2.0/pull/10839",
             source: "manual",
             linkedAt: "2026-09-08T00:00:00Z",
             snapshot: null,

@@ -2,7 +2,7 @@ import * as NodeZlib from "node:zlib";
 import {
   DesktopPreviewRecordingInputSchema,
   DESKTOP_PREVIEW_RECORDING_CAPTURE_TRIGGER,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import type {
   DesktopPreviewAnnotationTheme,
   DesktopPreviewColorScheme,
@@ -18,10 +18,10 @@ import type {
   DesktopPreviewScreenshotArtifact,
   DesktopPreviewTabDefaults,
   PreviewForwardedShortcut,
-} from "@t3tools/contracts";
-import * as HostProcess from "@t3tools/shared/HostProcess";
-import { matchesKeybindingShortcut } from "@t3tools/shared/keybindings";
-import { normalizePreviewUrl } from "@t3tools/shared/preview";
+} from "@l7code/contracts";
+import * as HostProcess from "@l7code/shared/HostProcess";
+import { matchesKeybindingShortcut } from "@l7code/shared/keybindings";
+import { normalizePreviewUrl } from "@l7code/shared/preview";
 import {
   BrowserWindow,
   ClipboardItem,
@@ -3554,7 +3554,7 @@ export class PreviewManager extends Context.Service<
       listener: RecordingInputListener,
     ) => Effect.Effect<void, never, Scope.Scope>;
   }
->()("@t3tools/desktop/preview/Manager/PreviewManager") {}
+>()("@l7code/desktop/preview/Manager/PreviewManager") {}
 
 /** @public */
 export const make = Effect.gen(function* PreviewManagerMake() {

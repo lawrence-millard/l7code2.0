@@ -2,7 +2,7 @@ import { Button } from "../../components/ui/Button";
 import {
   applyPullRequestDraftFilterChange,
   parsePullRequestQuery,
-} from "@t3tools/client-runtime/pull-request-query";
+} from "@l7code/client-runtime/pull-request-query";
 import { AppActivityIndicator } from "../../components/ui/AppActivityIndicator";
 import { LegendList, type LegendListRef } from "@legendapp/list/react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -122,7 +122,7 @@ export function PullRequestsScreen(
   // toolbar that cancels has no handle on this list, so the list scrolls itself
   // once it sees the tab come back to resting.
   const previousSearchMode = useRef(tab.searchMode);
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- scrolls the list to the offset saved when search opened once the tab returns to resting
+  // oxlint-disable-next-line l7code/no-unreasoned-state-sync -- scrolls the list to the offset saved when search opened once the tab returns to resting
   useEffect(() => {
     const restoringSearch =
       previousSearchMode.current !== "resting" && tab.searchMode === "resting";

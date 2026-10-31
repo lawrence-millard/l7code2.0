@@ -15,7 +15,7 @@ const provideEnv = (env: Readonly<Record<string, string>>) =>
 
 it.effect("rejects an insecure runtime relay URL override", () =>
   makeRelayUrlConfig("https://embedded.example.test").pipe(
-    provideEnv({ T3CODE_RELAY_URL: "http://runtime.example.test" }),
+    provideEnv({ L7CODE_RELAY_URL: "http://runtime.example.test" }),
     Effect.flip,
   ),
 );
@@ -23,13 +23,13 @@ it.effect("rejects an insecure runtime relay URL override", () =>
 it.effect("rejects malformed or insecure hosted app URLs", () =>
   Effect.gen(function* () {
     for (const value of [
-      "app.t3.codes",
-      "http://app.t3.codes",
-      "https://app.t3.codes/nested",
-      "https://app.t3.codes?alias=true",
+      "app.l7code.dev",
+      "http://app.l7code.dev",
+      "https://app.l7code.dev/nested",
+      "https://app.l7code.dev?alias=true",
     ]) {
       const result = yield* hostedAppUrlConfig.pipe(
-        provideEnv({ T3CODE_HOSTED_APP_URL: value }),
+        provideEnv({ L7CODE_HOSTED_APP_URL: value }),
         Effect.result,
       );
       assert.isTrue(Result.isFailure(result), value);
@@ -62,8 +62,8 @@ it("product opt-out disables relay tracing with either built-in or runtime crede
     tracesToken: "embedded-token",
   };
   const env = {
-    T3CODE_TELEMETRY_ENABLED: "false",
-    T3CODE_OTEL_SDK_DISABLED: "false",
+    L7CODE_TELEMETRY_ENABLED: "false",
+    L7CODE_OTEL_SDK_DISABLED: "false",
   };
 
   assert.equal(resolveRelayClientTracingConfig(env, fallback), null);
@@ -71,9 +71,9 @@ it("product opt-out disables relay tracing with either built-in or runtime crede
     resolveRelayClientTracingConfig(
       {
         ...env,
-        T3CODE_RELAY_CLIENT_OTLP_TRACES_URL: "https://runtime.example.test/v1/traces",
-        T3CODE_RELAY_CLIENT_OTLP_TRACES_DATASET: "runtime-dataset",
-        T3CODE_RELAY_CLIENT_OTLP_TRACES_TOKEN: "runtime-token",
+        L7CODE_RELAY_CLIENT_OTLP_TRACES_URL: "https://runtime.example.test/v1/traces",
+        L7CODE_RELAY_CLIENT_OTLP_TRACES_DATASET: "runtime-dataset",
+        L7CODE_RELAY_CLIENT_OTLP_TRACES_TOKEN: "runtime-token",
       },
       fallback,
     ),

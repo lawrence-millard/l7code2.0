@@ -1,12 +1,12 @@
 import { useAtomValue } from "@effect/atom-react";
-import { deriveReportedModelSelection } from "@t3tools/client-runtime/state/thread-execution";
+import { deriveReportedModelSelection } from "@l7code/client-runtime/state/thread-execution";
 
 import { appAtomRegistry } from "./atom-registry";
 import type {
   EnvironmentProject,
   EnvironmentThread,
   EnvironmentThreadShell,
-} from "@t3tools/client-runtime/state/shell";
+} from "@l7code/client-runtime/state/shell";
 import {
   EnvironmentId,
   ThreadId,
@@ -14,8 +14,8 @@ import {
   type ScopedProjectRef,
   type ScopedThreadRef,
   type ServerConfig,
-} from "@t3tools/contracts";
-import { scopeThreadRef } from "@t3tools/client-runtime/environment";
+} from "@l7code/contracts";
+import { scopeThreadRef } from "@l7code/client-runtime/environment";
 import {
   guessThreadLinkRef,
   hasThreadLinks,
@@ -24,7 +24,7 @@ import {
   threadLinkCandidates,
   threadLinkRefs,
   type ThreadLink,
-} from "@t3tools/shared/threadLinks";
+} from "@l7code/shared/threadLinks";
 import * as Schema from "effect/Schema";
 import { AsyncResult, Atom } from "effect/reactivity";
 

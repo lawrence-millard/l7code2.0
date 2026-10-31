@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@effect/vitest";
-import { EnvironmentNotRegisteredError } from "@t3tools/client-runtime/connection";
-import { isTransportConnectionErrorMessage } from "@t3tools/client-runtime/errors";
-import { EnvironmentRpcUnavailableError } from "@t3tools/client-runtime/rpc";
+import { EnvironmentNotRegisteredError } from "@l7code/client-runtime/connection";
+import { isTransportConnectionErrorMessage } from "@l7code/client-runtime/errors";
+import { EnvironmentRpcUnavailableError } from "@l7code/client-runtime/rpc";
 import {
   CommandId,
   ComposerContextId,
@@ -12,7 +12,7 @@ import {
   ProjectId,
   ProviderInstanceId,
   ThreadId,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import { AtomRegistry } from "effect/reactivity";
 import * as RpcClientError from "effect/rpc/RpcClientError";
 import * as Socket from "effect/socket/Socket";
@@ -304,8 +304,8 @@ describe("thread outbox", () => {
           name: "photo.png",
           mimeType: "image/png",
           sizeBytes: 3,
-          fileUri: "file:///documents/t3-composer-attachments/photo.png",
-          previewUri: "file:///documents/t3-composer-attachments/photo.png",
+          fileUri: "file:///documents/l7-composer-attachments/photo.png",
+          previewUri: "file:///documents/l7-composer-attachments/photo.png",
           uploadedAttachmentId: "pending-photo-png",
           uploadEnvironmentId: EnvironmentId.make("environment-1"),
         },
@@ -1240,8 +1240,8 @@ describe("thread outbox", () => {
             name: "photo.png",
             mimeType: "image/png",
             sizeBytes: 3,
-            fileUri: "file:///documents/t3-composer-attachments/photo.png",
-            previewUri: "file:///documents/t3-composer-attachments/photo.png",
+            fileUri: "file:///documents/l7-composer-attachments/photo.png",
+            previewUri: "file:///documents/l7-composer-attachments/photo.png",
             uploadedAttachmentId: "pending-photo-png",
             uploadEnvironmentId: EnvironmentId.make("environment-1"),
           },

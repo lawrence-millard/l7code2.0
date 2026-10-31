@@ -13,8 +13,8 @@ import { DEVELOPMENT_ICON_OVERRIDES } from "../../../scripts/lib/brand-assets.ts
 import { findEsmImportsOfExternalPackages } from "../../../scripts/lib/cli-executable-imports.ts";
 import { injectLinuxArm64Sea } from "../../../scripts/lib/linux-arm64-sea.ts";
 import rootPackageJson from "../../../package.json" with { type: "json" };
-import * as HostProcess from "@t3tools/shared/HostProcess";
-import { resolveSpawnCommand } from "@t3tools/shared/shell";
+import * as HostProcess from "@l7code/shared/HostProcess";
+import { resolveSpawnCommand } from "@l7code/shared/shell";
 import {
   ServerCliBuildAssetMissingError,
   ServerCliCommandExitError,
@@ -132,8 +132,8 @@ const buildExeCmd = Command.make(
           cwd: serverDir,
           env: {
             ...process.env,
-            T3CODE_PACK_EXE: linuxArm64 ? "bundle" : "1",
-            T3CODE_PACK_EXE_TARGET: target ?? "",
+            L7CODE_PACK_EXE: linuxArm64 ? "bundle" : "1",
+            L7CODE_PACK_EXE_TARGET: target ?? "",
           },
           stdout: config.verbose ? "inherit" : "ignore",
           stderr: "inherit",
@@ -157,7 +157,7 @@ const buildExeCmd = Command.make(
         });
       }
       yield* Effect.log(
-        "[cli] Built dist-exe/t3 (expects client/, resource-monitor/, and the runtime-external node_modules beside it; scripts/build-cli-archive.ts assembles that tree)",
+        "[cli] Built dist-exe/l7 (expects client/, resource-monitor/, and the runtime-external node_modules beside it; scripts/build-cli-archive.ts assembles that tree)",
       );
     }),
 ).pipe(

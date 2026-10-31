@@ -6,7 +6,7 @@ import {
   MessageId,
   ProjectId,
   ThreadId,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import type { QueuedThreadMessage } from "../../state/thread-outbox-model";
 import {
   appendPendingThreadMessages,

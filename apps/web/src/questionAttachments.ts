@@ -1,9 +1,9 @@
-import { scopedThreadKey } from "@t3tools/client-runtime/environment";
+import { scopedThreadKey } from "@l7code/client-runtime/environment";
 import {
   onThreadRequestsResolved,
   resolvedQuestionDraftKeys,
-} from "@t3tools/client-runtime/state/thread-requests";
-import type { EnvironmentId, ScopedThreadRef, ThreadId } from "@t3tools/contracts";
+} from "@l7code/client-runtime/state/thread-requests";
+import type { EnvironmentId, ScopedThreadRef, ThreadId } from "@l7code/contracts";
 import { create } from "zustand";
 import { DraftId, useComposerDraftStore } from "./composerDraftStore";
 import { releaseDraftAttachments } from "./lib/attachmentUploadQueue";

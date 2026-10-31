@@ -1,10 +1,10 @@
-import type { ScopedThreadRef } from "@t3tools/contracts";
+import type { ScopedThreadRef } from "@l7code/contracts";
 import {
   pullRequestLinkProject,
   resolveLinkPullRequestInput,
-} from "@t3tools/client-runtime/pull-request-link-input";
+} from "@l7code/client-runtime/pull-request-link-input";
 import { useAtomValue } from "@effect/atom-react";
-import { settlePromise, squashAtomCommandFailure } from "@t3tools/client-runtime/state/runtime";
+import { settlePromise, squashAtomCommandFailure } from "@l7code/client-runtime/state/runtime";
 import { useRef, useState } from "react";
 
 import { useProjects, useThreadShell } from "~/state/entities";

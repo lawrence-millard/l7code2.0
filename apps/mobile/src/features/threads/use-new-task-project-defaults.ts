@@ -1,10 +1,10 @@
-import { resolveFilesystemReadAccess } from "@t3tools/client-runtime/state/filesystem";
-import { isScratchProject } from "@t3tools/client-runtime/state/projects";
-import type { EnvironmentProject } from "@t3tools/client-runtime/state/shell";
-import type { ProjectReadFileResult } from "@t3tools/contracts";
-import { DEFAULT_SERVER_SETTINGS, T3_PROJECT_FILE_NAME } from "@t3tools/contracts";
-import { resolveNewThreadEnvMode, resolveProjectSettings } from "@t3tools/shared/projectSettings";
-import { parseT3ProjectFile } from "@t3tools/shared/t3ProjectFile";
+import { resolveFilesystemReadAccess } from "@l7code/client-runtime/state/filesystem";
+import { isScratchProject } from "@l7code/client-runtime/state/projects";
+import type { EnvironmentProject } from "@l7code/client-runtime/state/shell";
+import type { ProjectReadFileResult } from "@l7code/contracts";
+import { DEFAULT_SERVER_SETTINGS, T3_PROJECT_FILE_NAME } from "@l7code/contracts";
+import { resolveNewThreadEnvMode, resolveProjectSettings } from "@l7code/shared/projectSettings";
+import { parseT3ProjectFile } from "@l7code/shared/l7ProjectFile";
 
 import { useEnvironmentServerConfig } from "../../state/entities";
 import { useEnvironmentPresentation } from "../../state/presentation";
@@ -14,7 +14,7 @@ import { useEnvironmentQuery } from "../../state/query";
 import { environmentSession } from "../../state/session";
 
 /**
- * A project's new-task defaults: server settings merged with its t3.json. The
+ * A project's new-task defaults: server settings merged with its l7.json. The
  * new-task flow and the home pending-drafts list both read the default
  * workspace mode here, so a draft that never picked one shows what it sends.
  * Every read is a shared per-environment or per-project atom.
@@ -67,7 +67,7 @@ export function useNewTaskProjectDefaults(project: EnvironmentProject | null) {
         newProjectsRoot: serverConfig?.newProjectsRoot,
         projectHasThreads,
       });
-  // While t3.json loads, the environment default is provisional; t3.json may replace it.
+  // While l7.json loads, the environment default is provisional; l7.json may replace it.
   const defaultWorkspaceModeSettled =
     projectSettings.sources.defaultThreadEnvMode !== "environment" ||
     (!t3ProjectFileQuery.isPending && !fileAccessPending);

@@ -8,7 +8,7 @@ import * as Option from "effect/Option";
 import { relayResourceNameForStage } from "./deploymentConfig.ts";
 
 const RUNBOOK_URL =
-  "https://github.com/pingdotgg/t3code/blob/main/docs/operations/relay-observability.md#alerts";
+  "https://github.com/lawrence-millard/l7code2.0/blob/main/docs/operations/relay-observability.md#alerts";
 
 const LINK_ROUTE = `"/v1/client/environment-links"`;
 const TUNNEL_ROUTES = `"/v1/environments/:environmentId/tunnel", "/v1/environments/:environmentId/tunnel/recovery"`;
@@ -322,7 +322,7 @@ const relayDashboardCharts = (dataset: string): ReadonlyArray<QueryChart> => {
           `    name == "ConnectionDriver.checkRoute", "0. Direct route check, before any relay fallback",`,
           `    name == "relay.connection.cloudSessionToken.resolve", "1. Clerk session token",`,
           `    name == "clientRuntime.managedRelay.exchangeAccessToken", "2. Relay token exchange",`,
-          `    kind == "client" and url startswith "https://relay.t3.codes/v1/environments/" and url endswith "/connect", "3. Relay connect, minting a host credential",`,
+          `    kind == "client" and url startswith "https://relay.l7code.dev/v1/environments/" and url endswith "/connect", "3. Relay connect, minting a host credential",`,
           `    name == "environment.authorization.descriptor", "4. Host descriptor",`,
           `    name == "environment.authorization.accessToken.exchange", "5. Host token exchange",`,
           `    name == "clientRuntime.connection.remote.createDpopSocketUrl", "6. Socket ticket",`,
@@ -384,7 +384,7 @@ export const RelayMonitoring = Effect.fn("RelayMonitoring")(function* (traces: A
     dashboard: Output.map(traces.name, (dataset) => {
       const charts = relayDashboardCharts(dataset);
       return {
-        name: relayResourceNameForStage("t3-code-relay-health", stage),
+        name: relayResourceNameForStage("l7-code-relay-health", stage),
         // Shared with the whole org. An empty owner only means that for API
         // tokens; deploys with a personal token would make it private.
         owner: "X-AXIOM-EVERYONE",

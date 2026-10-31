@@ -1,5 +1,5 @@
 {
-  "name": "@t3tools/task-cache",
+  "name": "@l7code/task-cache",
   "private": true,
   "type": "module",
   "scripts": {

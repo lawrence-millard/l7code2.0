@@ -8,8 +8,8 @@ import type {
   PullRequestMergeability,
   PullRequestReviewDecision,
   PullRequestState,
-} from "@t3tools/contracts";
-import { formatDiffCount } from "@t3tools/client-runtime/diff-count";
+} from "@l7code/contracts";
+import { formatDiffCount } from "@l7code/client-runtime/diff-count";
 import {
   CircleCheckIcon,
   CircleDashedIcon,

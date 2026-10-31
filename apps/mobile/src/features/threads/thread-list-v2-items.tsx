@@ -19,16 +19,16 @@ import type { ThreadMoveDestination } from "./threadOrder";
 import type {
   EnvironmentProject,
   EnvironmentThreadShell,
-} from "@t3tools/client-runtime/state/shell";
-import type { EnvironmentThreadSearchMatch } from "@t3tools/client-runtime/state/thread-search";
+} from "@l7code/client-runtime/state/shell";
+import type { EnvironmentThreadSearchMatch } from "@l7code/client-runtime/state/thread-search";
 import {
   formatWorkingDurationLabel,
   resolveThreadWorkingStartedAt,
-} from "@t3tools/client-runtime/state/models";
-import { AuthOrchestrationOperateScope, type EnvironmentMachineKind } from "@t3tools/contracts";
-import type { SnoozePresetSetting } from "@t3tools/contracts/settings";
-import { canSnooze } from "@t3tools/client-runtime/state/thread-settled";
-import { threadChipCopyTarget } from "@t3tools/client-runtime/thread-reference";
+} from "@l7code/client-runtime/state/models";
+import { AuthOrchestrationOperateScope, type EnvironmentMachineKind } from "@l7code/contracts";
+import type { SnoozePresetSetting } from "@l7code/contracts/settings";
+import { canSnooze } from "@l7code/client-runtime/state/thread-settled";
+import { threadChipCopyTarget } from "@l7code/client-runtime/thread-reference";
 import type { MenuAction } from "@react-native-menu/menu";
 import { memo, useCallback, useMemo, useState, type ComponentProps } from "react";
 import { Pressable, useWindowDimensions, View } from "react-native";

@@ -1,8 +1,8 @@
-import { classifyMarkdownImageSource } from "@t3tools/client-runtime/markdown-images";
+import { classifyMarkdownImageSource } from "@l7code/client-runtime/markdown-images";
 import {
   resolveMediaSource,
   type ResolveMediaSourceInput,
-} from "@t3tools/client-runtime/media-source";
+} from "@l7code/client-runtime/media-source";
 
 export function resolveMobileMarkdownMediaSource(href: string, input: ResolveMediaSourceInput) {
   const media = resolveMediaSource(href, input);

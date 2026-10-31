@@ -3,7 +3,7 @@ import { assert, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
 import * as Path from "effect/Path";
-import * as HostProcess from "@t3tools/shared/HostProcess";
+import * as HostProcess from "@l7code/shared/HostProcess";
 
 import { findOwnedLauncher } from "./uninstall.ts";
 
@@ -22,7 +22,7 @@ it.layer(NodeServices.layer)("t3 uninstall launcher", (it) => {
         yield* fs.writeFileString(file, "");
       }
       const ours = path.join(root, "bin/t3");
-      const theirs = path.join(root, "other/bin/t3");
+      const theirs = path.join(root, "other/bin/l7");
       yield* fs.makeDirectory(path.dirname(ours), { recursive: true });
       yield* fs.makeDirectory(path.dirname(theirs), { recursive: true });
       yield* fs.symlink(exe, ours);

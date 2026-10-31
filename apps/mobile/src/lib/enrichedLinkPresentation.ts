@@ -1,4 +1,4 @@
-import type { ComposerContextRecord, EnvironmentId, ThreadId } from "@t3tools/contracts";
+import type { ComposerContextRecord, EnvironmentId, ThreadId } from "@l7code/contracts";
 import {
   composerChipSizeSuffix,
   contextChipIcon,
@@ -11,8 +11,8 @@ import type { SelectableMarkdownSkill } from "../native/SelectableMarkdownText.t
 import {
   formatComposerContextHref,
   parseComposerContextHref,
-} from "@t3tools/shared/composerContextReferences";
-import { hasThreadLinks, parseThreadLinkHref } from "@t3tools/shared/threadLinks";
+} from "@l7code/shared/composerContextReferences";
+import { hasThreadLinks, parseThreadLinkHref } from "@l7code/shared/threadLinks";
 
 export function enrichedContextLinkPresentation(
   href: string,

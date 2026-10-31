@@ -4,7 +4,7 @@ import {
   EnvironmentId,
   type AuthMcpClientAccess,
   type ExecutionEnvironmentDescriptor,
-} from "@t3tools/contracts";
+} from "@l7code/contracts";
 import * as Context from "effect/Context";
 import * as Effect from "effect/Effect";
 import * as Layer from "effect/Layer";
@@ -84,7 +84,7 @@ export const servePeer = <E, R>(
       (httpEffect) =>
         Effect.gen(function* () {
           const request = yield* HttpServerRequest.HttpServerRequest;
-          if (request.url.startsWith("/.well-known/t3/environment")) {
+          if (request.url.startsWith("/.well-known/l7/environment")) {
             yield* Ref.update(probes, (count) => count + 1);
           }
           const authorization = request.headers.authorization;
@@ -140,7 +140,7 @@ export const servePeer = <E, R>(
         .listSessions()
         .pipe(
           Effect.map((sessions) =>
-            sessions.filter((session) => session.client.label?.startsWith("T3 Code · ")),
+            sessions.filter((session) => session.client.label?.startsWith("L7 Code · ")),
           ),
         ),
     };

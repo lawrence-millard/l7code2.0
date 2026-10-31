@@ -9,12 +9,12 @@ import * as Scope from "effect/Scope";
 import * as Stream from "effect/Stream";
 import * as ChildProcess from "effect/process/ChildProcess";
 import * as ChildProcessSpawner from "effect/process/ChildProcessSpawner";
-import { resolveSpawnCommand } from "@t3tools/shared/shell";
+import { resolveSpawnCommand } from "@l7code/shared/shell";
 import {
   collectUint8StreamText,
   decodeUtf8,
   type CollectedUint8StreamText,
-} from "@t3tools/provider-core/server/collectStreamText";
+} from "@l7code/provider-core/server/collectStreamText";
 
 export interface ProcessRunInput {
   readonly command: string;

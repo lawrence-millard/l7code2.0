@@ -1,4 +1,4 @@
-import type { PullRequestInvolvement, PullRequestListState } from "@t3tools/contracts";
+import type { PullRequestInvolvement, PullRequestListState } from "@l7code/contracts";
 import {
   CalendarArrowDownIcon,
   CalendarArrowUpIcon,

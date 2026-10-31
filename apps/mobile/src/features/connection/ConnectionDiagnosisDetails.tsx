@@ -7,8 +7,8 @@ import {
   hasRelayRoute,
   presentConnectionDiagnosis,
   type EnvironmentPresentation,
-} from "@t3tools/client-runtime/connection";
-import type { EnvironmentId } from "@t3tools/contracts";
+} from "@l7code/client-runtime/connection";
+import type { EnvironmentId } from "@l7code/contracts";
 import Constants from "expo-constants";
 import { AsyncResult } from "effect/reactivity";
 import { Linking, View } from "react-native";

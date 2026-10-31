@@ -1,22 +1,22 @@
 import {
   pullRequestLinkProject,
   resolveLinkPullRequestInput,
-} from "@t3tools/client-runtime/pull-request-link-input";
+} from "@l7code/client-runtime/pull-request-link-input";
 import type {
   EnvironmentProject,
   EnvironmentThreadShell,
-} from "@t3tools/client-runtime/state/shell";
+} from "@l7code/client-runtime/state/shell";
 import {
   isAtomCommandInterrupted,
   squashAtomCommandFailure,
   type AtomCommandResult,
-} from "@t3tools/client-runtime/state/runtime";
-import { planThreadPullRequestMutation } from "@t3tools/client-runtime/thread-pull-request-compatibility";
+} from "@l7code/client-runtime/state/runtime";
+import { planThreadPullRequestMutation } from "@l7code/client-runtime/thread-pull-request-compatibility";
 import {
   capitalizeTerm,
   sourceControlClients,
-} from "@t3tools/client-runtime/source-control-clients";
-import { AuthOrchestrationOperateScope, type ThreadPullRequestLink } from "@t3tools/contracts";
+} from "@l7code/client-runtime/source-control-clients";
+import { AuthOrchestrationOperateScope, type ThreadPullRequestLink } from "@l7code/contracts";
 import * as Clipboard from "expo-clipboard";
 
 import * as Dialog from "../../components/ui/Dialog";
