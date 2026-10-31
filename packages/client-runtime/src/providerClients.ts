@@ -11,6 +11,7 @@ import { modelShortName } from "@l7code/provider-core/modelShortName";
 import { cursorClient } from "@l7code/provider-cursor/client";
 import { fxClient } from "@l7code/provider-fx/client";
 import { grokClient } from "@l7code/provider-grok/client";
+import { commandCodeClient } from "@l7code/provider-command-code/client";
 import { museClient } from "@l7code/provider-muse/client";
 import { openCodeClient } from "@l7code/provider-opencode/client";
 import { piClient } from "@l7code/provider-pi/client";
@@ -32,6 +33,7 @@ export const providerClients = makeProviderClientRegistry([
   },
   cursorClient,
   grokClient,
+  commandCodeClient,
   fxClient,
   openCodeClient,
   {

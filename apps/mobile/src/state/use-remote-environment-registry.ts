@@ -23,10 +23,10 @@ import { connectPairingUrl as connectPairingUrlCommand } from "../connection/onb
 
 const RELAY_REMOVAL_ACCOUNT_NOTE: Record<Discovery.RelayEnvironmentRegistration, string> = {
   registered:
-    "It stays on your T3 Connect account and keeps its host space. Deregister it under T3 Account → T3 Connect to free it.",
-  unregistered: "It's no longer on your T3 Connect account.",
+    "It stays on your L7 Connect account and keeps its host space. Deregister it under T3 Account → L7 Connect to free it.",
+  unregistered: "It's no longer on your L7 Connect account.",
   unknown:
-    "This doesn't change your T3 Connect account. To deregister it there, use T3 Account → T3 Connect.",
+    "This doesn't change your L7 Connect account. To deregister it there, use T3 Account → L7 Connect.",
 };
 
 const connectionPairingUrlAtom = Atom.make("").pipe(

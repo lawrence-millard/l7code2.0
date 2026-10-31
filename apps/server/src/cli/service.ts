@@ -394,9 +394,9 @@ export const offerServiceDuringOnboarding = Effect.gen(function* () {
         ? "The installed L7 Code service needs an update or repair. Update it now?"
         : platform === "darwin"
           ? "Run L7 Code in the background whenever you log in to this Mac? " +
-            "It stays reachable through T3 Connect while you are logged in."
+            "It stays reachable through L7 Connect while you are logged in."
           : "Run L7 Code in the background whenever this machine boots? " +
-            "It stays reachable through T3 Connect even after you log out.",
+            "It stays reachable through L7 Connect even after you log out.",
       initial: true,
     }),
   );

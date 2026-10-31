@@ -2,7 +2,7 @@
 
 The L7 Code server sends product usage events to L7 Code's own endpoint at `ingest.l7code.dev`,
 associated with a hashed account or installation identifier. To count how many installations one person
-uses, the server also sends hashed account identifiers: your T3 Connect account, your OpenAI and
+uses, the server also sends hashed account identifiers: your L7 Connect account, your OpenAI and
 Claude accounts when you are signed in, and a random identifier for each device that connects. The endpoint keeps a copy of each
 event and forwards events to PostHog. Events include the provider, model, reasoning effort,
 permission mode, turn result, duration, release channel, and main-agent token totals when
@@ -11,7 +11,7 @@ available.
 Events do not include prompts, responses, file contents, authentication tokens, conversation IDs,
 raw provider events, or child-agent output. Child-agent token use is excluded from the totals.
 
-L7 Code also sends relay connection traces to Axiom to diagnose T3 Connect connectivity.
+L7 Code also sends relay connection traces to Axiom to diagnose L7 Connect connectivity.
 
 To disable product events and relay tracing, set `L7CODE_TELEMETRY_ENABLED=false` in the server's
 environment before starting it. Relay tracing also stops when `L7CODE_OTEL_SDK_DISABLED` or
@@ -26,7 +26,7 @@ Linux, so export it there and restart the app. On Windows, set it as a user envi
 When the iOS or Android app crashes or hits an error, it sends a report to L7 Code: the error
 message, the stack trace, the app version, and the device model and OS version. Each launch also
 sends startup timings, and every report carries a random ID for the install. Reports go through
-the T3 Connect relay to Axiom. They do not include your threads, prompts, or connection details,
+the L7 Connect relay to Axiom. They do not include your threads, prompts, or connection details,
 but an error message can quote a value the app was handling.
 
 To stop sending them, turn off **Send crash reports** in **Settings > About L7 Code > Diagnostics**.

@@ -204,8 +204,5 @@ export function makeCloudCliOAuthConfig({
 
 export const cloudCliOAuthConfig = makeCloudCliOAuthConfig();
 
-export const hasCloudPublicConfig = Boolean(
-  (normalizeSecureRelayUrl(process.env.L7CODE_RELAY_URL ?? "") ?? buildTimeRelayUrl) &&
-  (process.env.L7CODE_CLERK_PUBLISHABLE_KEY?.trim() || buildTimeClerkPublishableKey) &&
-  (process.env.L7CODE_CLERK_CLI_OAUTH_CLIENT_ID?.trim() || buildTimeClerkCliOAuthClientId),
-);
+/** L7 Code Phase 1: L7 Connect removed. Always false. */
+export const hasCloudPublicConfig = false;

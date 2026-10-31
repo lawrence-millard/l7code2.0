@@ -42,6 +42,8 @@ export * from "./guestStream.ts";
 export * from "./applicationEvent.ts";
 export * from "./orchestratorMcp.ts";
 export * from "./peerLink.ts";
+export * from "./agentProject.ts";
+export * from "./boat.ts";
 export * from "./threadMetadataMcp.ts";
 export * from "./threadPullRequest.ts";
 export * from "./threadSearch.ts";

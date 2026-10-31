@@ -227,6 +227,14 @@
       "types": "./src/state/peerLinks.ts",
       "default": "./src/state/peerLinks.ts"
     },
+    "./state/agentProjects": {
+      "types": "./src/state/agentProjects.ts",
+      "default": "./src/state/agentProjects.ts"
+    },
+    "./state/boat": {
+      "types": "./src/state/boat.ts",
+      "default": "./src/state/boat.ts"
+    },
     "./state/peerPairingCode": {
       "types": "./src/state/peerPairingCode.ts",
       "default": "./src/state/peerPairingCode.ts"
@@ -536,7 +544,8 @@
     "@l7code/source-control-definitions": "workspace:*",
     "effect": "catalog:",
     "jszip": "3.10.1",
-    "three": "0.180.0"
+    "three": "0.180.0",
+    "@l7code/provider-command-code": "workspace:*"
   },
   "devDependencies": {
     "@effect/vitest": "catalog:",

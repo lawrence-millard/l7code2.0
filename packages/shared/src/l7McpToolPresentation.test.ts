@@ -43,8 +43,8 @@ describe("resolveT3McpToolDefinition", () => {
     expect(
       resolveT3McpToolDefinition("mcp__l7-code__preview_act", { action: "type" })?.labels,
     ).toEqual(resolveT3McpToolDefinition("preview_type")?.labels);
-    expect(resolveT3McpToolDefinition("t3_thread_transfer", { action: "fork" })?.displayName).toBe(
-      resolveT3McpToolDefinition("t3_thread_fork")?.displayName,
+    expect(resolveT3McpToolDefinition("l7_thread_transfer", { action: "fork" })?.displayName).toBe(
+      resolveT3McpToolDefinition("l7_thread_fork")?.displayName,
     );
     expect(resolveT3McpToolDefinition("preview_act", { action: "unknown" })?.labels[2]).toBe(
       "Used",
@@ -57,11 +57,11 @@ describe("resolveT3McpSummaryAction", () => {
     expect(resolveT3McpSummaryAction("mcp__l7-code__t3_queue", { action: "list" })).toBe(
       "queue-list",
     );
-    expect(resolveT3McpSummaryAction("t3_queue", { action: "edit" })).toBe("queue-edit");
-    expect(resolveT3McpSummaryAction("t3_thread_transfer", { action: "status" })).toBe(
+    expect(resolveT3McpSummaryAction("l7_queue", { action: "edit" })).toBe("queue-edit");
+    expect(resolveT3McpSummaryAction("l7_thread_transfer", { action: "status" })).toBe(
       "thread-transfers",
     );
-    expect(resolveT3McpSummaryAction("t3_thread_configure", {})).toBe("thread-configuration");
+    expect(resolveT3McpSummaryAction("l7_thread_configure", {})).toBe("thread-configuration");
     expect(resolveT3McpSummaryAction("schedule_task", { scheduledTaskId: "task-1" })).toBe(
       "schedule-update",
     );

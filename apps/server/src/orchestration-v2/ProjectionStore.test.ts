@@ -321,7 +321,7 @@ it.effect("SQL shells flag only an active turn blocked solely on T3 thread waits
     const foreign = {
       ...wait,
       id: TurnItemId.make("item:thread-wait:foreign"),
-      toolName: "weather.t3_thread_wait",
+      toolName: "weather.l7_thread_wait",
     };
     yield* updateItem(foreign);
     yield* assertBlocked(false);

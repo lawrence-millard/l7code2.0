@@ -1,0 +1,29 @@
+[package]
+name = "zeron-l7-bridge"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+description = "Zeron EngineRpc ↔ L7 Code orchestration adapter"
+
+[[bin]]
+name = "zeron-l7-bridge"
+path = "src/main.rs"
+
+[dependencies]
+zeron-proto.workspace = true
+zeron-rpc.workspace = true
+tokio.workspace = true
+tokio-tungstenite.workspace = true
+futures.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+async-trait.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+clap = { workspace = true, features = ["env"] }
+reqwest = { workspace = true, features = ["cookies"] }

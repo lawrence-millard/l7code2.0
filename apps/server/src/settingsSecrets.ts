@@ -1,5 +1,6 @@
 import {
   AntigravitySettings,
+  BoatSettings,
   ClaudeSettings,
   CodexSettings,
   EasDeviceHostConfig,
@@ -34,6 +35,7 @@ const providerSecretFields = new Map([
   ),
 ]);
 const usageLimitSecretFields = secretSettingsFields(UsageLimitSourceConfig);
+const boatSecretFields = secretSettingsFields(BoatSettings);
 const easDeviceHostSecretFields = secretSettingsFields(EasDeviceHostConfig);
 const simlockDeviceHostSecretFields = secretSettingsFields(SimlockDeviceHostConfig);
 const encode = (value: string) => Buffer.from(value, "utf8").toString("base64url");
@@ -173,11 +175,16 @@ export function mapSettingsSecrets(
       ) as SimlockDeviceHostConfig,
   );
 
+  const boat = mapFields(settings.boat, boatSecretFields, (field, serverHost) =>
+    `boat-${encode(field)}${serverHost === null ? "" : `-${encode(serverHost)}`}`,
+  ) as ServerSettings["boat"];
+
   return {
     ...settings,
     providerInstances,
     sourceControlHosts,
     usageLimitSources,
+    boat,
     easDeviceHosts,
     simlockDeviceHosts,
   };

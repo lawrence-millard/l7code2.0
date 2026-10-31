@@ -27,6 +27,27 @@ import {
   PeerLinkSummary,
 } from "./peerLink.ts";
 import {
+  AgentProject,
+  AgentProjectAttachFolderInput,
+  AgentProjectAttachThreadInput,
+  AgentProjectCreateInput,
+  AgentProjectDeleteInput,
+  AgentProjectDeleteWorkstreamInput,
+  AgentProjectDetachFolderInput,
+  AgentProjectDetachThreadInput,
+  AgentProjectError,
+  AgentProjectGetInput,
+  AgentProjectSummary,
+  AgentProjectUpdateInput,
+  AgentProjectUpsertWorkstreamInput,
+} from "./agentProject.ts";
+import {
+  BoatDeployInput,
+  BoatEnvironment,
+  BoatError,
+  BoatSandboxIdInput,
+} from "./boat.ts";
+import {
   ChatGptReconnectProfileInput,
   ChatGptReconnectProfile,
   ChatGptImportProfileInput,
@@ -506,6 +527,23 @@ export const WS_METHODS = {
   peerLinksLink: "peerLinks.link",
   peerLinksUnlink: "peerLinks.unlink",
   peerLinksAnswerRequest: "peerLinks.answerRequest",
+  agentProjectsList: "agentProjects.list",
+  agentProjectsGet: "agentProjects.get",
+  agentProjectsCreate: "agentProjects.create",
+  agentProjectsUpdate: "agentProjects.update",
+  agentProjectsDelete: "agentProjects.delete",
+  agentProjectsAttachThread: "agentProjects.attachThread",
+  agentProjectsDetachThread: "agentProjects.detachThread",
+  agentProjectsAttachFolder: "agentProjects.attachFolder",
+  agentProjectsDetachFolder: "agentProjects.detachFolder",
+  agentProjectsUpsertWorkstream: "agentProjects.upsertWorkstream",
+  agentProjectsDeleteWorkstream: "agentProjects.deleteWorkstream",
+  boatList: "boat.list",
+  boatDeploy: "boat.deploy",
+  boatRefresh: "boat.refresh",
+  boatStop: "boat.stop",
+  boatResume: "boat.resume",
+  boatRemove: "boat.remove",
   serverUpdateSettings: "server.updateSettings",
   serverDiscoverSourceControl: "server.discoverSourceControl",
   serverSearchAcpRegistry: "server.searchAcpRegistry",
@@ -804,6 +842,110 @@ const WsPeerLinksUnlinkRpc = Rpc.make(WS_METHODS.peerLinksUnlink, {
 const WsPeerLinksAnswerRequestRpc = Rpc.make(WS_METHODS.peerLinksAnswerRequest, {
   payload: PeerLinkRequestAnswerInput,
   error: Schema.Union([PeerLinkRequestError, EnvironmentAuthorizationError]),
+});
+
+const AgentProjectRpcError = Schema.Union([AgentProjectError, EnvironmentAuthorizationError]);
+
+const WsAgentProjectsListRpc = Rpc.make(WS_METHODS.agentProjectsList, {
+  success: Schema.Struct({ projects: Schema.Array(AgentProjectSummary) }),
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsGetRpc = Rpc.make(WS_METHODS.agentProjectsGet, {
+  payload: AgentProjectGetInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsCreateRpc = Rpc.make(WS_METHODS.agentProjectsCreate, {
+  payload: AgentProjectCreateInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsUpdateRpc = Rpc.make(WS_METHODS.agentProjectsUpdate, {
+  payload: AgentProjectUpdateInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsDeleteRpc = Rpc.make(WS_METHODS.agentProjectsDelete, {
+  payload: AgentProjectDeleteInput,
+  success: Schema.Struct({ removed: Schema.Boolean }),
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsAttachThreadRpc = Rpc.make(WS_METHODS.agentProjectsAttachThread, {
+  payload: AgentProjectAttachThreadInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsDetachThreadRpc = Rpc.make(WS_METHODS.agentProjectsDetachThread, {
+  payload: AgentProjectDetachThreadInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsAttachFolderRpc = Rpc.make(WS_METHODS.agentProjectsAttachFolder, {
+  payload: AgentProjectAttachFolderInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsDetachFolderRpc = Rpc.make(WS_METHODS.agentProjectsDetachFolder, {
+  payload: AgentProjectDetachFolderInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsUpsertWorkstreamRpc = Rpc.make(WS_METHODS.agentProjectsUpsertWorkstream, {
+  payload: AgentProjectUpsertWorkstreamInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const WsAgentProjectsDeleteWorkstreamRpc = Rpc.make(WS_METHODS.agentProjectsDeleteWorkstream, {
+  payload: AgentProjectDeleteWorkstreamInput,
+  success: AgentProject,
+  error: AgentProjectRpcError,
+});
+
+const BoatRpcError = Schema.Union([BoatError, EnvironmentAuthorizationError]);
+
+const WsBoatListRpc = Rpc.make(WS_METHODS.boatList, {
+  success: Schema.Struct({ environments: Schema.Array(BoatEnvironment) }),
+  error: BoatRpcError,
+});
+
+const WsBoatDeployRpc = Rpc.make(WS_METHODS.boatDeploy, {
+  payload: BoatDeployInput,
+  success: BoatEnvironment,
+  error: BoatRpcError,
+});
+
+const WsBoatRefreshRpc = Rpc.make(WS_METHODS.boatRefresh, {
+  payload: BoatSandboxIdInput,
+  success: BoatEnvironment,
+  error: BoatRpcError,
+});
+
+const WsBoatStopRpc = Rpc.make(WS_METHODS.boatStop, {
+  payload: BoatSandboxIdInput,
+  success: BoatEnvironment,
+  error: BoatRpcError,
+});
+
+const WsBoatResumeRpc = Rpc.make(WS_METHODS.boatResume, {
+  payload: BoatSandboxIdInput,
+  success: BoatEnvironment,
+  error: BoatRpcError,
+});
+
+const WsBoatRemoveRpc = Rpc.make(WS_METHODS.boatRemove, {
+  payload: BoatSandboxIdInput,
+  success: Schema.Struct({ removed: Schema.Boolean }),
+  error: BoatRpcError,
 });
 
 const WsServerUpdateSettingsRpc = Rpc.make(WS_METHODS.serverUpdateSettings, {
@@ -1983,6 +2125,23 @@ export const WsRpcGroup = RpcGroup.make(
   WsPeerLinksLinkRpc,
   WsPeerLinksUnlinkRpc,
   WsPeerLinksAnswerRequestRpc,
+  WsAgentProjectsListRpc,
+  WsAgentProjectsGetRpc,
+  WsAgentProjectsCreateRpc,
+  WsAgentProjectsUpdateRpc,
+  WsAgentProjectsDeleteRpc,
+  WsAgentProjectsAttachThreadRpc,
+  WsAgentProjectsDetachThreadRpc,
+  WsAgentProjectsAttachFolderRpc,
+  WsAgentProjectsDetachFolderRpc,
+  WsAgentProjectsUpsertWorkstreamRpc,
+  WsAgentProjectsDeleteWorkstreamRpc,
+  WsBoatListRpc,
+  WsBoatDeployRpc,
+  WsBoatRefreshRpc,
+  WsBoatStopRpc,
+  WsBoatResumeRpc,
+  WsBoatRemoveRpc,
   WsServerDiscoverSourceControlRpc,
   WsServerSearchAcpRegistryRpc,
   WsServerPrepareAcpRegistryAgentRpc,

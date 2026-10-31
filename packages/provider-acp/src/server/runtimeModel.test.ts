@@ -1399,12 +1399,12 @@ describe("extractMcpToolCallIdentity", () => {
       kind: "other",
       title: "unrelated display title",
       status: "pending",
-      _meta: { toolName: "mcp::l7-code::t3_thread_send", serverId: "l7-code", provenance: "mcp" },
+      _meta: { toolName: "mcp::l7-code::l7_thread_send", serverId: "l7-code", provenance: "mcp" },
     });
 
     expect(extractMcpToolCallIdentity(toolCall)).toEqual({
       server: "l7-code",
-      tool: "t3_thread_send",
+      tool: "l7_thread_send",
     });
   });
 

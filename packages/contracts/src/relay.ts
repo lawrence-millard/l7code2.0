@@ -155,7 +155,7 @@ export type RelayAgentActivityAggregateState = typeof RelayAgentActivityAggregat
 export const RelayManagedEndpointProviderKind = Schema.Literals([
   "manual",
   "cloudflare_tunnel",
-  "t3_relay",
+  "l7_relay",
 ]);
 export type RelayManagedEndpointProviderKind = typeof RelayManagedEndpointProviderKind.Type;
 
@@ -670,7 +670,7 @@ export class RelayEnvironmentPrincipal extends Context.Service<
 const RelayClientBearerAuthorization = HttpApiSecurity.http({ scheme: "bearer" }).pipe(
   HttpApiSecurity.annotate(
     OpenApi.Description,
-    "Clerk session or OAuth bearer token for the signed-in T3 Connect user.",
+    "Clerk session or OAuth bearer token for the signed-in L7 Connect user.",
   ),
 );
 

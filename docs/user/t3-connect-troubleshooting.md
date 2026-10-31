@@ -1,9 +1,11 @@
-# T3 Connect troubleshooting
+> **Removed in L7 Code Phase 1.** L7 Connect / Clerk managed tunnels are no longer supported. Use local `l7 serve` / desktop, pairing (`l7 pair`), LAN/Tailscale, or a manual remote URL. Boat-hosted remotes land in a later phase.
 
-A T3 Connect connection goes through four parts, in this order:
+# L7 Connect troubleshooting
 
-1. **This device** reaches T3 Connect over the internet.
-2. **T3 Connect** checks your sign-in and the host's link.
+A L7 Connect connection goes through four parts, in this order:
+
+1. **This device** reaches L7 Connect over the internet.
+2. **L7 Connect** checks your sign-in and the host's link.
 3. **The host's tunnel** (cloudflared on the host) carries the request to the host.
 4. **L7 Code on the host** answers.
 
@@ -12,14 +14,14 @@ and select **Details**. The first part marked as failed is the cause. Find its
 section below.
 
 To see the host's side, run `l7 connect status` on the host, or open
-**Settings > Sharing & access** on the host. Both check the host's T3 Connect
+**Settings > Sharing & access** on the host. Both check the host's L7 Connect
 address from the host, and say why it fails. `l7 connect` runs the same check
 when it finishes setup. This check cannot test another device's network. For a
 problem on one device, use **Details** on that device.
 
 ## The host's tunnel is offline
 
-T3 Connect could not reach the host's tunnel. This means one of these:
+L7 Connect could not reach the host's tunnel. This means one of these:
 
 - The host is asleep, turned off, or offline.
 - L7 Code is not running on the host.
@@ -30,7 +32,7 @@ Fix:
 
 1. Make sure the host is awake and L7 Code runs on it.
 2. On the host, run `l7 connect status`. It names the problem on the host's side.
-3. If the host was offline for a long time, T3 Connect removes its tunnel. Start
+3. If the host was offline for a long time, L7 Connect removes its tunnel. Start
    L7 Code on the host and update it to the latest version. It gets a new tunnel.
 
 ## Port 7844 is blocked on the host
@@ -50,7 +52,7 @@ Common causes:
   to be allowed, or use a direct route instead (see below).
 - **A firewall or strict network.** Allow outbound TCP and UDP port 7844.
 
-If you cannot unblock the port, you can connect without T3 Connect. When the
+If you cannot unblock the port, you can connect without L7 Connect. When the
 host and this device are on the same Tailscale network, add the host's
 Tailscale address as a direct route. See
 [Reach one machine several ways](./remote-access.md#reach-one-machine-several-ways).
@@ -68,9 +70,9 @@ The host's tunnel is up, but it cannot reach L7 Code on the host. Common causes:
 Fix: restart L7 Code on the host. For the background service, run
 `l7 service restart`. Then run `l7 connect status` on the host.
 
-## The T3 Connect address does not resolve or answer
+## The L7 Connect address does not resolve or answer
 
-The host's T3 Connect address did not resolve, refused the connection, failed a
+The host's L7 Connect address did not resolve, refused the connection, failed a
 secure (TLS) connection, or did not answer in time.
 
 Fix:
@@ -79,10 +81,10 @@ Fix:
 2. On the host, run `l7 connect status`.
 3. If the check fails only on the host, check the host's DNS, VPN, or proxy.
 
-## This device can't reach T3 Connect
+## This device can't reach L7 Connect
 
 The problem is on this device's network, not on the host. This device could
-not reach T3 Connect, or it reached T3 Connect but not the host's tunnel
+not reach L7 Connect, or it reached L7 Connect but not the host's tunnel
 address.
 
 Fix:
@@ -91,7 +93,7 @@ Fix:
    the device can look online but cannot reach anything.
 2. A VPN, firewall, ad blocker, or DNS filter on this device can block T3
    Connect. Turn it off for a moment to test.
-3. On iPhone, Connectivity Assist in the Wi-Fi settings can break T3 Connect.
+3. On iPhone, Connectivity Assist in the Wi-Fi settings can break L7 Connect.
    Turn it off to test.
 4. Try another network, or add a direct route to the host, such as its
    Tailscale address. See
@@ -99,27 +101,27 @@ Fix:
 
 ## Sign-in, account, or link problems
 
-T3 Connect does not have an active link between your account and the host.
+L7 Connect does not have an active link between your account and the host.
 
-- **The host is linked to a different account.** Sign in to the same T3 Connect
+- **The host is linked to a different account.** Sign in to the same L7 Connect
   account on this device and on the host. On the host, run `l7 connect logout`,
   then `l7 connect`.
-- **T3 Connect is off on the host, or the host only publishes agent activity.**
-  On the host, open **Settings > Sharing & access** and turn **T3 Connect** on, or
+- **L7 Connect is off on the host, or the host only publishes agent activity.**
+  On the host, open **Settings > Sharing & access** and turn **L7 Connect** on, or
   run `l7 connect`.
 - **The host was linked, but the server did not apply the link yet.** Run
   `l7 service restart` on the host, or restart `l7 serve`.
 - **This device's sign-in expired, or the host no longer accepts this
-  device.** Sign out of T3 Connect and sign in again.
+  device.** Sign out of L7 Connect and sign in again.
 - **Your account reached its tunnel limit.** Remove an environment you do not
-  use from your T3 account's T3 Connect page, or
+  use from your T3 account's L7 Connect page, or
   [link a paid T3 Chat account](./remote-access.md#more-machines-with-t3-chat)
   for a higher limit. Then restart L7 Code on the host.
 
 ## The clock is off
 
-T3 Connect signs requests with short-lived proofs. When the clock on this
-device or the host is a few minutes wrong, T3 Connect rejects them. Turn on
+L7 Connect signs requests with short-lived proofs. When the clock on this
+device or the host is a few minutes wrong, L7 Connect rejects them. Turn on
 automatic date and time on both devices, then retry.
 
 ## The host runs an older L7 Code
@@ -127,7 +129,7 @@ automatic date and time on both devices, then retry.
 This app needs a newer L7 Code on the host. Update L7 Code on the host. See
 [Updating L7 Code](./updating.md).
 
-## T3 Connect returned an error
+## L7 Connect returned an error
 
 | Error                                                     | Fix                                                                                                                                         |
 | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |

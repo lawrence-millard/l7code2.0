@@ -862,6 +862,46 @@ export const UsageLimitSourceConfig = Schema.Struct({
 });
 export type UsageLimitSourceConfig = typeof UsageLimitSourceConfig.Type;
 
+/** Boat sandbox remote environments (offline / “laptop off” hosts). */
+export const DEFAULT_BOAT_API_BASE = "https://boat.dev/api/v1";
+export const DEFAULT_BOAT_SERVER_PORT = 3773;
+export const DEFAULT_BOAT_BOOTSTRAP_COMMAND =
+  "curl -fsSL https://raw.githubusercontent.com/lawrence-millard/l7code2.0/main/scripts/boat-bootstrap.sh | bash";
+
+export const BoatSettings = Schema.Struct({
+  apiKey: TrimmedString.pipe(
+    secretSetting,
+    Schema.withDecodingDefault(Effect.succeed("")),
+    Schema.annotateKey({
+      title: "Boat API key",
+      description: "Bearer key from boat.dev (`boat_…`). Used to create and host sandboxes.",
+    }),
+  ),
+  apiBase: TrimmedString.pipe(
+    Schema.withDecodingDefault(Effect.succeed(DEFAULT_BOAT_API_BASE)),
+    Schema.annotateKey({
+      title: "Boat API base",
+      description: "Defaults to https://boat.dev/api/v1.",
+    }),
+  ),
+  bootstrapCommand: TrimmedString.pipe(
+    Schema.withDecodingDefault(Effect.succeed(DEFAULT_BOAT_BOOTSTRAP_COMMAND)),
+    Schema.annotateKey({
+      title: "Bootstrap command",
+      description:
+        "Detached command run in a new sandbox to install and start headless `l7 serve`.",
+    }),
+  ),
+  serverPort: Schema.Int.check(Schema.isBetween({ minimum: 1, maximum: 65535 })).pipe(
+    Schema.withDecodingDefault(Effect.succeed(DEFAULT_BOAT_SERVER_PORT)),
+    Schema.annotateKey({
+      title: "L7 server port",
+      description: "Port `l7 serve` listens on inside the sandbox (hosted via boat host).",
+    }),
+  ),
+});
+export type BoatSettings = typeof BoatSettings.Type;
+
 export const SecretProviderKind = SecretProviderSlug.pipe(Schema.brand("SecretProviderKind"));
 export type SecretProviderKind = typeof SecretProviderKind.Type;
 
@@ -1261,6 +1301,9 @@ export const ServerSettings = Schema.Struct({
    * and tasks on another machine; tasks already running there finish.
    */
   linkedEnvironmentsEnabled: Schema.Boolean.pipe(Schema.withDecodingDefault(Effect.succeed(false))),
+  boat: BoatSettings.pipe(
+    Schema.withDecodingDefault(Effect.succeed(Schema.decodeSync(BoatSettings)({}))),
+  ),
   sidebarAutoSettleKeepPullRequests: Schema.Boolean.pipe(
     Schema.withDecodingDefault(Effect.succeed(false)),
   ),
@@ -1376,7 +1419,7 @@ export const providerInstanceConfigEnabledFlag = (config: unknown): boolean | un
 
 // Must match each driver's enabled decoding default.
 const DEFAULT_DISABLED_PROVIDER_DRIVERS: ReadonlySet<ProviderDriverKind> = new Set(
-  ["cursor", "grok", "fx", "muse", "pi", "opencode", "antigravity"].map((driver) =>
+  ["cursor", "grok", "commandCode", "fx", "muse", "pi", "opencode", "antigravity"].map((driver) =>
     ProviderDriverKind.make(driver),
   ),
 );
@@ -1617,6 +1660,16 @@ export const ServerSettingsPatch = Schema.Struct({
   snoozePresets: Schema.optionalKey(SnoozePresetSettings),
   guestSharingEnabled: Schema.optionalKey(Schema.Boolean),
   linkedEnvironmentsEnabled: Schema.optionalKey(Schema.Boolean),
+  boat: Schema.optionalKey(
+    Schema.Struct({
+      apiKey: Schema.optionalKey(TrimmedString),
+      apiBase: Schema.optionalKey(TrimmedString),
+      bootstrapCommand: Schema.optionalKey(TrimmedString),
+      serverPort: Schema.optionalKey(
+        Schema.Int.check(Schema.isBetween({ minimum: 1, maximum: 65535 })),
+      ),
+    }),
+  ),
   backgroundActivity: Schema.optionalKey(
     Schema.Struct({
       schemaVersion: Schema.optionalKey(Schema.Literal(1)),

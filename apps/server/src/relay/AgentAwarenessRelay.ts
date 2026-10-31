@@ -810,11 +810,11 @@ export const make = Effect.gen(function* () {
       switch (startupState) {
         case "waiting-for-link":
           yield* Effect.logInfo(
-            "agent activity publishing standby; waiting for T3 Connect link reconciliation",
+            "agent activity publishing standby; waiting for L7 Connect link reconciliation",
           );
           break;
         case "disabled":
-          yield* Effect.logInfo("agent activity publishing disabled by T3 Connect configuration");
+          yield* Effect.logInfo("agent activity publishing disabled by L7 Connect configuration");
           break;
         case "enabled":
           yield* Effect.logInfo("agent activity publishing enabled", {
