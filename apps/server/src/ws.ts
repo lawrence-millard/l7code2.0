@@ -4,6 +4,7 @@ import * as Crypto from "effect/Crypto";
 import * as Orchestrator from "./orchestration-v2/Orchestrator.ts";
 import * as PeerLinkRequests from "./peer/PeerLinkRequests.ts";
 import * as AgentProjects from "./agentProjects/AgentProjects.ts";
+import * as BoatEnvironments from "./boat/BoatEnvironments.ts";
 import * as PeerLinks from "./peer/PeerLinks.ts";
 
 import * as DateTime from "effect/DateTime";
@@ -1343,6 +1344,7 @@ export const layerWsRpc = (
       const peerLinks = yield* PeerLinks.PeerLinks;
       const peerLinkRequests = yield* PeerLinkRequests.PeerLinkRequests;
       const agentProjects = yield* AgentProjects.AgentProjects;
+      const boatEnvironments = yield* BoatEnvironments.BoatEnvironments;
       const startup = yield* ServerRuntimeStartup.ServerRuntimeStartup;
       const workspaceEntries = yield* WorkspaceEntries.WorkspaceEntries;
       const workspaceFileSystem = yield* WorkspaceFileSystem.WorkspaceFileSystem;
@@ -2523,6 +2525,13 @@ export const layerWsRpc = (
         [WS_METHODS.agentProjectsDetachFolder]: (input) => agentProjects.detachFolder(input),
         [WS_METHODS.agentProjectsUpsertWorkstream]: (input) => agentProjects.upsertWorkstream(input),
         [WS_METHODS.agentProjectsDeleteWorkstream]: (input) => agentProjects.deleteWorkstream(input),
+        [WS_METHODS.boatList]: (_input) =>
+          boatEnvironments.list.pipe(Effect.map((environments) => ({ environments }))),
+        [WS_METHODS.boatDeploy]: (input) => boatEnvironments.deploy(input),
+        [WS_METHODS.boatRefresh]: ({ sandboxId }) => boatEnvironments.refresh(sandboxId),
+        [WS_METHODS.boatStop]: ({ sandboxId }) => boatEnvironments.stop(sandboxId),
+        [WS_METHODS.boatResume]: ({ sandboxId }) => boatEnvironments.resume(sandboxId),
+        [WS_METHODS.boatRemove]: ({ sandboxId }) => boatEnvironments.remove(sandboxId),
         [WS_METHODS.serverUpdateSettings]:
           /* Request instrumentation already owns the span; keep this helper in that context. */
           Effect.fnUntraced(function* ({ patch, providerInstanceMutation }) {
@@ -3291,6 +3300,7 @@ export const layer = Layer.unwrap(
     const peerLinks = yield* PeerLinks.PeerLinks;
     const peerLinkRequests = yield* PeerLinkRequests.PeerLinkRequests;
     const agentProjects = yield* AgentProjects.AgentProjects;
+    const boatEnvironments = yield* BoatEnvironments.BoatEnvironments;
     const sql = yield* SqlClient.SqlClient;
     return HttpRouter.add(
       "GET",
@@ -3374,6 +3384,7 @@ export const layer = Layer.unwrap(
               Layer.provide(Layer.succeed(PeerLinks.PeerLinks, peerLinks)),
               Layer.provide(Layer.succeed(PeerLinkRequests.PeerLinkRequests, peerLinkRequests)),
               Layer.provide(Layer.succeed(AgentProjects.AgentProjects, agentProjects)),
+              Layer.provide(Layer.succeed(BoatEnvironments.BoatEnvironments, boatEnvironments)),
               Layer.provide(
                 SourceControlDiscovery.layer.pipe(
                   Layer.provide(

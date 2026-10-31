@@ -70,6 +70,7 @@ import * as ProjectSettingsOverrideSweep from "./provider/ProjectSettingsOverrid
 import * as TerminalManager from "./terminal/Manager.ts";
 import * as McpHttpServer from "./mcp/McpHttpServer.ts";
 import * as AgentProjects from "./agentProjects/AgentProjects.ts";
+import * as BoatEnvironments from "./boat/BoatEnvironments.ts";
 import * as PeerForwarding from "./peer/PeerForwarding.ts";
 import * as RemoteDelegation from "./peer/RemoteDelegation.ts";
 import * as PeerLinkRequests from "./peer/PeerLinkRequests.ts";
@@ -774,6 +775,8 @@ const layerMakeRoutes = Layer.mergeAll(
   ),
   // Cursor-style Projects (shared notes / workstreams), SQLite-backed.
   Layer.provide(AgentProjects.layer),
+  // Boat sandbox remotes for offline / hosted L7 servers.
+  Layer.provide(BoatEnvironments.layer),
   Layer.provide(PreviewAutomationBroker.layer),
   Layer.provide(ServerSelfUpdate.layer.pipe(Layer.provide(layerDesktopAppUpdate))),
   Layer.provide(layerCommandReadiness),

@@ -32,6 +32,7 @@ export type SettingsPath =
   | "/settings/source-control"
   | "/settings/worktrees"
   | "/settings/connections"
+  | "/settings/boat"
   | "/settings/access"
   | "/settings/secrets"
   | "/settings/maintenance"
@@ -102,6 +103,7 @@ export const SETTINGS_SECTION_LABELS: Readonly<Record<SettingsPath, string>> = {
   "/settings/source-control": "Source control",
   "/settings/worktrees": "Worktrees",
   "/settings/connections": "Environments",
+  "/settings/boat": "Boat",
   "/settings/access": "Sharing & access",
   "/settings/secrets": "Secrets",
   "/settings/maintenance": "Maintenance",
@@ -144,6 +146,7 @@ export const SETTINGS_NAV_GROUPS: ReadonlyArray<{
     heading: "Connections",
     paths: [
       "/settings/connections",
+      "/settings/boat",
       "/settings/access",
       ...(isSecretsFeatureEnabled ? (["/settings/secrets"] as const) : []),
     ],
@@ -1137,6 +1140,27 @@ export const SETTINGS_SEARCH_ITEMS = [
     searchTerms: ["add pair backend host code ssh config agent tunnel saved l7 connect"],
   },
   {
+    id: "boat-api-key",
+    title: "Boat API key",
+    to: "/settings/boat",
+    targetId: "boat",
+    searchTerms: ["boat api key sandbox host on.boat.dev offline remote laptop"],
+  },
+  {
+    id: "boat-local-vs-boat",
+    title: "Local vs Boat",
+    to: "/settings/boat",
+    targetId: "boat",
+    searchTerms: ["run on boat local remote sandbox resume stop hosted"],
+  },
+  {
+    id: "boat-sandboxes",
+    title: "Boat sandboxes",
+    to: "/settings/boat",
+    targetId: "boat-sandboxes",
+    searchTerms: ["boat sandbox deploy host resume stop wss"],
+  },
+  {
     id: "load-balancing",
     title: "Load balancing",
     to: "/settings/connections",
@@ -1195,6 +1219,7 @@ const SETTINGS_CATEGORY_SCOPES: Readonly<Record<SettingsPath, SettingsSearchScop
   "/settings/source-control": "environment-defaults",
   "/settings/worktrees": "project-defaults",
   "/settings/connections": "connections",
+  "/settings/boat": "connections",
   "/settings/access": "connections",
   "/settings/secrets": null,
   "/settings/scheduled-tasks": null,
