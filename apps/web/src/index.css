@@ -119,6 +119,18 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
   --glass-blur: 12px;
   --glass-opacity: 80%;
   --glass-saturation: 1.14;
+  /* Zeron/Comet frost elevation — cool neutral glass, not purple AI chrome */
+  --frost-sidebar-blur: 18px;
+  --frost-sidebar-opacity: 72%;
+  --frost-sidebar-border: color-mix(in oklab, var(--sidebar-border, transparent) 70%, white 30%);
+  --frost-elevation-1: color-mix(in oklab, white 6%, transparent);
+  --frost-elevation-2: color-mix(in oklab, white 10%, transparent);
+  --frost-sheen: linear-gradient(
+    165deg,
+    color-mix(in oklab, white 14%, transparent) 0%,
+    transparent 42%,
+    color-mix(in oklab, black 4%, transparent) 100%
+  );
   --desktop-window-right-resize-inset: 0px;
   --workspace-topbar-height: 52px;
   --workspace-controls-top: 0px;
@@ -148,7 +160,31 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
     --app-scrollbar-thumb-hover: rgb(255 255 255 / 12%);
     --glass-blur: 16px;
     --glass-saturation: 1.08;
+    --frost-sidebar-blur: 22px;
+    --frost-sidebar-opacity: 58%;
+    --frost-sidebar-border: color-mix(in oklab, white 12%, transparent);
+    --frost-elevation-1: color-mix(in oklab, white 4%, transparent);
+    --frost-elevation-2: color-mix(in oklab, white 8%, transparent);
+    --frost-sheen: linear-gradient(
+      165deg,
+      color-mix(in oklab, white 8%, transparent) 0%,
+      transparent 48%,
+      color-mix(in oklab, black 12%, transparent) 100%
+    );
   }
+}
+
+@utility surface-frost {
+  background:
+    var(--frost-sheen),
+    color-mix(in srgb, var(--sidebar) var(--frost-sidebar-opacity), transparent);
+  -webkit-backdrop-filter: blur(var(--frost-sidebar-blur)) saturate(var(--glass-saturation));
+  backdrop-filter: blur(var(--frost-sidebar-blur)) saturate(var(--glass-saturation));
+  border-color: var(--frost-sidebar-border);
+  transition:
+    background-color 180ms ease,
+    backdrop-filter 220ms ease,
+    border-color 180ms ease;
 }
 
 .wco {
