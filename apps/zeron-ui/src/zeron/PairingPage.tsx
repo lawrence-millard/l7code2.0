@@ -3,10 +3,7 @@ import { squashAtomCommandFailure } from "@l7code/client-runtime/state/runtime";
 import { useState } from "react";
 
 import { connectPairing } from "../connection/onboarding";
-import {
-  submitServerAuthCredential,
-  takePairingTokenFromUrl,
-} from "../environments/primary";
+import { submitServerAuthCredential, takePairingTokenFromUrl } from "../environments/primary";
 import { useAtomCommand } from "../state/use-atom-command";
 
 export function PairingPage(props: {
@@ -41,17 +38,18 @@ export function PairingPage(props: {
 
   return (
     <div className="z-app" style={{ alignItems: "center", justifyContent: "center" }}>
-      <div className="z-glass" style={{ width: "min(420px, 92vw)", padding: 24 }}>
-        <div className="z-brand" style={{ paddingLeft: 0 }}>
-          <div className="z-brand-name">L7</div>
-          <div className="z-brand-mark">Pair</div>
+      <div className="z-glass z-pair-card">
+        <div className="z-brand" style={{ paddingLeft: 0, marginBottom: 10 }}>
+          <div className="z-brand-mark-glyph">L7</div>
+          <div className="z-brand-copy">
+            <div className="z-brand-name">L7 Code</div>
+            <div className="z-brand-mark">Pair device</div>
+          </div>
         </div>
-        <p style={{ color: "var(--z-text-muted)", marginTop: 0 }}>
-          Paste the pairing token from the L7 server to attach this Zeron client.
-        </p>
+        <p>Paste the pairing token from the L7 server to attach this Zeron client.</p>
         <input
           className="z-search"
-          style={{ borderRadius: 12, marginBottom: 12 }}
+          style={{ borderRadius: 12 }}
           value={token}
           onChange={(event) => setToken(event.target.value)}
           placeholder="Pairing token"
@@ -61,13 +59,20 @@ export function PairingPage(props: {
           }}
         />
         {error ? (
-          <div style={{ color: "var(--z-danger)", marginBottom: 12, fontSize: 13 }}>{error}</div>
+          <div style={{ color: "var(--z-danger)", marginTop: 10, fontSize: 13 }}>{error}</div>
         ) : null}
-        <button type="button" className="z-send" disabled={busy} onClick={() => void submit()}>
-          {busy ? "Pairing…" : "Pair device"}
-        </button>
-        <div className="z-status" style={{ paddingLeft: 0 }}>
-          Auth: {props.auth.policy}
+        <div className="z-pair-actions">
+          <span className="z-status" style={{ padding: 0, marginRight: "auto" }}>
+            {props.auth.policy}
+          </span>
+          <button
+            type="button"
+            className="z-pair-submit"
+            disabled={busy}
+            onClick={() => void submit()}
+          >
+            {busy ? "Pairing…" : "Pair device"}
+          </button>
         </div>
       </div>
     </div>
@@ -77,7 +82,7 @@ export function PairingPage(props: {
 export function PairingPending() {
   return (
     <div className="z-app" style={{ alignItems: "center", justifyContent: "center" }}>
-      <div className="z-status">Connecting…</div>
+      <div className="z-footer-pill">Connecting…</div>
     </div>
   );
 }

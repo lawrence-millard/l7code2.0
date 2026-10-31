@@ -8,7 +8,7 @@ export function SpacesRail(props: {
   readonly onSelect: (spaceId: SpaceId) => void;
 }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 8, minHeight: 0 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 6, minHeight: 0 }}>
       <div className="z-section-label">Spaces</div>
       <input
         className="z-search"
@@ -17,9 +17,9 @@ export function SpacesRail(props: {
         placeholder="Search spaces"
         aria-label="Search spaces"
       />
-      <div className="z-list" style={{ maxHeight: 180 }}>
+      <div className="z-list" style={{ maxHeight: 168 }}>
         {props.spaces.length === 0 ? (
-          <div className="z-empty">No spaces yet. Open a project on the server.</div>
+          <div className="z-empty">No spaces yet — open a project on the server.</div>
         ) : (
           props.spaces.map((space) => (
             <button
