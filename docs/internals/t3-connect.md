@@ -1,6 +1,8 @@
-# T3 Connect
+> **Removed in L7 Code Phase 1.** L7 Connect / Clerk managed tunnels are no longer supported. Use local `l7 serve` / desktop, pairing (`l7 pair`), LAN/Tailscale, or a manual remote URL. Boat-hosted remotes land in a later phase.
 
-T3 Connect uses Clerk for cloud identity. The relay manages environment links,
+# L7 Connect
+
+L7 Connect uses Clerk for cloud identity. The relay manages environment links,
 credentials for reaching environments, and managed tunnel allocations. After
 bootstrap, clients send application traffic through the environment's tunnel
 hostname; the relay Worker does not proxy their HTTP or WebSocket sessions.

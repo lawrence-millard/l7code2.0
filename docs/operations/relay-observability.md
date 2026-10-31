@@ -1,3 +1,5 @@
+> **Removed in L7 Code Phase 1.** L7 Connect / Clerk managed tunnels are no longer supported. Use local `l7 serve` / desktop, pairing (`l7 pair`), LAN/Tailscale, or a manual remote URL. Boat-hosted remotes land in a later phase.
+
 # Relay observability
 
 > For maintainers. Using L7 Code? See [docs/user](../user/).
@@ -75,7 +77,7 @@ managed endpoint, and with it the environment. On a forward, `relay.hook.upstrea
 `x-t3-hook-outcome` response header. A held request's delivery records the same on its
 `relay.inbox.deliver` span. The relay sends its own `traceparent` with each forward and drops any a
 sender supplied, and signs each forward (`x-t3-relay-delivery`) so the environment trusts the
-relay's delivery id, receive time and trace context only from the relay, so on environments that export to T3 Connect, the environment's
+relay's delivery id, receive time and trace context only from the relay, so on environments that export to L7 Connect, the environment's
 `ScheduledTaskService.triggerWebhook` span lands in the same trace. `relay.hook.rate_limit` says which
 budget ran out: `endpoint` or `hook`. `relay.hook.rate_limiter_failed_open` is set when the
 Cloudflare rate limiter was unavailable and the request went through unlimited.

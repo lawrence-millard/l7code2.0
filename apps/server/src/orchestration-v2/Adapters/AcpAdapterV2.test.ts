@@ -2020,7 +2020,7 @@ describe("AcpAdapterV2", () => {
                         status: "in_progress",
                         rawInput: {
                           server: "l7-code",
-                          tool: "t3_thread_wait",
+                          tool: "l7_thread_wait",
                           arguments: { threadId: "child" },
                         },
                         _meta: { is_mcp_tool_call: true },

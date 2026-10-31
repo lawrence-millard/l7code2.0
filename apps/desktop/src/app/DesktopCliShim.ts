@@ -61,9 +61,9 @@ export const renderCliShim = (input: {
       "exit /b 127",
       ":run",
       `${cmdWord(target.executable)} ${cmdWord(target.entry)} %*`,
-      'set "t3_exit=%ERRORLEVEL%"',
+      'set "l7_exit=%ERRORLEVEL%"',
       ...restore,
-      "exit /b %t3_exit%",
+      "exit /b %l7_exit%",
       "",
     ].join("\r\n");
   }

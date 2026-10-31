@@ -44,7 +44,7 @@ under T3 home. Pass `--yes` from a script.
 
 The service listens on your local network and Tailscale addresses, so the
 desktop and mobile apps on the same network connect directly instead of through
-T3 Connect. The hosted web app at app.l7code.dev stays on T3 Connect, because
+L7 Connect. The hosted web app at app.l7code.dev stays on L7 Connect, because
 browsers block plain HTTP from an HTTPS page. The service does not answer on
 public addresses, and every device still needs to pair or sign in. To keep the service reachable from this machine only, set
 `L7CODE_HOST=127.0.0.1` in `service.env` (below). Any `L7CODE_HOST` value
@@ -86,13 +86,13 @@ nobody is logged in at the Mac's screen can fail at the final start step; the
 service is still installed and will start at the next login.
 
 Windows background services are not supported. To keep a Windows host available
-through T3 Connect, leave the desktop app running with its local environment
+through L7 Connect, leave the desktop app running with its local environment
 enabled, or keep `l7 serve` running in a terminal. Minimize the desktop app rather
-than closing its last window, which stops its local server. Linking T3 Connect
+than closing its last window, which stops its local server. Linking L7 Connect
 does not configure automatic startup at Windows sign-in.
 
-T3 Connect can offer service installation during setup, but the two are managed
-separately. Signing out of T3 Connect does not stop or uninstall the service.
+L7 Connect can offer service installation during setup, but the two are managed
+separately. Signing out of L7 Connect does not stop or uninstall the service.
 
 ## Keep the server responsive when agents use all memory
 
@@ -149,7 +149,7 @@ Downloads, it may need Full Disk Access for the `l7` executable listed in
 `ProgramArguments` in
 `~/Library/LaunchAgents/com.l7code.app.service.plist`.
 
-For failures after signing in to T3 Connect, see
+For failures after signing in to L7 Connect, see
 [connection troubleshooting](./t3-connect-troubleshooting.md).
 
 ## Reclaim database space
