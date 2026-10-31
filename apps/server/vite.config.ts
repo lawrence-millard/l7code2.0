@@ -76,7 +76,7 @@ export default mergeConfig(
       tasks: {
         build: {
           command: "node scripts/cli.ts build",
-          dependsOn: ["@l7code/web#build"],
+          dependsOn: ["@l7code/zeron-ui#build"],
           cache: false,
         },
       },

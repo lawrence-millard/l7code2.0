@@ -272,7 +272,7 @@ jobs:
         env:
           TEST_PACKAGES: ${{ needs.changes.outputs.test_packages }}
         run: |
-          filters=(--filter '!t3' --filter '!@l7code/monorepo' --filter '!@l7code/web')
+          filters=(--filter '!t3' --filter '!@l7code/monorepo' --filter '!@l7code/zeron-ui')
           if [[ -n "$TEST_PACKAGES" ]]; then
             filters=()
             for package in $TEST_PACKAGES; do filters+=(--filter "$package"); done
@@ -310,7 +310,7 @@ jobs:
       # test_server, so both jobs share one downloaded browser.
       - name: Resolve Playwright version
         id: playwright_version
-        run: echo "version=$(node -p "require('./apps/web/node_modules/playwright/package.json').version")" >> "$GITHUB_OUTPUT"
+        run: echo "version=$(node -p "require('./apps/zeron-ui/node_modules/playwright/package.json').version")" >> "$GITHUB_OUTPUT"
 
       - name: Cache Chromium
         id: chromium_cache
@@ -321,24 +321,24 @@ jobs:
 
       - name: Install Chromium for web browser tests
         if: steps.chromium_cache.outputs.cache-hit != 'true'
-        run: node apps/web/node_modules/playwright/cli.js install --only-shell chromium
+        run: node apps/zeron-ui/node_modules/playwright/cli.js install --only-shell chromium
 
       - name: Install missing Chromium system dependencies
         run: |
           browser=$(find "$HOME/.cache/ms-playwright" -name chrome-headless-shell -type f -print -quit)
           test -n "$browser"
           if ldd "$browser" | grep '=> not found'; then
-            node apps/web/node_modules/playwright/cli.js install-deps chromium
+            node apps/zeron-ui/node_modules/playwright/cli.js install-deps chromium
           fi
 
       - name: Test
-        run: vp run --filter @l7code/web test
+        run: vp run --filter @l7code/zeron-ui test
 
       # Browser tests run source modules; this boots the production chunk graph.
       - name: Boot the built web client
         run: |
-          vp run --filter @l7code/web build
-          node apps/web/scripts/verify-built-boot.ts
+          vp run --filter @l7code/zeron-ui build
+          node apps/zeron-ui/scripts/verify-built-boot.ts
 
   # apps/server sets `fileParallelism: false`, so its test files run strictly
   # one at a time. Sharding spreads them over separate runners instead of

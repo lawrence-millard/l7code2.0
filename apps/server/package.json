@@ -86,7 +86,7 @@
     "@l7code/source-control-testing": "workspace:*",
     "@l7code/ssh": "workspace:*",
     "@l7code/tailscale": "workspace:*",
-    "@l7code/web": "workspace:*",
+    "@l7code/zeron-ui": "workspace:*",
     "@types/node": "catalog:",
     "@types/proper-lockfile": "^4.1.4",
     "@types/yauzl": "^3.4.0",

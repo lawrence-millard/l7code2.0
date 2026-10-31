@@ -19,7 +19,7 @@ const TEST_CONFIG_PACKAGES = [
   "apps/desktop",
   "apps/mobile",
   "apps/server",
-  "apps/web",
+  "apps/zeron-ui",
   "packages/client-runtime",
 ];
 
@@ -75,7 +75,7 @@ const RESTRICTED_PULL_REQUEST_GLYPH_IMPORTS = {
     "GitPullRequestCreateArrowIcon",
   ],
   message:
-    "Pick a glyph by meaning from PullRequestGlyph in apps/web/src/components/pullRequest/pullRequestIcons.tsx so every surface draws the same pull request the same way.",
+    "Pick a glyph by meaning from PullRequestGlyph in apps/zeron-ui/src/components/pullRequest/pullRequestIcons.tsx so every surface draws the same pull request the same way.",
 };
 
 // Vite+ supports remote configuration before its published types include it.
@@ -92,7 +92,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "~": NodeURL.fileURLToPath(new URL("./apps/web/src", import.meta.url)),
+      "~": NodeURL.fileURLToPath(new URL("./apps/zeron-ui/src", import.meta.url)),
     },
   },
   test: {
@@ -310,11 +310,11 @@ export default defineConfig({
         rules: { "l7code/prefer-effect-fn": "off" },
       },
       {
-        files: ["apps/web/**/*.test.{ts,tsx}"],
+        files: ["apps/zeron-ui/**/*.test.{ts,tsx}"],
         rules: { "l7code/require-disposable-render": "error" },
       },
       {
-        files: ["apps/web/src/**/*.browser.test.{ts,tsx}"],
+        files: ["apps/zeron-ui/src/**/*.browser.test.{ts,tsx}"],
         rules: { "l7code/no-frame-waits-in-browser-tests": "error" },
       },
       {
@@ -339,10 +339,10 @@ export default defineConfig({
       },
       {
         files: [
-          "apps/web/src/components/settings/AuthorizedClientsSettings.tsx",
+          "apps/zeron-ui/src/components/settings/AuthorizedClientsSettings.tsx",
           "apps/mobile/src/features/updates/app-updates.ts",
-          "apps/web/src/components/device/DevicePhoneViewport.tsx",
-          "apps/web/src/components/device/DeviceDuoViewport.tsx",
+          "apps/zeron-ui/src/components/device/DevicePhoneViewport.tsx",
+          "apps/zeron-ui/src/components/device/DeviceDuoViewport.tsx",
         ],
         rules: { "l7code/no-rpc-permission-bypass": ["error", { allowRawClientAccess: true }] },
       },
@@ -374,8 +374,8 @@ export default defineConfig({
         rules: { "l7code/no-raw-mcp-registration": "off" },
       },
       {
-        files: ["apps/web/src/**"],
-        excludeFiles: ["apps/web/src/components/ui/**"],
+        files: ["apps/zeron-ui/src/**"],
+        excludeFiles: ["apps/zeron-ui/src/components/ui/**"],
         rules: {
           "eslint/no-restricted-imports": [
             "error",
@@ -387,7 +387,7 @@ export default defineConfig({
         },
       },
       {
-        files: ["apps/web/src/components/pullRequest/pullRequestIcons.tsx"],
+        files: ["apps/zeron-ui/src/components/pullRequest/pullRequestIcons.tsx"],
         rules: { "eslint/no-restricted-imports": ["error", { paths: RESTRICTED_IMPORT_PATHS }] },
       },
       {
@@ -473,19 +473,19 @@ export default defineConfig({
       },
       {
         // Raw ResizeObserver state commits miss the paint; observeResize flushes derived layout together.
-        files: ["apps/web/src/**"],
+        files: ["apps/zeron-ui/src/**"],
         excludeFiles: [
-          "apps/web/src/lib/observeResize.ts",
+          "apps/zeron-ui/src/lib/observeResize.ts",
           "**/*.{test,spec}.{ts,tsx,js,jsx,mts,cts,mjs,cjs}",
         ],
         rules: { "l7code/no-raw-resize-observer": "error" },
       },
       {
-        files: ["apps/web/src/**"],
+        files: ["apps/zeron-ui/src/**"],
         rules: { "shadcn/no-unknown-classes": "error" },
       },
       {
-        files: ["apps/web/src/**"],
+        files: ["apps/zeron-ui/src/**"],
         rules: { "l7code/no-outset-state-indicators": "error" },
       },
       {
@@ -500,17 +500,17 @@ export default defineConfig({
         rules: { "l7code/no-em-dash-copy": "error" },
       },
       {
-        files: ["apps/web/src/**"],
+        files: ["apps/zeron-ui/src/**"],
         rules: { "shadcn/no-raw-colors": "error" },
       },
       {
         // Third-party marks must retain their exact colors.
-        files: ["apps/web/src/components/Icons.tsx", "apps/web/src/components/JetBrainsIcons.tsx"],
+        files: ["apps/zeron-ui/src/components/Icons.tsx", "apps/zeron-ui/src/components/JetBrainsIcons.tsx"],
         rules: { "shadcn/no-raw-colors": "off" },
       },
       {
-        files: ["apps/web/src/**"],
-        excludeFiles: ["apps/web/src/components/ui/**"],
+        files: ["apps/zeron-ui/src/**"],
+        excludeFiles: ["apps/zeron-ui/src/components/ui/**"],
         rules: {
           "shadcn/require-static-classes": "error",
           "shadcn/no-arbitrary-values": [
@@ -553,7 +553,7 @@ export default defineConfig({
       },
       {
         // React Compiler owns memoization; upstream rules do not ban redundant useMemo/useCallback.
-        files: ["apps/web/src/**/*.{ts,tsx}"],
+        files: ["apps/zeron-ui/src/**/*.{ts,tsx}"],
         rules: {
           "react/exhaustive-effect-dependencies": "error",
           "react/globals": "error",
@@ -592,12 +592,12 @@ export default defineConfig({
         rules: { "l7code/no-manual-memo": ["error", { allowMemoHooks: true }] },
       },
       {
-        files: ["apps/web/src/**", "apps/mobile/src/**", "packages/*/src/**"],
+        files: ["apps/zeron-ui/src/**", "apps/mobile/src/**", "packages/*/src/**"],
         rules: { "l7code/no-unreasoned-state-sync": "error" },
       },
       {
         // React Compiler caches use* functions only if they call a hook.
-        files: ["apps/web/src/**/*.{ts,tsx}", "apps/mobile/src/**/*.{ts,tsx}"],
+        files: ["apps/zeron-ui/src/**/*.{ts,tsx}", "apps/mobile/src/**/*.{ts,tsx}"],
         excludeFiles: ["**/*.test.ts", "**/*.test.tsx"],
         rules: { "l7code/no-hookless-use-function": "error" },
       },
