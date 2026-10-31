@@ -67,21 +67,21 @@ const MODE_ARGS = {
   dev: [
     "run",
     "--filter=@l7code/contracts",
-    "--filter=@l7code/web",
+    "--filter=@l7code/zeron-ui",
     "--filter=l7",
     "--parallel",
     "dev",
   ],
   "dev:server": ["run", "--filter=l7", "dev"],
-  "dev:web": ["run", "--filter=@l7code/web", "dev"],
-  "dev:desktop": ["run", "--filter=@l7code/desktop", "--filter=@l7code/web", "dev"],
+  "dev:web": ["run", "--filter=@l7code/zeron-ui", "dev"],
+  "dev:desktop": ["run", "--filter=@l7code/desktop", "--filter=@l7code/zeron-ui", "dev"],
 } as const satisfies Record<string, ReadonlyArray<string>>;
 
-// `--built`: the web package rebuilds into apps/web/dist and the backend serves
+// `--built`: the web package rebuilds into apps/zeron-ui/dist and the backend serves
 // it, so no Vite dev server runs.
 const BUILT_DEV_ARGS = [
   "run",
-  "--filter=@l7code/web",
+  "--filter=@l7code/zeron-ui",
   "--filter=l7",
   "--parallel",
   "dev:built",
@@ -343,7 +343,7 @@ export const createDevRunnerEnv = Effect.fn("dev-runner.createDevRunnerEnv")(fun
 
   if (!isDesktopMode) {
     output.L7CODE_PORT = String(serverPort);
-    // An inherited HOST pins Vite's HMR socket via explicitHost in apps/web/vite.config.ts.
+    // An inherited HOST pins Vite's HMR socket via explicitHost in apps/zeron-ui/vite.config.ts.
     // Only desktop mode should set it.
     delete output.HOST;
     if (mode === "dev" || mode === "dev:web") {
@@ -664,9 +664,9 @@ const prepareFirstStart = Effect.fn("dev-runner.prepareFirstStart")(function* (i
   const repoRoot = path.dirname(import.meta.dirname);
   if (
     input.mode !== "dev:server" &&
-    !(yield* exists(path.join(repoRoot, "apps/web/node_modules/.vite/deps/_metadata.json")))
+    !(yield* exists(path.join(repoRoot, "apps/zeron-ui/node_modules/.vite/deps/_metadata.json")))
   ) {
-    yield* runRepoScript("apps/web/scripts/warm-dep-cache.ts", [], input.env);
+    yield* runRepoScript("apps/zeron-ui/scripts/warm-dep-cache.ts", [], input.env);
   }
 });
 

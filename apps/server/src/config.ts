@@ -269,7 +269,7 @@ export const resolveStaticDir = Effect.fn(function* () {
     return bundledClient;
   }
 
-  const monorepoClient = resolve(join(import.meta.dirname, "../../web/dist"));
+  const monorepoClient = resolve(join(import.meta.dirname, "../../zeron-ui/dist"));
   const monorepoStat = yield* exists(join(monorepoClient, "index.html")).pipe(
     Effect.orElseSucceed(() => false),
   );
