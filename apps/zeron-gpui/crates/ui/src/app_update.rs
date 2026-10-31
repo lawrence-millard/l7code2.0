@@ -413,7 +413,7 @@ pub fn strip_for(
     }
     if matches!(install, InstallKind::Managed { .. }) {
         (
-            format!("Update available — v{latest} · run `zeron update`").into(),
+            format!("L7 Code update available — v{latest} · run `zeron update`").into(),
             StripAction::Advise {
                 open_releases: false,
             },
@@ -450,7 +450,7 @@ mod tests {
     #[test]
     fn strip_follows_the_flow_on_self_updating_installs() {
         let mac_app = InstallKind::MacApp {
-            bundle: PathBuf::from("/Applications/Zeron.app"),
+            bundle: PathBuf::from("/Applications/L7 Code.app"),
         };
         assert_eq!(
             strip_for(&mac_app, false, &Flow::Idle, "0.2.86"),
@@ -471,7 +471,7 @@ mod tests {
         );
         let ready = Flow::Ready {
             version: "0.2.86".into(),
-            staged: PathBuf::from("/tmp/Zeron.app"),
+            staged: PathBuf::from("/tmp/L7 Code.app"),
         };
         assert_eq!(
             strip_for(&mac_app, false, &ready, "0.2.86").1,
@@ -518,7 +518,7 @@ mod tests {
         } else {
             assert_eq!(
                 strip.0,
-                SharedString::from("Update available — v0.2.86 · run `zeron update`")
+                SharedString::from("L7 Code update available — v0.2.86 · run `zeron update`")
             );
         }
     }
@@ -527,7 +527,7 @@ mod tests {
     #[test]
     fn windows_installs_drive_the_desktop_flow() {
         let installed = InstallKind::WindowsPortable {
-            directory: PathBuf::from(r"C:\Users\u\AppData\Local\Programs\Zeron"),
+            directory: PathBuf::from(r"C:\Users\u\AppData\Local\Programs\L7 Code"),
         };
         assert_eq!(
             strip_for(&installed, false, &Flow::Idle, "0.2.86"),

@@ -15,12 +15,12 @@ use zeron_app::{edge_url_from_env, engine_config_from_env, paths, workos_client_
 #[command(
     name = "zeron",
     version,
-    about = "Multi-device controller for coding agents"
+    about = "L7 Code — GPUI client for the L7 orchestration backend"
 )]
 struct Cli {
     #[command(subcommand)]
     command: Option<Command>,
-    /// Open a Zeron conversation URL.
+    /// Open an L7 Code / Zeron conversation URL.
     #[arg(value_name = "URL")]
     open_url: Option<String>,
     #[cfg(windows)]

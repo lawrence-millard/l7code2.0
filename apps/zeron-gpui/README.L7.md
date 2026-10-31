@@ -1,8 +1,9 @@
-# Zeron GPUI on L7 Code
+# L7 Code (GPUI) on L7 orchestration
 
-This tree is a **full vendor** of [zeronsh/zeron](https://github.com/zeronsh/zeron)
-(MIT). The headed `zeron` binary is the **product UI** (GPUI). The React client
-under `apps/zeron-ui` is demoted and is not the default surface.
+This tree vendors [zeronsh/zeron](https://github.com/zeronsh/zeron) (MIT) as the
+upstream GPUI engine/UI. **User-facing product branding is L7 Code** (window
+titles, welcome, menus). Upstream crate/binary names stay `zeron*` for the
+vendor. The React client under `apps/zeron-ui` is demoted.
 
 ## L7 bridge
 

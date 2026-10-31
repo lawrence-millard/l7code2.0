@@ -739,7 +739,7 @@ impl CloudPage {
             Loadable::Idle | Loadable::Loading => return None,
             Loadable::Error(error) => {
                 let copy = if error.starts_with("unknown method") {
-                    "This version of Zeron can't manage Cloud yet.".to_string()
+                    "This version of L7 Code can't manage Cloud yet.".to_string()
                 } else {
                     format!("Couldn't check Cloud: {error}")
                 };
@@ -1183,7 +1183,7 @@ impl CloudPage {
             "Enter this code on GitHub",
             vec![text(
                 theme.text_muted,
-                "Approve Zeron there; this page moves on by itself.",
+                "Approve L7 Code there; this page moves on by itself.",
             )],
             None,
             vec![

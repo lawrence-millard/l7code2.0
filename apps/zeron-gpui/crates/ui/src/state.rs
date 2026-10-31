@@ -3731,12 +3731,12 @@ impl AppState {
             );
             self.connection = ConnectionStatus::Failed(match reason {
                 Some(reason) => format!(
-                    "Zeron keeps losing its connection to the engine: {reason}. \
+                    "L7 Code keeps losing its connection to the engine: {reason}. \
                      Details are in {}.",
                     log.display()
                 ),
                 None => format!(
-                    "Zeron's engine keeps stopping unexpectedly. Details are in {}.",
+                    "L7 Code's engine keeps stopping unexpectedly. Details are in {}.",
                     log.display()
                 ),
             });

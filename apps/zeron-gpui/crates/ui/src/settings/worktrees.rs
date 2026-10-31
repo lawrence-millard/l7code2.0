@@ -172,7 +172,7 @@ impl WorktreeSettingsCard {
                 .await
                 .map_err(|error| match error {
                     zeron_rpc::RpcError::UnknownMethod(_) => {
-                        "Update Zeron on the selected device to change this.".to_string()
+                        "Update L7 Code on the selected device to change this.".to_string()
                     }
                     _ => error.to_string(),
                 })
@@ -219,7 +219,7 @@ impl WorktreeSettingsCard {
                 div()
                     .flex_1()
                     .min_w(px(160.0))
-                    .child(widgets::row_title(theme, "Credit Zeron in commits"))
+                    .child(widgets::row_title(theme, "Credit L7 Code in commits"))
                     .child(widgets::meta_line(
                         theme,
                         vec![div().truncate().child(meta).into_any_element()],
@@ -230,7 +230,7 @@ impl WorktreeSettingsCard {
                     .id("commit-credit-toggle")
                     .flex_none()
                     .role(gpui::Role::Switch)
-                    .aria_label("Credit Zeron in commits")
+                    .aria_label("Credit L7 Code in commits")
                     .aria_toggled(if enabled {
                         gpui::Toggled::True
                     } else {
@@ -273,7 +273,7 @@ impl WorktreeSettingsCard {
                 .await
                 .map_err(|error| match error {
                     zeron_rpc::RpcError::UnknownMethod(_) => {
-                        "Update Zeron on the selected device to configure worktree locations."
+                        "Update L7 Code on the selected device to configure worktree locations."
                             .to_string()
                     }
                     _ => error.to_string(),

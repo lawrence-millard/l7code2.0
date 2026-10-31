@@ -74,7 +74,7 @@ impl AccentColor {
 
     pub fn label(self) -> &'static str {
         match self {
-            Self::Zeron => "Zeron",
+            Self::Zeron => crate::brand::PRODUCT_MARK,
             Self::Orange => "Orange",
             Self::Amber => "Amber",
             Self::Green => "Green",
@@ -778,7 +778,7 @@ impl TerminalColors {
             Appearance::Light => "zeron-light",
         };
         let registry = ThemeRegistry::active();
-        Self::from_variant(registry.variant(id).expect("Zeron terminal palette exists"))
+        Self::from_variant(registry.variant(id).expect("L7 Code terminal palette exists"))
     }
 }
 
@@ -1384,7 +1384,7 @@ impl Theme {
             .variant(variant_id)
             .filter(|variant| model_appearance(variant.appearance) == appearance)
             .or_else(|| registry.variant(fallback_id))
-            .expect("the built-in registry contains both Zeron appearances");
+            .expect("the built-in registry contains both L7 Code appearances");
         if let Some(color) = wallpaper_color {
             let mut variant = variant.clone();
             crate::settings::wallpaper_colors::tint_variant(&mut variant, color);

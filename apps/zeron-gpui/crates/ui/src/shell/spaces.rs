@@ -8339,7 +8339,7 @@ impl Shell {
                 ProjectStep::Devices => ("No devices found", "Try another device name.".into()),
                 ProjectStep::Repositories => (
                     "No repositories found",
-                    "Cloud lists the repositories the Zeron GitHub App can reach — add more in Settings → Cloud."
+                    "Cloud lists the repositories the L7 Code GitHub App can reach — add more in Settings → Cloud."
                         .into(),
                 ),
                 ProjectStep::Locations => {
@@ -10704,7 +10704,7 @@ mod home_folder_search_tests {
             ),
             r"No folder at D:\x"
         );
-        let denied = "Zeron doesn't have access to this folder on the device.";
+        let denied = "L7 Code doesn't have access to this folder on the device.";
         assert_eq!(path_open_error("/x", denied), denied);
     }
 

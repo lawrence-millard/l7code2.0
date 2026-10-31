@@ -17,6 +17,7 @@ pub mod app_menus;
 pub mod app_update;
 pub mod appearance;
 pub mod appshots;
+pub mod brand;
 mod asset_http;
 pub mod attachments;
 pub mod badges;
@@ -450,11 +451,12 @@ fn open_main_window(
                 // macOS: frameless-inset chrome like the original Electron app
                 // (`titleBarStyle: "hiddenInset"`, traffic lights at 14,15 —
                 // feature-inventory §1.1). The strip is custom-drawn. Windows
-                // still needs a native title for taskbar previews and Alt+Tab. On
-                // Linux/Windows `appears_transparent` hides the system titlebar
-                // for our custom-drawn chrome; harmless where unsupported.
+                // Windows/Linux need a native title for taskbar/Alt+Tab/window
+                // lists. On Linux/Windows `appears_transparent` hides the system
+                // titlebar for our custom-drawn chrome; harmless where unsupported.
                 titlebar: Some(TitlebarOptions {
-                    title: cfg!(target_os = "windows").then(|| "Zeron".into()),
+                    title: (!cfg!(target_os = "macos"))
+                        .then(|| crate::brand::PRODUCT_NAME.into()),
                     appears_transparent: true,
                     // Native lights are 14px tall: top 14 → center 21, matching
                     // the 38px titlebar row with 4px top-only content padding.
@@ -642,7 +644,7 @@ fn deliver_appshot(
             }
             tracing::warn!(
                 count,
-                "Appshot captured with no Zeron window; preserving it for the next delivery"
+                "Appshot captured with no L7 Code window; preserving it for the next delivery"
             );
         }
         return;

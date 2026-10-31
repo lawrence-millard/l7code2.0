@@ -2831,9 +2831,9 @@ mod tests {
     fn search_matches_words_across_chat_metadata() {
         assert!(matches_query(
             "mac auth",
-            "Fix authentication Zeron @ MacBook main"
+            "Fix authentication L7 Code @ MacBook main"
         ));
         assert!(matches_query("  ", "Any chat"));
-        assert!(!matches_query("mac windows", "Zeron @ MacBook"));
+        assert!(!matches_query("mac windows", "L7 Code @ MacBook"));
     }
 }

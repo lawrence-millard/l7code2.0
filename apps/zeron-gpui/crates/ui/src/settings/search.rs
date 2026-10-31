@@ -79,7 +79,7 @@ settings_index! {
         "titles rename sessions model"),
     (WorktreeLocation, General, Some("Git"), "Custom worktree location",
         "folder directory path checkout branches"),
-    (CommitCredit, General, Some("Git"), "Credit Zeron in commits",
+    (CommitCredit, General, Some("Git"), "Credit L7 Code in commits",
         "co-author coauthor attribution bot commit message"),
     (ColorScheme, Appearance, None, "Color scheme",
         "system light dark mode"),

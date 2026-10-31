@@ -789,33 +789,54 @@ impl Onboarding {
             .items_center()
             .text_center()
             .child(
-                icon(icons::ZERON_LOGO)
-                    .w(px(36.6))
-                    .h(px(42.0))
-                    .text_color(theme.text),
+                div()
+                    .flex()
+                    .items_center()
+                    .justify_center()
+                    .w(px(56.0))
+                    .h(px(56.0))
+                    .rounded(px(14.0))
+                    .bg(theme.surface_raised.opacity(0.55))
+                    .border_1()
+                    .border_color(theme.border)
+                    .child(
+                        icon(icons::ZERON_LOGO)
+                            .w(px(30.0))
+                            .h(px(34.0))
+                            .text_color(theme.text),
+                    ),
             )
             .child(
                 div()
-                    .mt(px(28.0))
-                    .text_size(crate::typography::ui_rems(24.0))
-                    .line_height(px(30.0))
+                    .mt(px(18.0))
+                    .text_size(crate::typography::ui_rems(11.0))
                     .font_weight(gpui::FontWeight::SEMIBOLD)
-                    .text_color(theme.text)
-                    .child(SharedString::from("Welcome to Zeron")),
+                    .text_color(theme.text_faint)
+                    .child(SharedString::from(crate::brand::PRODUCT_MARK)),
             )
             .child(
                 div()
                     .mt(px(10.0))
-                    .max_w(px(360.0))
+                    .text_size(crate::typography::ui_rems(26.0))
+                    .line_height(px(32.0))
+                    .font_weight(gpui::FontWeight::SEMIBOLD)
+                    .text_color(theme.text)
+                    .child(SharedString::from(format!(
+                        "Welcome to {}",
+                        crate::brand::PRODUCT_NAME
+                    ))),
+            )
+            .child(
+                div()
+                    .mt(px(12.0))
+                    .max_w(px(380.0))
                     .text_size(crate::typography::ui_rems(14.0))
                     .line_height(px(21.0))
                     .text_color(theme.text_muted)
-                    .child(SharedString::from(
-                        "Run your coding agents side by side — on this computer, your other devices, or in the cloud.",
-                    )),
+                    .child(SharedString::from(crate::brand::PRODUCT_TAGLINE)),
             )
             .child(
-                div().mt(px(36.0)).w(px(320.0)).child(
+                div().mt(px(32.0)).w(px(320.0)).child(
                     wide_button(theme, "onboarding-start", "Get started")
                         .on_click(cx.listener(|this, _, _, cx| this.go(Step::Appearance, cx))),
                 ),
@@ -1044,7 +1065,7 @@ impl Onboarding {
             .child(heading(
                 theme,
                 "Sync your work",
-                "Log in to keep your chats, projects and settings in step everywhere you use Zeron.",
+                "Log in to keep your chats, projects and settings in step everywhere you use L7 Code.",
             ))
             .child(
                 widgets::section_card(theme)
@@ -1066,7 +1087,7 @@ impl Onboarding {
                         theme,
                         false,
                         icons::CLOUD,
-                        "Zeron Cloud",
+                        "L7 Code Cloud",
                         "Hand chats to cloud machines that keep going while your computer sleeps.",
                     )),
             )
@@ -1129,7 +1150,7 @@ impl Onboarding {
             AgentsSummary::NoneInstalled => (
                 "Install an agent",
                 format!(
-                    "Zeron runs the coding agents you already use, and none are on {place} yet. Install one to continue."
+                    "L7 Code runs the coding agents you already use, and none are on {place} yet. Install one to continue."
                 ),
             ),
             AgentsSummary::Installed(names) => (
@@ -1302,7 +1323,7 @@ impl Onboarding {
                     .map(|el| {
                         if has_projects {
                             el.child(
-                                wide_button(theme, "onboarding-finish", "Start using Zeron")
+                                wide_button(theme, "onboarding-finish", "Start using L7 Code")
                                     .on_click(cx.listener(|this, _, _, cx| this.finish(false, cx))),
                             )
                         } else {
