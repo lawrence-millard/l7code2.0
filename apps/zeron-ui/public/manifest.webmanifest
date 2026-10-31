@@ -1,12 +1,12 @@
 {
   "id": "/",
   "name": "L7 Code",
-  "short_name": "L7 Code",
+  "short_name": "L7",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#161616",
-  "theme_color": "#161616",
+  "background_color": "#060606",
+  "theme_color": "#060606",
   "icons": [
     {
       "src": "/favicon-32x32.png",

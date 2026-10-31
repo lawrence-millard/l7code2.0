@@ -13,7 +13,6 @@ import {
   threadShellToSession,
   type SpaceId,
 } from "../adapter";
-import { APP_DISPLAY_NAME } from "../branding";
 import { useProjects, useQuietThreadShells } from "../state/entities";
 import { useEnvironments, usePrimaryEnvironmentId } from "../state/environments";
 import { primaryServerProvidersAtom } from "../state/server";
@@ -30,17 +29,22 @@ function pickDefaultModel(
   providers: ReadonlyArray<{
     readonly enabled: boolean;
     readonly instanceId: ModelSelection["instanceId"];
-    readonly models?: ReadonlyArray<{ readonly slug: string }> | null;
+    readonly name?: string | null;
+    readonly models?: ReadonlyArray<{
+      readonly slug: string;
+      readonly name?: string | null;
+    }> | null;
   }>,
-): ModelSelection | null {
+): { selection: ModelSelection; label: string } | null {
   const enabled = providers.filter((provider) => provider.enabled);
   const preferred =
     enabled.find((provider) => provider.instanceId === "devReplay") ??
     enabled.find((provider) => (provider.models?.length ?? 0) > 0) ??
     enabled[0];
-  const model = preferred?.models?.[0]?.slug;
+  const model = preferred?.models?.[0];
   if (!preferred || model === undefined) return null;
-  return { instanceId: preferred.instanceId, model };
+  const label = `${preferred.name ?? preferred.instanceId} · ${model.name ?? model.slug}`;
+  return { selection: { instanceId: preferred.instanceId, model: model.slug }, label };
 }
 
 export function ZeronShell() {
@@ -63,7 +67,9 @@ export function ZeronShell() {
     environments.find((env) => env.environmentId === environmentId)?.label ?? "Local";
 
   const spaces = useMemo(() => {
-    const mapped = projects.map((project) => projectToSpace(project, envLabel(project.environmentId)));
+    const mapped = projects.map((project) =>
+      projectToSpace(project, envLabel(project.environmentId)),
+    );
     return filterSpaces(mapped, spaceQuery);
   }, [projects, environments, spaceQuery]);
 
@@ -78,7 +84,9 @@ export function ZeronShell() {
       );
       if (thread) return `${thread.environmentId}:${thread.projectId}` as SpaceId;
     }
-    const primaryProject = projects.find((project) => project.environmentId === primaryEnvironmentId);
+    const primaryProject = projects.find(
+      (project) => project.environmentId === primaryEnvironmentId,
+    );
     return primaryProject
       ? (`${primaryProject.environmentId}:${primaryProject.id}` as SpaceId)
       : (spaces[0]?.spaceId ?? null);
@@ -109,15 +117,16 @@ export function ZeronShell() {
         )
       : null;
 
-  const modelSelection = pickDefaultModel(providers);
+  const model = pickDefaultModel(providers);
   const activeProject =
     activeSpaceId === null
       ? null
-      : projects.find((project) => `${project.environmentId}:${project.id}` === activeSpaceId) ??
-        null;
+      : (projects.find((project) => `${project.environmentId}:${project.id}` === activeSpaceId) ??
+        null);
+  const selectedSpace = spaces.find((space) => space.spaceId === activeSpaceId) ?? null;
 
   const send = async (text: string, threadId?: ThreadId) => {
-    if (activeSpaceId === null || activeProject === null || modelSelection === null) {
+    if (activeSpaceId === null || activeProject === null || model === null) {
       throw new Error("Pick a space with a provider model available.");
     }
     const result = await startSessionTurn({
@@ -125,14 +134,12 @@ export function ZeronShell() {
       text,
       threadId,
       project: activeProject,
-      modelSelection,
+      modelSelection: model.selection,
       startTurn,
     });
     await navigate({
       to: "/$environmentId/$threadId",
-      params: buildThreadRouteParams(
-        scopeThreadRef(activeProject.environmentId, result.threadId),
-      ),
+      params: buildThreadRouteParams(scopeThreadRef(activeProject.environmentId, result.threadId)),
     });
   };
 
@@ -140,8 +147,11 @@ export function ZeronShell() {
     <div className="z-app">
       <aside className="z-sidebar">
         <div className="z-brand">
-          <div className="z-brand-name">L7</div>
-          <div className="z-brand-mark">Zeron</div>
+          <div className="z-brand-mark-glyph">L7</div>
+          <div className="z-brand-copy">
+            <div className="z-brand-name">L7 Code</div>
+            <div className="z-brand-mark">Zeron</div>
+          </div>
         </div>
         <button
           type="button"
@@ -175,19 +185,20 @@ export function ZeronShell() {
             });
           }}
         />
-        <div className="z-status">{APP_DISPLAY_NAME} · L7 backend</div>
+        <div className="z-status">Local · L7 orchestration</div>
       </aside>
       <main className="z-main">
         <div className="z-glass z-main-panel">
           {activeThread ? (
             <>
-              <div className="z-header">{activeThread.title}</div>
-              <Transcript
-                environmentId={activeThread.environmentId}
-                threadId={activeThread.id}
-              />
+              <div className="z-header">
+                <span className="z-header-title">{activeThread.title}</span>
+              </div>
+              <Transcript environmentId={activeThread.environmentId} threadId={activeThread.id} />
               <Composer
-                disabled={modelSelection === null}
+                layout="thread"
+                disabled={model === null}
+                modelLabel={model?.label}
                 onSend={(text) => send(text, activeThread.id)}
               />
             </>
@@ -195,8 +206,10 @@ export function ZeronShell() {
             <NewSessionCanvas
               spaces={spaces}
               selectedSpaceId={activeSpaceId}
+              selectedSpace={selectedSpace}
+              modelLabel={model?.label}
               onSelectSpace={setSelectedSpaceId}
-              disabled={modelSelection === null || activeProject === null}
+              disabled={model === null || activeProject === null}
               onSend={(text) => send(text)}
             />
           )}
